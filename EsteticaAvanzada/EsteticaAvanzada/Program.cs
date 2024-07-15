@@ -1,3 +1,6 @@
+using EsteticaAvanzada.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EsteticaAvanzada
 {
     public class Program
@@ -8,6 +11,7 @@ namespace EsteticaAvanzada
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=ConexionSQL"));
 
             var app = builder.Build();
 

@@ -55,6 +55,8 @@ namespace EsteticaAvanzada.Data.Entidades
 
         public bool AntOncologicos { get; set; }
 
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? AntOncologicosEspecificar { get; set; }
         public bool Tiroides { get; set; }
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
@@ -74,15 +76,15 @@ namespace EsteticaAvanzada.Data.Entidades
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? MedicamentosActuales { get; set; }
 
-        public bool Embarazos { get; set; }
+        public int Embarazos { get; set; } = 0;
 
-        public int Partos { get; set; }
+        public int Partos { get; set; } = 0;
 
-        public int Abortos { get; set; }
+        public int Abortos { get; set; } = 0;
 
         public bool LactanciaMaterna { get; set; }
 
-        public DateTime FechaUltimaMenstruacion { get; set; }
+        public DateTime? FechaUltimaMenstruacion { get; set; }
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? MetodoAnticonceptivo {get;set;}

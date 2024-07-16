@@ -4,6 +4,7 @@ using EsteticaAvanzada.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EsteticaAvanzada.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240716193633_Antecedentes")]
+    partial class Antecedentes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,13 +217,13 @@ namespace EsteticaAvanzada.Migrations
                     b.Property<bool>("Edemas")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Embarazos")
-                        .HasColumnType("int");
+                    b.Property<bool>("Embarazos")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Estreñimiento")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("FechaUltimaMenstruacion")
+                    b.Property<DateTime>("FechaUltimaMenstruacion")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Hipertension")

@@ -108,11 +108,7 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
-                    //if (model.Paciente != null)
-                    //{
-                    //    _context.Update(model.Paciente);
-                    //}
-
+                    
                     if (model.MotivoConsulta != null)
                     {
                         var existingMotivoConsulta = await _context.MotivoConsultas
@@ -184,6 +180,100 @@ namespace EsteticaAvanzada.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> MedidasCorporales (int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+            var medidasCorporales = await _context.MedidasCorporales.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
+            var sesionesProgramadas = await _context.SesionesProgramadas.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
+            var diagnosticoTratamientos = await _context.DiagnosticosTratamientos.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
+            var model = new MedidasViewModel
+            {
+                Paciente = paciente,
+                MedidasCorporales = medidasCorporales,
+                SesionesProgramadas = sesionesProgramadas,
+                DiagnosticoTratamiento = diagnosticoTratamientos
+            };
+            return View(model); 
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> MedidasCorporales (MedidasViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
+                {
+                    if (model.MedidasCorporales != null)
+                    {
+                        var existingMedidasCorporales = await _context.MedidasCorporales
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+
+                        if(existingMedidasCorporales != null)
+                        {
+                            model.MedidasCorporales.Id = existingMedidasCorporales.Id;
+                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingMedidasCorporales).CurrentValues.SetValues(model.MedidasCorporales);
+                        }
+                        else
+                        {
+                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
+                            _context.MedidasCorporales.Add(model.MedidasCorporales);
+                        }
+                    }
+
+                    if (model.SesionesProgramadas != null)
+                    {
+                        var existingSesionesProgramadas = await _context.SesionesProgramadas
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+
+                        if (existingSesionesProgramadas != null)
+                        {
+                            model.SesionesProgramadas.Id = existingSesionesProgramadas.Id;
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingSesionesProgramadas).CurrentValues.SetValues(model.SesionesProgramadas);
+                        }
+                        else
+                        {
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.SesionesProgramadas.Add(model.SesionesProgramadas);
+                        }
+                    }
+
+                    if (model.DiagnosticoTratamiento != null)
+                    {
+                        var existingDiagnosticoTratamiento = await _context.DiagnosticosTratamientos
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+
+                        if (existingDiagnosticoTratamiento != null)
+                        {
+                            model.DiagnosticoTratamiento.Id = existingDiagnosticoTratamiento.Id;
+                            model.DiagnosticoTratamiento.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingDiagnosticoTratamiento).CurrentValues.SetValues(model.DiagnosticoTratamiento);
+                        }
+                        else
+                        {
+                            model.DiagnosticoTratamiento.PacienteId = model.Paciente!.Id;
+                            _context.DiagnosticosTratamientos.Add(model.DiagnosticoTratamiento);
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    TempData["AlertMessage"] = "La informacion del paciente se actualizo exitosamente!!!";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
+                    return View(model);
+                }
+            }
+            TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
+            return View(model);
+        }
     }
 }

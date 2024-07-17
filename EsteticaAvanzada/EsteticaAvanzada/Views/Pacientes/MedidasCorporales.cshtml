@@ -1,0 +1,198 @@
+﻿@model EsteticaAvanzada.Models.MedidasViewModel
+@{
+    ViewData["Title"] = "MedidasCorporales";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header">
+            <h5></h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action="MedidasCorporales" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Paciente!.Id" type="hidden" />
+                <div class=" row">
+                    <h6> IDENTIFICACION DEL PACIENTE</h6>
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>Numero de identidad: </label>
+                            <input asp-for="Paciente!.DNI" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.DNI" class="text-danger"></span>
+                            <label>Nombre: </label>
+                            <input asp-for="Paciente!.NombrePaciente" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
+                            <label>Edad: </label>
+                            <input asp-for="Paciente!.Edad" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Edad" class="text-danger"></span>
+                            <label>Sexo: </label>
+                            <input asp-for="Paciente!.Sexo" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Telefono: </label>
+                            <input asp-for="Paciente!.Telefono" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Telefono" class="text-danger"></span>
+                            <label>Correo: </label>
+                            <input asp-for="Paciente!.Correo" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Correo" class="text-danger"></span>
+                            <label>Direccion: </label>
+                            <input asp-for="Paciente!.Direccion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label> Contacto de emergencia: </label>
+                        <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                        <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <h6>MEDIDAS CORPORALES</h6>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="CinturaInicio">Cintura:</label>
+                            <div class="d-flex">
+                                <input asp-for="MedidasCorporales!.CinturaInicio" placeholder="Inicio" class="form-control me-2" id="CinturaInicio" />
+                                <input asp-for="MedidasCorporales!.CinturaMedio" placeholder="Medio" class="form-control me-2" id="CinturaMedio" />
+                                <input asp-for="MedidasCorporales!.CinturaFinal" placeholder="Final" class="form-control" id="CinturaFinal" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="BustoInicio">Busto:</label>
+                            <div class="d-flex">
+                                <input asp-for="MedidasCorporales!.BustoInicio" placeholder="Inicio" class="form-control me-2" id="BustoInicio" />
+                                <input asp-for="MedidasCorporales!.ButoMedio" placeholder="Medio" class="form-control me-2" id="BustoMedio" />
+                                <input asp-for="MedidasCorporales!.BustoFinal" placeholder="Final" class="form-control" id="BustoFinal" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="CaderaInicio">Cadera:</label>
+                            <div class="d-flex">
+                                <input asp-for="MedidasCorporales!.CaderaInicio" placeholder="Inicio" class="form-control me-2" id="CaderaInicio" />
+                                <input asp-for="MedidasCorporales!.CaderaMedio" placeholder="Medio" class="form-control me-2" id="CaderaMedio" />
+                                <input asp-for="MedidasCorporales!.CaderaFinal" placeholder="Final" class="form-control" id="CaderaFinal" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="AbdomenInicio">Abdomen:</label>
+                            <div class="d-flex">
+                                <input asp-for="MedidasCorporales!.AbdomenInicio" placeholder="Inicio" class="form-control me-2" id="AbdomenInicio" />
+                                <input asp-for="MedidasCorporales!.AbdomenMedio" placeholder="Medio" class="form-control me-2" id="AbdomenMedio" />
+                                <input asp-for="MedidasCorporales!.AbdomenFinal" placeholder="Final" class="form-control" id="AbdomenFinal" />
+                            </div>                           
+                        </div>
+                        <div class="form-group">
+                            <label for="BrazoDerInicio">Brazo Derecho:</label>
+                            <div class="d-flex">
+                                <input asp-for="MedidasCorporales!.BrazoDerInicio" placeholder="Inicio" class="form-control me-2" id="BrazoDerInicio" />
+                                <input asp-for="MedidasCorporales!.BrazoDerMedio" placeholder="Medio" class="form-control me-2" id="BrazoDerMedio" />
+                                <input asp-for="MedidasCorporales!.BrazoDerFinal" placeholder="Final" class="form-control" id="BrazoDerFinal" />
+                            </div>                           
+                        </div>
+                        <div class="form-group">
+                            <label for="BrazoIzqInicio">Brazo Izquierdo:</label>
+                            <div class=" d-flex">
+                                <input asp-for="MedidasCorporales!.BrazoIzqInicio" placeholder="Inicio" class="form-control me-2" id="BrazoIzqInicio" />
+                                <input asp-for="MedidasCorporales!.BrazoIzqMedio" placeholder="Medio" class="form-control me-2" id="BrazoIzqMedio" />
+                                <input asp-for="MedidasCorporales!.BrazoIzqFinal" placeholder="Final" class="form-control" id="BrazoIzqFinal" />
+                            </div>                          
+                        </div>
+                        <div class="form-group">
+                            <label for="MusloDerInicio">Muslo Derecho:</label>
+                            <div class ="d-flex">
+                                <input asp-for="MedidasCorporales!.MusloDerInicio" placeholder="Inicio" class="form-control me-2" id="MusloDerInicio" />
+                                <input asp-for="MedidasCorporales!.MusloDerMedio" placeholder="Medio" class="form-control me-2" id="MusloDerMedio" />
+                                <input asp-for="MedidasCorporales!.MusloDerFinal" placeholder="Final" class="form-control" id="MusloDerFinal" />
+                            </div>                           
+                        </div>
+                        <div class="form-group">
+                            <label for="MusloIzqInicio">Muslo Izquierdo:</label>
+                            <div class=" d-flex">
+                                <input asp-for="MedidasCorporales!.MusloIzqInicio" placeholder="Inicio" class="form-control me-2" id="MusloIzqInicio" />
+                                <input asp-for="MedidasCorporales!.MusloIzqMedio" placeholder="Medio" class="form-control me-2" id="MusloIzqMedio" />
+                                <input asp-for="MedidasCorporales!.MusloIzqFinal" placeholder="Final" class="form-control" id="MusloIzqFinal" />
+                            </div>                           
+                        </div>
+                        <div class="form-group">
+                            <label for="PantorrillaDerInicio">Pantorrilla Derecha:</label>
+                            <div class=" d-flex">
+                                <input asp-for="MedidasCorporales!.PantorrillaDerInicio" placeholder="Inicio" class="form-control me-2" id="PantorrillaDerInicio" />
+                                <input asp-for="MedidasCorporales!.PantorrillaDerMedio" placeholder="Medio" class="form-control me-2" id="PantorrillaDerMedio" />
+                                <input asp-for="MedidasCorporales!.PantorillaDerFinal" placeholder="Final" class="form-control" id="PantorrillaDerFinal" />
+                            </div>               
+                        </div>
+                        <div class="form-group">
+                            <label for="PantorrillaIzqInicio">Pantorrilla Izquierda:</label>
+                            <div class=" d-flex">
+                                <input asp-for="MedidasCorporales!.PantorrillaIzqInicio" placeholder="Inicio" class="form-control me-2" id="PantorrillaIzqInicio" />
+                                <input asp-for="MedidasCorporales!.PantorrillaIzqMedio" placeholder="Medio" class="form-control me-2" id="PantorrillaIzqMedio" />
+                                <input asp-for="MedidasCorporales!.PantorillaIzqFinal" placeholder="Final" class="form-control" id="PantorrillaIzqFinal" />
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class=" col-md-4">
+                        <br />
+                        <img src="/images/logo.jpg" style="width: 200px; height: auto;" />
+                    </div>
+                </div>
+                <hr />
+                <h6>SESIONES PROGRAMADAS</h6>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 1:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion1Fecha" class="form-control" type="date"/>
+                        <div class=" form-group"><label>Sesion 2:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion2Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 3:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion3Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 4:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion4Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 5:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion5Fecha" class="form-control" type="date" />
+                    </div>
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 6:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion6Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 7:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion7Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 8:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion8Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 9:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion9Fecha" class="form-control" type="date" />
+                        <div class=" form-group"><label>Sesion 10:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion10Fecha" class="form-control" type="date" />
+                    </div>
+                </div>
+                <hr />
+                <h6>DIAGNOSTICO Y TRATAMIENTO</h6>
+                <div class=" form-group">
+                    <label>Diagnostico: </label>
+                    <textarea asp-for="DiagnosticoTratamiento!.Diagnostico" class="form-control"></textarea>
+                    <span asp-validation-for="DiagnosticoTratamiento!.Diagnostico" class="text-danger"></span>
+                </div>
+                <div class=" form-group">
+                    <label>Tratamiento: </label>
+                    <textarea asp-for="DiagnosticoTratamiento!.Tratamiento" class="form-control" ></textarea>
+                    <span asp-validation-for="DiagnosticoTratamiento!.Tratamiento" class="text-danger"></span>
+                </div>
+                <div class=" form-group">
+                    <label>Firma/Autorizacion: </label>
+                    <input asp-for="DiagnosticoTratamiento!.FirmaAutorizacion" class="form-control" />
+                    <span asp-validation-for="DiagnosticoTratamiento!.FirmaAutorizacion" class="text-danger"></span>
+                </div>
+                <div class=" card-footer ">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="oi oi-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

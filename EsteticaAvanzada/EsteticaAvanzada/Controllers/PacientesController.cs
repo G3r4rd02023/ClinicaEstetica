@@ -275,5 +275,116 @@ namespace EsteticaAvanzada.Controllers
             TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
             return View(model);
         }
+
+        public async Task<IActionResult> PlanAplicacion(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);           
+            var planAplicacion = await _context.PlanAplicacion.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
+            if(planAplicacion == null)
+            {
+                var nuevoPlan = new PlanAplicacion
+                {
+                    Paciente = paciente,
+                    PacienteId = paciente!.Id,
+                    FechaAplicacionBotox = DateTime.Now,
+                    FechaAplicacionJuvederm = DateTime.Now,
+                    NuevaAplicacionFecha = DateTime.Now,
+                    RetornoEvaluacionFecha = DateTime.Now,
+                    RetornoEvaluacionHora = DateTime.Now,
+                };
+                _context.PlanAplicacion.Add(nuevoPlan);
+                await _context.SaveChangesAsync();
+                planAplicacion = nuevoPlan;
+            }
+
+            var botoxAplicacion = await _context.BotoxAplicaciones.Where(mc => mc.PlanAplicacionId == planAplicacion!.Id).FirstOrDefaultAsync();
+            var juvedermAplicacion = await _context.JuvedermAplicaciones.Where(mc => mc.PlanAplicacionId == planAplicacion!.Id).FirstOrDefaultAsync();
+            var model = new PlanAplicacionViewModel
+            {
+                Paciente = paciente,
+                PlanAplicacion = planAplicacion,
+                BotoxAplicacion = botoxAplicacion,
+                JuvedermAplicacion = juvedermAplicacion
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PlanAplicacion(PlanAplicacionViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+                try
+                {
+                    if(model.PlanAplicacion != null)
+                    {
+                        var existingPlanAplicacion = await _context.PlanAplicacion
+                            .FirstOrDefaultAsync(p => p.PacienteId == model.Paciente!.Id);
+
+                        if(existingPlanAplicacion != null)
+                        {
+                            model.PlanAplicacion.Id = existingPlanAplicacion.Id;
+                            model.PlanAplicacion.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingPlanAplicacion).CurrentValues.SetValues(model.PlanAplicacion);
+                        }
+                        else
+                        {
+                            model.PlanAplicacion.PacienteId = model.Paciente!.Id;
+                            _context.PlanAplicacion.Add(model.PlanAplicacion);
+                        }
+                    }
+
+                    if (model.BotoxAplicacion != null)
+                    {
+                        var existingBotox = await _context.BotoxAplicaciones
+                            .FirstOrDefaultAsync(p => p.PlanAplicacionId == model.PlanAplicacion!.Id);
+
+                        if (existingBotox != null)
+                        {
+                            model.BotoxAplicacion.Id = existingBotox.Id;
+                            model.BotoxAplicacion.PlanAplicacionId = model.PlanAplicacion!.Id;
+                            _context.Entry(existingBotox).CurrentValues.SetValues(model.BotoxAplicacion);
+                        }
+                        else
+                        {
+                            model.BotoxAplicacion.PlanAplicacionId = model.PlanAplicacion!.Id;
+                            _context.BotoxAplicaciones.Add(model.BotoxAplicacion);
+                        }
+                    }
+
+                    if (model.JuvedermAplicacion != null)
+                    {
+                        var existingJuvederm = await _context.JuvedermAplicaciones
+                            .FirstOrDefaultAsync(p => p.PlanAplicacionId == model.PlanAplicacion!.Id);
+
+                        if (existingJuvederm != null)
+                        {
+                            model.JuvedermAplicacion.Id = existingJuvederm.Id;
+                            model.JuvedermAplicacion.PlanAplicacionId = model.PlanAplicacion!.Id;
+                            _context.Entry(existingJuvederm).CurrentValues.SetValues(model.JuvedermAplicacion);
+                        }
+                        else
+                        {
+                            model.JuvedermAplicacion.PlanAplicacionId = model.PlanAplicacion!.Id;
+                            _context.JuvedermAplicaciones.Add(model.JuvedermAplicacion);
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    TempData["AlertMessage"] = "El plan de aplicacion del paciente se actualizo exitosamente!!!";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = $"Error al actualizar el plan de aplicacion: {ex.Message}. Intente nuevamente.";
+                    return View(model);
+                }
+            }
+            TempData["ErrorMessage"] = "Error al actualizar el plan de aplicacion, intente nuevamente";
+            return View(model);
+        }
     }
 }

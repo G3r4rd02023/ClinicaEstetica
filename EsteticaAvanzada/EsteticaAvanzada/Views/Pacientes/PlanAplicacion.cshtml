@@ -1,0 +1,142 @@
+﻿@model EsteticaAvanzada.Models.PlanAplicacionViewModel
+@{
+    ViewData["Title"] = "PlanAplicacion";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Plan de aplicacion</h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action ="PlanAplicacion" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Paciente!.Id" type="hidden" />
+                <div class=" row">
+                    <h6> IDENTIFICACION DEL PACIENTE</h6>
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>Numero de identidad: </label>
+                            <input asp-for="Paciente!.DNI" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.DNI" class="text-danger"></span>
+                            <label>Nombre: </label>
+                            <input asp-for="Paciente!.NombrePaciente" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
+                            <label>Edad: </label>
+                            <input asp-for="Paciente!.Edad" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Edad" class="text-danger"></span>
+                            <label>Sexo: </label>
+                            <input asp-for="Paciente!.Sexo" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Telefono: </label>
+                            <input asp-for="Paciente!.Telefono" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Telefono" class="text-danger"></span>
+                            <label>Correo: </label>
+                            <input asp-for="Paciente!.Correo" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Correo" class="text-danger"></span>
+                            <label>Direccion: </label>
+                            <input asp-for="Paciente!.Direccion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label> Contacto de emergencia: </label>
+                        <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                        <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                    </div>
+                </div>
+                <hr />
+                <div class=" row">
+                    
+                    <div class=" col-md-6">
+                        <h6>Botox</h6>
+                        <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
+                        <input asp-for="PlanAplicacion!.FechaAplicacionBotox" class="form-control" type="date" />
+                        <div class=" form-group"><label> U Frontal: </label><input asp-for="BotoxAplicacion!.Frontal" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Corrugador: </label><input asp-for="BotoxAplicacion!.Corrugador" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Procerus: </label><input asp-for="BotoxAplicacion!.Procerus" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Orbicular de los ojos: </label><input asp-for="BotoxAplicacion!.OrbicularOjos" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Nasal: </label><input asp-for="BotoxAplicacion!.Nasal" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Orbicular de los labios: </label><input asp-for="BotoxAplicacion!.OrbicularLabios" type="checkbox" /></div>
+                        <div class=" form-group"><label> U Mentoniano: </label><input asp-for="BotoxAplicacion!.Mentoniano" type="checkbox" /></div>
+                        <div class=" form-group">
+                            <label> Otras: </label>
+                            <input asp-for="BotoxAplicacion!.Otras" class="form-control" />
+                            <span asp-validation-for="BotoxAplicacion!.Otras" class="text-danger"></span>
+                        </div>
+                        <label> Total Unidades Inyectadas: </label>
+                        <input asp-for="BotoxAplicacion!.TotalUnidadesInyectadas" class="form-control" type="number" />
+                        <div class=" form-group"><label>Fecha de Caducidad:</label></div>
+                        <input asp-for="BotoxAplicacion!.FechaCaducidad" class="form-control" type="date" />
+                        <div class=" form-group">
+                            <label> Numero de lote: </label>
+                            <input asp-for="BotoxAplicacion!.NumeroLote" class="form-control" />
+                            <span asp-validation-for="BotoxAplicacion!.NumeroLote" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Volumen de dilucion: </label>
+                            <input asp-for="BotoxAplicacion!.VolumenDiluicion" class="form-control" />
+                            <span asp-validation-for="BotoxAplicacion!.VolumenDiluicion" class="text-danger"></span>
+                        </div>
+                    </div> 
+                    <div class=" col-md-6">
+                        <h6>Juvederm</h6>
+                        <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
+                        <input asp-for="PlanAplicacion!.FechaAplicacionJuvederm" class="form-control" type="date" />
+                        <div class="form-group">
+                            <label>Lado:</label>
+                            <select asp-for="JuvedermAplicacion!.Lado" class="form-control">
+                                <option value="">Seleccione Lado...</option>
+                                <option value="Derecho">Derecho</option>
+                                <option value="Izquierdo">Izquierdo</option>
+                            </select>
+                            <span asp-validation-for="JuvedermAplicacion!.Lado" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Codigo: </label>
+                            <input asp-for="JuvedermAplicacion!.Codigo" class="form-control" />
+                            <span asp-validation-for="JuvedermAplicacion!.Codigo" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Volumen (ml): </label>
+                            <input asp-for="JuvedermAplicacion!.VolumenML" class="form-control" />
+                            <span asp-validation-for="JuvedermAplicacion!.VolumenML" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Producto: </label>
+                            <input asp-for="JuvedermAplicacion!.Producto" class="form-control" />
+                            <span asp-validation-for="JuvedermAplicacion!.Producto" class="text-danger"></span>
+                        </div>
+                    </div>                  
+                </div>
+                <hr />
+                <div class=" form-group">
+                    <h5>Retorno para evaluacion</h5>
+                </div>
+                <div class=" form-group"><label>Fecha:</label></div>
+                <input asp-for="PlanAplicacion!.RetornoEvaluacionFecha" class="form-control" type="date" />
+                <div class=" form-group"><label>Hora:</label></div>
+                <input asp-for="PlanAplicacion!.RetornoEvaluacionHora" class="form-control" type="time" />
+                <br />
+                <div class=" form-group">
+                    <h5>Nueva aplicacion</h5>
+                </div>
+                <div class=" form-group"><label>Fecha:</label></div>
+                <input asp-for="PlanAplicacion!.NuevaAplicacionFecha" class="form-control" type="date" />
+                <div class=" card-footer ">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success"><i class="oi oi-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

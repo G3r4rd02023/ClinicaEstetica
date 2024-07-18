@@ -93,5 +93,19 @@ namespace EsteticaAvanzada.Controllers
             model.Pacientes = await _lista.GetListaPacientes();
             return View(model);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+          
+            var botox = await _context.BotoxAplicaciones.FindAsync(id);
+               
+
+            if(botox == null)
+            {
+                TempData["ErrorMessage"] = "Botox no encontrado";               
+            }
+
+            return View(botox);
+        }
     }
 }

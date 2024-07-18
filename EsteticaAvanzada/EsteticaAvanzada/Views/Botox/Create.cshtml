@@ -4,14 +4,10 @@
     Layout = null;
 }
 
-
-
-
-
 <div class=" col-md-12">
     <div class=" card">
         <div class=" card-header text-center">
-            <h5>Plan de aplicacion</h5>
+            <h5>Plan de aplicacion Botox</h5>
         </div>
         <div class=" card-body">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -21,8 +17,7 @@
                     <select asp-for="PlanAplicacion!.PacienteId" asp-items="Model.Pacientes" class="form-select"></select>
                     <span asp-validation-for="PlanAplicacion!.PacienteId" class="text-danger"></span>
                 </div>
-                <div class=" col-md-6">
-                    <h6>Botox</h6>
+                <div class=" col-md-12">                    
                     <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
                     <input asp-for="PlanAplicacion!.FechaAplicacionBotox" class="form-control" type="date" />
                     <div class=" form-group"><label> U Frontal: </label><input asp-for="BotoxAplicacion!.Frontal" type="checkbox" /></div>

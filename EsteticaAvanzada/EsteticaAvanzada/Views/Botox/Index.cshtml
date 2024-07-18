@@ -41,7 +41,7 @@
 
 <p>
     <a onclick="showInPopup('@Url.Action("Create", "Botox", new { id = 0 })', '')"
-       class="btn btn-sm btn-primary text-white"><i class="oi oi-plus"></i> Nuevo</a>
+       class="btn btn-sm btn-primary text-white mt-2"><i class="oi oi-plus"></i> Nuevo</a>
 </p>
 
 <div class=" col-md-12">
@@ -54,7 +54,7 @@
             <table id="botox" class="table table-hover mt-2">
                 <thead>
                     <tr class="table-secondary">                       
-                        <th scope="col">#</th>
+                        <th scope="col">Fecha de aplicacion</th>
                         <th scope="col">Paciente</th>
                         <th scope="col">Total Unds Inyectadas</th>
                         <th scope="col">Fecha de caducidad</th>
@@ -68,7 +68,7 @@
                     {
                         <tr class=" table-secondary">
                             <td>
-                                @Html.DisplayFor(modelItem => item.PlanAplicacion!.Id)
+                                @item.PlanAplicacion!.FechaAplicacionBotox.ToString("dd/MM/yyyy")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.PlanAplicacion!.Paciente!.NombrePaciente)

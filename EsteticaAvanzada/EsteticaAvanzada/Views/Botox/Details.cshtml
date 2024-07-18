@@ -1,0 +1,97 @@
+﻿@model EsteticaAvanzada.Data.Entidades.BotoxAplicacion
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Botox</h5>
+        </div>
+        <div class=" card-body text-center">
+            <div>
+                <h6>Detalles de Aplicación</h6>
+                <hr />
+                <dl class="row">                                       
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Frontal)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Frontal)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Corrugador)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Corrugador)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Procerus)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Procerus)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.OrbicularOjos)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.OrbicularOjos)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Nasal)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Nasal)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.OrbicularLabios)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.OrbicularLabios)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Mentoniano)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Mentoniano)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.Otras)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.Otras)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.TotalUnidadesInyectadas)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.TotalUnidadesInyectadas)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.FechaCaducidad)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.FechaCaducidad)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.NumeroLote)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.NumeroLote)
+                    </dd>
+                    <dt class="col-sm-6">
+                        @Html.DisplayNameFor(model => model.VolumenDiluicion)
+                    </dt>
+                    <dd class="col-sm-6">
+                        @Html.DisplayFor(model => model.VolumenDiluicion)
+                    </dd>
+                </dl>
+            </div>           
+        </div>
+        <div class=" form-group text-center">
+            <button type="button" class="btn btn-sm btn-primary mb-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Volver</button>
+        </div>
+    </div>
+</div>
+

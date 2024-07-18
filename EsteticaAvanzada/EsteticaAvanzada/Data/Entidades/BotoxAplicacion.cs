@@ -20,6 +20,8 @@ namespace EsteticaAvanzada.Data.Entidades
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]        
         public string? Otras { get; set; }
         public int TotalUnidadesInyectadas { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaCaducidad { get; set; }
 
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]

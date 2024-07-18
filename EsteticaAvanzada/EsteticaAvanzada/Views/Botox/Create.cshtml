@@ -1,0 +1,62 @@
+﻿@model EsteticaAvanzada.Models.PlanAplicacionViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+
+
+
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Plan de aplicacion</h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label></label>
+                    <select asp-for="PlanAplicacion!.PacienteId" asp-items="Model.Pacientes" class="form-select"></select>
+                    <span asp-validation-for="PlanAplicacion!.PacienteId" class="text-danger"></span>
+                </div>
+                <div class=" col-md-6">
+                    <h6>Botox</h6>
+                    <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
+                    <input asp-for="PlanAplicacion!.FechaAplicacionBotox" class="form-control" type="date" />
+                    <div class=" form-group"><label> U Frontal: </label><input asp-for="BotoxAplicacion!.Frontal" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Corrugador: </label><input asp-for="BotoxAplicacion!.Corrugador" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Procerus: </label><input asp-for="BotoxAplicacion!.Procerus" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Orbicular de los ojos: </label><input asp-for="BotoxAplicacion!.OrbicularOjos" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Nasal: </label><input asp-for="BotoxAplicacion!.Nasal" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Orbicular de los labios: </label><input asp-for="BotoxAplicacion!.OrbicularLabios" type="checkbox" /></div>
+                    <div class=" form-group"><label> U Mentoniano: </label><input asp-for="BotoxAplicacion!.Mentoniano" type="checkbox" /></div>
+                    <div class=" form-group">
+                        <label> Otras: </label>
+                        <input asp-for="BotoxAplicacion!.Otras" class="form-control" />
+                        <span asp-validation-for="BotoxAplicacion!.Otras" class="text-danger"></span>
+                    </div>
+                    <label> Total Unidades Inyectadas: </label>
+                    <input asp-for="BotoxAplicacion!.TotalUnidadesInyectadas" class="form-control" type="number" />
+                    <div class=" form-group"><label>Fecha de Caducidad:</label></div>
+                    <input asp-for="BotoxAplicacion!.FechaCaducidad" class="form-control" type="date" />
+                    <div class=" form-group">
+                        <label> Numero de lote: </label>
+                        <input asp-for="BotoxAplicacion!.NumeroLote" class="form-control" />
+                        <span asp-validation-for="BotoxAplicacion!.NumeroLote" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Volumen de dilucion: </label>
+                        <input asp-for="BotoxAplicacion!.VolumenDiluicion" class="form-control" />
+                        <span asp-validation-for="BotoxAplicacion!.VolumenDiluicion" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="oi oi-check"></i> Guardar</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

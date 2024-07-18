@@ -17,6 +17,7 @@ namespace EsteticaAvanzada
             builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=ConexionSQL"));
             builder.Services.AddTransient<SeedDb>();
             builder.Services.AddScoped<IServicioUsuario, ServicioUsuario>();
+            builder.Services.AddScoped<IServicioLista, ServicioLista>();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

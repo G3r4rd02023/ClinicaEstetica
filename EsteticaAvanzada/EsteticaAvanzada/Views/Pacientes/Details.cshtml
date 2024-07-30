@@ -7,13 +7,19 @@
 <div class="col-md-12">
     <div class=" card">
         <div class=" card-header text-center">
-            <h3>Historial Clinico</h3>
+            <h3>Dra Key Diaz</h3>
+            <h4>Especialista en Medicina Estética, Nutrición y Envejicimiento</h4>
         </div>
         <div class=" card-body">
             <form asp-action="Details" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for ="Paciente!.Id" type="hidden"/>
                 <div class=" row">
+                    <div class="col-md-4">
+                        <label>Fecha: </label>
+                        <input asp-for="Fecha" class="form-control" type="date" readonly="true" />
+                    </div>
+                    <hr />
                     <h6> IDENTIFICACION DEL PACIENTE</h6>
                     <div class=" col-md-6">                                                
                         <div class="form-group">
@@ -42,12 +48,13 @@
                             <label>Direccion: </label>
                             <input asp-for="Paciente!.Direccion" class="form-control" readonly />
                             <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                            <label> Contacto de emergencia: </label>
+                            <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
                         </div>
                     </div>
                     <div class=" form-group">
-                        <label> Contacto de emergencia: </label>
-                        <input asp-for="Paciente!.Contacto" class="form-control" readonly />
-                        <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                        
                     </div>                  
                 </div>
                 <hr />
@@ -58,34 +65,35 @@
                             <label>Envejecimiento: </label>
                             <input asp-for="MotivoConsulta!.Envejecimiento" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Envejecimiento" class="text-danger"></span>                                                                                                                                                             
-                        </div>
-                        <div class="form-group">
-                            <label> Arrugas: </label>
-                            <input asp-for="MotivoConsulta!.Arrugas" type="checkbox" />
-                            <span asp-validation-for="MotivoConsulta!.Arrugas" class="text-danger"></span>
-                        </div>
+                        </div>                        
                         <div class=" form-group">
                             <label> Manchas: </label>
                             <input asp-for="MotivoConsulta!.Manchas" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Manchas" class="text-danger"></span>
                         </div>
                         <div class=" form-group">
-                            <label> Acne: </label>
+                            <label> Acné: </label>
                             <input asp-for="MotivoConsulta!.Acne" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Acne" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> Cuidado de la piel: </label>
+                            <input asp-for="MotivoConsulta!.CuidadoPiel" type="checkbox" />
+                            <span asp-validation-for="MotivoConsulta!.CuidadoPiel" class="text-danger"></span>
                         </div>
                         <div class=" form-group">
                             <label>Rosacea: </label>
                             <input asp-for="MotivoConsulta!.Rosacea" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Rosacea" class="text-danger"></span>
                         </div>
+                       
+                    </div>
+                    <div class="col-md-6">
                         <div class=" form-group">
                             <label> Celulitis: </label>
                             <input asp-for="MotivoConsulta!.Celulitis" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Celulitis" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
                             <label> Adiposidad Localizada: </label>
                             <input asp-for="MotivoConsulta!.AdiposidadLocalizada" type="checkbox" />
@@ -100,12 +108,7 @@
                             <label> Estrias: </label>
                             <input asp-for="MotivoConsulta!.Estrias" type="checkbox" />
                             <span asp-validation-for="MotivoConsulta!.Estrias" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Cuidado de la piel: </label>
-                            <input asp-for="MotivoConsulta!.CuidadoPiel" type="checkbox" />
-                            <span asp-validation-for="MotivoConsulta!.CuidadoPiel" class="text-danger"></span>
-                        </div>                       
+                        </div>                                          
                         <div class=" form-group">   
                             <label> Otros: </label> 
                             <input asp-for="MotivoConsulta!.Otros" class="form-control" />
@@ -115,7 +118,7 @@
                 </div>
                 <hr />
                 <div class=" row">
-                    <h6> DATOS SOBRE ESTADO DE SALUD</h6>
+                    <h6> ANTECEDENTES PERSONALES</h6>
                     <div class="form-group">
                         <label>Alergia a medicamentos: </label>
                         <input asp-for="EstadoSalud!.AlergiaMedicamentos" type="checkbox" />
@@ -148,15 +151,10 @@
                             <span asp-validation-for="EstadoSalud!.Diabetes" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label> Respiratorios: </label>
-                            <input asp-for="EstadoSalud!.Respiratorios" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Respiratorios" class="text-danger"></span>
-                        </div>
-                        <div class=" form-group">
-                            <label>Especifique: </label>
-                            <input asp-for="EstadoSalud!.RespiratoriosEspecificar" class="form-control" />
-                            <span asp-validation-for="EstadoSalud!.RespiratoriosEspecificar" class="text-danger"></span>
-                        </div>
+                            <label> HTA: </label>
+                            <input asp-for="EstadoSalud!.Hipertension" type="checkbox" />
+                            <span asp-validation-for="EstadoSalud!.Hipertension" class="text-danger"></span>
+                        </div>                       
                         <div class="form-group">
                             <label> Cardiacos: </label>
                             <input asp-for="EstadoSalud!.Cardiacos" type="checkbox" />
@@ -181,17 +179,7 @@
                             <label> Estreñimiento: </label>
                             <input asp-for="EstadoSalud!.Estreñimiento" type="checkbox" />
                             <span asp-validation-for="EstadoSalud!.Estreñimiento" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Edemas: </label>
-                            <input asp-for="EstadoSalud!.Edemas" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Edemas" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Caída de cabello: </label>
-                            <input asp-for="EstadoSalud!.CaidaCabello" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.CaidaCabello" class="text-danger"></span>
-                        </div>
+                        </div>                        
                         <div class="form-group">
                             <label> Porta Marcapasos: </label>
                             <input asp-for="EstadoSalud!.PortaMarcapasos" type="checkbox" />
@@ -230,40 +218,40 @@
                             <span asp-validation-for="EstadoSalud!.TiroidesEspecificar" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label> Convulsiones: </label>
-                            <input asp-for="EstadoSalud!.Convulsiones" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Convulsiones" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Hipertension: </label>
-                            <input asp-for="EstadoSalud!.Hipertension" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Hipertension" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Hipoglucemia: </label>
-                            <input asp-for="EstadoSalud!.Hipoglucemia" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Hipoglucemia" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Sincope: </label>
-                            <input asp-for="EstadoSalud!.Sincope" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.Sincope" class="text-danger"></span>
-                        </div>                       
-                        <div class=" form-group">
-                            <label> Otros Padecimientos: </label>
-                            <input asp-for="EstadoSalud!.OtrosPadecimientos" class="form-control" />
-                            <span asp-validation-for="EstadoSalud!.OtrosPadecimientos" class="text-danger"></span>
-                        </div>
-                        <div class=" form-group">
-                            <label> Medicamentos que toma actualmente: </label>
-                            <input asp-for="EstadoSalud!.MedicamentosActuales" class="form-control" />
-                            <span asp-validation-for="EstadoSalud!.MedicamentosActuales" class="text-danger"></span>
-                        </div>
+                            <label> Artritis: </label>
+                            <input asp-for="EstadoSalud!.Artritis" type="checkbox" />
+                            <span asp-validation-for="EstadoSalud!.Artritis" class="text-danger"></span>
+                        </div>                                                                    
                     </div>
+                    <hr />
+                    <div class="row">
+                        <div class="form-group col-md-12 mb-1">
+                            <h6>ANTECEDENTES FAMILIARES</h6>
+                            <br />
+                            <label> Diabetes: </label>
+                            <input asp-for="AntecedentesFamiliares!.Diabetes" type="checkbox" />
+                            <span asp-validation-for="AntecedentesFamiliares!.Diabetes" class="text-danger"></span>
+                            <label> Cancer: </label>
+                            <input asp-for="AntecedentesFamiliares!.Cancer" type="checkbox" />
+                            <span asp-validation-for="AntecedentesFamiliares!.Diabetes" class="text-danger"></span>
+                            <label> Asma: </label>
+                            <input asp-for="AntecedentesFamiliares!.Asma" type="checkbox" />
+                            <span asp-validation-for="AntecedentesFamiliares!.Asma" class="text-danger"></span>
+                            <label> HTA: </label>
+                            <input asp-for="AntecedentesFamiliares!.HTA" type="checkbox" />
+                            <span asp-validation-for="AntecedentesFamiliares!.HTA" class="text-danger"></span>
+                            <label> Otro: </label>
+                            <input asp-for="AntecedentesFamiliares!.Otro" type="checkbox" />
+                            <span asp-validation-for="AntecedentesFamiliares!.Otro" class="text-danger"></span>
+                        </div>                                               
+                    </div>
+                    <hr />
                     <div class=" row">
-                        <div class=" form-group col-md-6">
+                        <div class=" form-group col-md-6 mb-1">
+                            <h6>ANTECEDENTES GINECOOBSTRETICOS</h6>
+                            <br />
                             <label> Embarazos: </label>
-                            <input asp-for="EstadoSalud!.Embarazos" class="form-control" type="number"  />
+                            <input asp-for="EstadoSalud!.Embarazos" class="form-control" type="number" />
                             <span asp-validation-for="EstadoSalud!.Embarazos" class="text-danger"></span>
                             <label> Partos: </label>
                             <input asp-for="EstadoSalud!.Partos" class="form-control" type="number" />
@@ -275,51 +263,71 @@
                             <input asp-for="EstadoSalud!.LactanciaMaterna" type="checkbox" />
                             <span asp-validation-for="EstadoSalud!.LactanciaMaterna" class="text-danger"></span>
                         </div>
-                        <div class=" form-group col-md-6">
-                            <label> Fecha de ultima menstruación: </label>
+                        <div class=" form-group col-md-6 mt-1">
+                            <br />
+                            <br />
+                            <label> FUM: </label>
                             <input asp-for="EstadoSalud!.FechaUltimaMenstruacion" class="form-control" type="date" />
                             <span asp-validation-for="EstadoSalud!.FechaUltimaMenstruacion" class="text-danger"></span>
-                            <label> Metodo anticonceptivo: </label>
+                            <label> Metodo planificacion familiar: </label>
                             <input asp-for="EstadoSalud!.MetodoAnticonceptivo" class="form-control" />
                             <span asp-validation-for="EstadoSalud!.MetodoAnticonceptivo" class="text-danger"></span>
-                            <label> Alt.Glandular: </label>
-                            <input asp-for="EstadoSalud!.AltGlandular" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.AltGlandular" class="text-danger"></span>
-                            <label> Alt.Hormonales: </label>
-                            <input asp-for="EstadoSalud!.AltHormonales" type="checkbox" />
-                            <span asp-validation-for="EstadoSalud!.AltHormonales" class="text-danger"></span>
-                            <div class=" form-group">
-                                <label> Cancer: </label>
-                                <input asp-for="EstadoSalud!.Cancer" type="checkbox" />
-                                <span asp-validation-for="EstadoSalud!.Cancer" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class=" row">
+                        <h6> ANTECEDENTES QUIRURGICOS</h6>
+                        <div class=" col-md-12">
+                            <div class="form-group">
+                                <label> Hospitalizaciones: </label>
+                                <input asp-for="AntecedentesQuirurgicos!.Hospitalizaciones" type="checkbox" />
+                                <span asp-validation-for="AntecedentesQuirurgicos!.Cirugia" class="text-danger"></span>
                             </div>
-                        </div>                      
-                    </div>                  
-                </div>
-                <hr />
-                <div class=" row">
-                    <h6> ANTECEDENTES QUIRURGICOS</h6>
-                    <div class=" col-md-6">
-                        <div class="form-group">
-                            <label>Implantes esteticos: </label>
-                            <input asp-for="AntecedentesQuirurgicos!.ImplantesEsteticos" type="checkbox" />
-                            <span asp-validation-for="AntecedentesQuirurgicos!.ImplantesEsteticos" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label> Cirugia: </label>
-                            <input asp-for="AntecedentesQuirurgicos!.Cirugia" type="checkbox" />
-                            <span asp-validation-for="AntecedentesQuirurgicos!.Cirugia" class="text-danger"></span>
-                        </div>                      
-                    </div>
-                    <div class="col-md-6">                      
-                        <div class=" form-group">
-                            <label> Observaciones: </label>
-                            <input asp-for="AntecedentesQuirurgicos!.Observaciones" class="form-control" />
-                            <span asp-validation-for="AntecedentesQuirurgicos!.Observaciones" class="text-danger"></span>
+                            <div class=" form-group">
+                                <label>Especifique: </label>
+                                <input asp-for="AntecedentesQuirurgicos!.HispitalizacionesEspecificar" class="form-control" />
+                                <span asp-validation-for="AntecedentesQuirurgicos!.HispitalizacionesEspecificar" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
+                    <hr />
+                    <div class="row">
+                        <h6>Habitos Toxicos</h6>
+                        <div class="form-group col-md-6 mb-1">                            
+                            <label> Alcohol: </label>
+                            <input asp-for="Habitos!.Alcohol" type="checkbox" />
+                            <span asp-validation-for="Habitos!.Alcohol" class="text-danger"></span>
+                            <label> Tabaco: </label>
+                            <input asp-for="Habitos!.Tabaco"  type="checkbox" />
+                            <span asp-validation-for="Habitos!.Tabaco" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6 mb-1">
+                            <label> Ultima ingesta: </label>
+                            <input asp-for="Habitos!.UltimaIngesta" class="form-control" type="date"  />
+                            <span asp-validation-for="Habitos!.UltimaIngesta" class="text-danger"></span>
+                            <label> # Frecuencia: </label>
+                            <input asp-for="Habitos!.Frecuencia" class="form-control" type="number"  />
+                            <span asp-validation-for="Habitos!.Frecuencia" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-1">
+                            <h6>Habitos de actividad fisica</h6>
+                            <label> Realiza algun deporte: </label>
+                            <input asp-for="Habitos!.PracticaDeporte" type="checkbox" />
+                            <span asp-validation-for="Habitos!.PracticaDeporte" class="text-danger"></span>
+                            <label> Especifique: </label>
+                            <input asp-for="Habitos!.EspecifiqueDeporte" class="form-control" />
+                            <span asp-validation-for="Habitos!.EspecifiqueDeporte" class="text-danger"></span>
+                            <br />
+                            <h6>Habitos de sueño</h6>
+                            <div class="col-md-4">
+                                <label> # Horas de sueño: </label>
+                                <input asp-for="Habitos!.HorasSueño" class="form-control" type="number" />
+                                <span asp-validation-for="Habitos!.HorasSueño" class="text-danger"></span>
+                            </div>                          
+                        </div>                      
+                    </div>                         
                 </div>
-                <hr />
+                <hr />                             
                 <div class=" card-footer ">
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-success"><i class="oi oi-check"></i> Guardar</button>

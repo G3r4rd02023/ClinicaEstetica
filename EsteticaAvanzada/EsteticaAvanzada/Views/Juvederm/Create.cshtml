@@ -1,0 +1,56 @@
+﻿@model EsteticaAvanzada.Models.PlanAplicacionViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Plan de aplicacion Juvederm</h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label></label>
+                    <select asp-for="PlanAplicacion!.PacienteId" asp-items="Model.Pacientes" class="form-select"></select>
+                    <span asp-validation-for="PlanAplicacion!.PacienteId" class="text-danger"></span>
+                </div>
+                <div class=" col-md-12">
+                    <h6>Juvederm</h6>
+                    <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
+                    <input asp-for="PlanAplicacion!.FechaAplicacionJuvederm" class="form-control" type="date" />
+                    <div class="form-group">
+                        <label>Lado:</label>
+                        <select asp-for="JuvedermAplicacion!.Lado" class="form-select">
+                            <option value="">Seleccione Lado...</option>
+                            <option value="Derecho">Derecho</option>
+                            <option value="Izquierdo">Izquierdo</option>
+                        </select>
+                        <span asp-validation-for="JuvedermAplicacion!.Lado" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Codigo: </label>
+                        <input asp-for="JuvedermAplicacion!.Codigo" class="form-control" />
+                        <span asp-validation-for="JuvedermAplicacion!.Codigo" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Volumen (ml): </label>
+                        <input asp-for="JuvedermAplicacion!.VolumenML" class="form-control" />
+                        <span asp-validation-for="JuvedermAplicacion!.VolumenML" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Producto: </label>
+                        <input asp-for="JuvedermAplicacion!.Producto" class="form-control" />
+                        <span asp-validation-for="JuvedermAplicacion!.Producto" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-success mt-2"><i class="oi oi-check"></i> Guardar</button>
+                    <button type="button" class="btn btn-sm btn-primary mt-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

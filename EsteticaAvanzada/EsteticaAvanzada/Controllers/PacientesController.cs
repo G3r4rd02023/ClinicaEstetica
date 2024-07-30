@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 
+
+
 namespace EsteticaAvanzada.Controllers
 {
     public class PacientesController : Controller
@@ -86,13 +88,17 @@ namespace EsteticaAvanzada.Controllers
             var motivoConsulta = await _context.MotivoConsultas.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
             var estadoSalud = await _context.EstadoSalud.Where(es => es.PacienteId == id).FirstOrDefaultAsync();
             var antecedentesQuirurgicos = await _context.AntecedentesQuirurgicos.Where(aq => aq.PacienteId == id).FirstOrDefaultAsync();
+            var antecedentesFamiliares = await _context.AntecedentesFamiliares.Where(af => af.PacienteId == id).FirstOrDefaultAsync();
+            var habitos = await _context.Habitos.Where(h => h.PacienteId == id).FirstOrDefaultAsync();
 
             var model = new HistorialViewModel
             {
                 Paciente = paciente,
                 MotivoConsulta = motivoConsulta,
                 EstadoSalud = estadoSalud,
-                AntecedentesQuirurgicos = antecedentesQuirurgicos
+                AntecedentesQuirurgicos = antecedentesQuirurgicos,
+                AntecedentesFamiliares = antecedentesFamiliares,
+                Habitos = habitos
             };
 
             return View(model);
@@ -160,6 +166,42 @@ namespace EsteticaAvanzada.Controllers
                         {
                             model.AntecedentesQuirurgicos.PacienteId = model.Paciente!.Id;
                             _context.AntecedentesQuirurgicos.Add(model.AntecedentesQuirurgicos);
+                        }
+                    }
+
+                    if (model.AntecedentesFamiliares != null)
+                    {
+                        var existingAntecedentesFamiliares = await _context.AntecedentesFamiliares
+                            .FirstOrDefaultAsync(aq => aq.PacienteId == model.Paciente!.Id);
+
+                        if (existingAntecedentesFamiliares != null)
+                        {
+                            model.AntecedentesFamiliares.Id = existingAntecedentesFamiliares.Id;
+                            model.AntecedentesFamiliares.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingAntecedentesFamiliares).CurrentValues.SetValues(model.AntecedentesFamiliares);
+                        }
+                        else
+                        {
+                            model.AntecedentesFamiliares.PacienteId = model.Paciente!.Id;
+                            _context.AntecedentesFamiliares.Add(model.AntecedentesFamiliares);
+                        }
+                    }
+
+                    if (model.Habitos!= null)
+                    {
+                        var existingHabitos = await _context.Habitos
+                            .FirstOrDefaultAsync(aq => aq.PacienteId == model.Paciente!.Id);
+
+                        if (existingHabitos != null)
+                        {
+                            model.Habitos.Id = existingHabitos.Id;
+                            model.Habitos.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingHabitos).CurrentValues.SetValues(model.Habitos);
+                        }
+                        else
+                        {
+                            model.Habitos.PacienteId = model.Paciente!.Id;
+                            _context.Habitos.Add(model.Habitos);
                         }
                     }
 
@@ -384,6 +426,83 @@ namespace EsteticaAvanzada.Controllers
                 }
             }
             TempData["ErrorMessage"] = "Error al actualizar el plan de aplicacion, intente nuevamente";
+            return View(model);
+        }
+
+        public async Task<IActionResult> FichaTecnicaFacial(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+            var datosEsteticos = await _context.DatosEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+            var analisisEstetico = await _context.AnalisisEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+
+            var model = new EsteticosViewModel()
+            {
+                Paciente = paciente,
+                DatosEsteticos = datosEsteticos,
+                AnalisisEsteticos = analisisEstetico
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
+                {
+                    if (model.DatosEsteticos != null)
+                    {
+                        var existingDatos = await _context.DatosEsteticos
+                            .FirstOrDefaultAsync(d => d.PacienteId == model.Paciente!.Id);
+
+                        if (existingDatos != null) 
+                        {
+                            model.DatosEsteticos.Id = existingDatos.Id;
+                            model.DatosEsteticos.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingDatos).CurrentValues.SetValues(model.DatosEsteticos);
+                        }
+                        else
+                        {
+                            model.DatosEsteticos.PacienteId = model.Paciente!.Id;
+                            _context.DatosEsteticos.Add(model.DatosEsteticos);
+                        }
+
+                        if (model.AnalisisEsteticos != null)
+                        {
+                            var existingAnalisis = await _context.AnalisisEsteticos
+                                .FirstOrDefaultAsync(d => d.PacienteId == model.Paciente!.Id);
+
+                            if (existingAnalisis != null)
+                            {
+                                model.AnalisisEsteticos.Id = existingAnalisis.Id;
+                                model.AnalisisEsteticos.PacienteId = model.Paciente!.Id;
+                                _context.Entry(existingAnalisis).CurrentValues.SetValues(model.AnalisisEsteticos);
+                            }
+                            else
+                            {
+                                model.AnalisisEsteticos.PacienteId = model.Paciente!.Id;
+                                _context.AnalisisEsteticos.Add(model.AnalisisEsteticos);
+                            }
+                        }
+
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
+                        TempData["AlertMessage"] = "La datos del paciente se actualizaron exitosamente!!!";
+                        return RedirectToAction("Index");
+                    } 
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
+                    return View(model);
+                }
+            }
+            TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
             return View(model);
         }
     }

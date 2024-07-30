@@ -58,8 +58,9 @@ namespace EsteticaAvanzada.Data.Entidades
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? AntOncologicosEspecificar { get; set; }
         public bool Tiroides { get; set; }
-
-        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+       
+        public bool Artritis { get; set; }
+        
         public string? TiroidesEspecificar { get; set; }
 
         public bool Convulsiones { get; set; }
@@ -88,12 +89,7 @@ namespace EsteticaAvanzada.Data.Entidades
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? MetodoAnticonceptivo {get;set;}
-
-        public bool AltGlandular { get; set; }
-
-        public bool AltHormonales { get; set; }
-
-        public bool Cancer { get; set; }
-
+      
+        public int Cesareas { get; set; } = 0;
     }
 }

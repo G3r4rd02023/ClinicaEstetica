@@ -43,12 +43,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active text-white-50" asp-controller="Historiales" asp-action="Index">
-                                    <span class="oi oi-book"></span>  Historiales Clinicos
+                                    <span class="oi oi-book"></span>  Historiales clinicos
                                 </a>
                             </li>
                             <li class=" nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white-50" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span class="oi oi-list"></span>  Plan de Aplicacion
+                                    <span class="oi oi-list"></span>  Plan de aplicacion
                                 </a>
                                 <ul class="dropdown-menu bg-primary" aria-labelledby="offcanvasNavbarDropdown">
                                     <li><a class="dropdown-item text-white-50" asp-controller="Botox" asp-action="Index"><span class="oi oi-star"></span>  Botox</a></li>
@@ -68,7 +68,7 @@
                                     </ul>
                                 </li>
                             }
-                            @if (User.Identity.IsAuthenticated && User.IsInRole("USUARIO"))
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Usuario"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Libros" asp-action="Index">Libros</a>

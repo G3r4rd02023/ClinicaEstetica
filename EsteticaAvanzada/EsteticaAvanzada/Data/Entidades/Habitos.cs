@@ -2,7 +2,7 @@
 
 namespace EsteticaAvanzada.Data.Entidades
 {
-    public class AntecedentesQuirurgicos
+    public class Habitos
     {
         public int Id { get; set; }
 
@@ -10,17 +10,23 @@ namespace EsteticaAvanzada.Data.Entidades
 
         public int PacienteId { get; set; }
 
-        public bool ImplantesEsteticos { get; set; }
+        public bool Alcohol { get; set; }
 
-        public bool Cirugia { get; set; }
+        public bool Tabaco { get; set; }
+
+        public DateTime? UltimaIngesta { get; set; }
+
+        public int Frecuencia { get; set; } = 0;
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        public string? Observaciones { get; set; }
+        public string? Drogas { get; set; }
 
-        public bool Hospitalizaciones { get; set; }
+        public bool PracticaDeporte { get; set; }
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        public string? HispitalizacionesEspecificar { get; set; }
+        public string? EspecifiqueDeporte { get; set; }
+
+        public int HorasSueño { get; set; } = 0;
 
 
     }

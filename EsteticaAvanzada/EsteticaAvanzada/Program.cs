@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -25,6 +26,16 @@ namespace EsteticaAvanzada
                     options.LoginPath = "/Login/IniciarSesion";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 });
+
+            var cloudinaryConfig = builder.Configuration.GetSection("Cloudinary");
+
+            var cloudinary = new Cloudinary(new Account(
+               cloudinaryConfig["CloudName"],
+               cloudinaryConfig["ApiKey"],
+               cloudinaryConfig["ApiSecret"]
+               ));
+
+            builder.Services.AddSingleton(cloudinary);
 
             builder.Services.AddControllersWithViews(options =>
             {

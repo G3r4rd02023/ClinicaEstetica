@@ -9,5 +9,9 @@ namespace EsteticaAvanzada.Models
         public DatosEsteticos? DatosEsteticos { get; set; }
 
         public AnalisisEstetico? AnalisisEsteticos { get; set; }
+
+        public Imagenes? Imagenes { get; set; }
+
+        public List<Imagenes> Fotos { get; set; } = new List<Imagenes>();
     }
 }

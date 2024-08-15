@@ -4,6 +4,20 @@
     Layout = null;
 }
 
+<style>
+    .imagenes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .imagen-item {
+        border: 1px solid #ccc;
+        padding: 5px;
+        text-align: center;
+    }
+</style>
+
 <div class=" col-md-12">
     <div class=" card">
         <div class=" card-header text-center">
@@ -93,6 +107,19 @@
                             <input type="file" class="form-control mb-3" name="file">
                         </div>
                     </div>
+                    <div>
+                        <h6>Imágenes</h6>
+                        <div class="imagenes">
+                            @foreach (var imagen in Model.Fotos)
+                            {
+                                <div class="imagen-item">
+                                    <img src="@imagen.RutaArchivo" alt="@imagen.NombreArchivo" style="width:200px;height:200px;" />
+                                    <p>@imagen.NombreArchivo</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <hr />
                     <h6>Tipologia cutanea</h6>
                     <div class="col-md-6">                      
                         <div class=" form-group"><label> Piel Normal: </label><input asp-for="AnalisisEsteticos!.PielNormal" type="checkbox" /></div>

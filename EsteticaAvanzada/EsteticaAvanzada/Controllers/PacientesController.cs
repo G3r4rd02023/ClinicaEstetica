@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using Microsoft.AspNetCore.Authorization;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 
 
@@ -13,10 +15,12 @@ namespace EsteticaAvanzada.Controllers
     public class PacientesController : Controller
     {
         private readonly DataContext _context;
+        private readonly Cloudinary _cloudinary;
 
-        public PacientesController(DataContext context)
+        public PacientesController(DataContext context, Cloudinary cloudinary)
         {
             _context = context;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -46,14 +50,14 @@ namespace EsteticaAvanzada.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var paciente = await _context.Pacientes.SingleOrDefaultAsync(p => p.Id == id);
-            if(paciente == null)
+            if (paciente == null)
             {
                 TempData["ErrorMessage"] = "Paciente no encontrado";
                 return View();
             }
 
             return View(paciente);
-           
+
         }
 
         [HttpPost]
@@ -116,7 +120,7 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
-                    
+
                     if (model.MotivoConsulta != null)
                     {
                         var existingMotivoConsulta = await _context.MotivoConsultas
@@ -189,7 +193,7 @@ namespace EsteticaAvanzada.Controllers
                         }
                     }
 
-                    if (model.Habitos!= null)
+                    if (model.Habitos != null)
                     {
                         var existingHabitos = await _context.Habitos
                             .FirstOrDefaultAsync(aq => aq.PacienteId == model.Paciente!.Id);
@@ -216,7 +220,7 @@ namespace EsteticaAvanzada.Controllers
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";                   
+                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
                     return View(model);
                 }
             }
@@ -224,7 +228,7 @@ namespace EsteticaAvanzada.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> MedidasCorporales (int id)
+        public async Task<IActionResult> MedidasCorporales(int id)
         {
             var paciente = await _context.Pacientes.FindAsync(id);
             var medidasCorporales = await _context.MedidasCorporales.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
@@ -237,11 +241,11 @@ namespace EsteticaAvanzada.Controllers
                 SesionesProgramadas = sesionesProgramadas,
                 DiagnosticoTratamiento = diagnosticoTratamientos
             };
-            return View(model); 
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> MedidasCorporales (MedidasViewModel model)
+        public async Task<IActionResult> MedidasCorporales(MedidasViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -254,7 +258,7 @@ namespace EsteticaAvanzada.Controllers
                         var existingMedidasCorporales = await _context.MedidasCorporales
                             .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
 
-                        if(existingMedidasCorporales != null)
+                        if (existingMedidasCorporales != null)
                         {
                             model.MedidasCorporales.Id = existingMedidasCorporales.Id;
                             model.MedidasCorporales.PacienteId = model.Paciente!.Id;
@@ -322,9 +326,9 @@ namespace EsteticaAvanzada.Controllers
 
         public async Task<IActionResult> PlanAplicacion(int id)
         {
-            var paciente = await _context.Pacientes.FindAsync(id);           
+            var paciente = await _context.Pacientes.FindAsync(id);
             var planAplicacion = await _context.PlanAplicacion.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
-            if(planAplicacion == null)
+            if (planAplicacion == null)
             {
                 var nuevoPlan = new PlanAplicacion
                 {
@@ -361,12 +365,12 @@ namespace EsteticaAvanzada.Controllers
                 using var transaction = await _context.Database.BeginTransactionAsync();
                 try
                 {
-                    if(model.PlanAplicacion != null)
+                    if (model.PlanAplicacion != null)
                     {
                         var existingPlanAplicacion = await _context.PlanAplicacion
                             .FirstOrDefaultAsync(p => p.PacienteId == model.Paciente!.Id);
 
-                        if(existingPlanAplicacion != null)
+                        if (existingPlanAplicacion != null)
                         {
                             model.PlanAplicacion.Id = existingPlanAplicacion.Id;
                             model.PlanAplicacion.PacienteId = model.Paciente!.Id;
@@ -436,19 +440,24 @@ namespace EsteticaAvanzada.Controllers
             var paciente = await _context.Pacientes.FindAsync(id);
             var datosEsteticos = await _context.DatosEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
             var analisisEstetico = await _context.AnalisisEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+            var imagenes = await _context.Imagenes.Where(i => i.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+            var fotos = await _context.Imagenes.ToListAsync();
+            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id);
 
             var model = new EsteticosViewModel()
             {
                 Paciente = paciente,
                 DatosEsteticos = datosEsteticos,
-                AnalisisEsteticos = analisisEstetico
+                AnalisisEsteticos = analisisEstetico,
+                Imagenes = imagenes,
+                Fotos = fotosPaciente.ToList()
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model)
+        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model, IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -461,7 +470,7 @@ namespace EsteticaAvanzada.Controllers
                         var existingDatos = await _context.DatosEsteticos
                             .FirstOrDefaultAsync(d => d.PacienteId == model.Paciente!.Id);
 
-                        if (existingDatos != null) 
+                        if (existingDatos != null)
                         {
                             model.DatosEsteticos.Id = existingDatos.Id;
                             model.DatosEsteticos.PacienteId = model.Paciente!.Id;
@@ -491,11 +500,28 @@ namespace EsteticaAvanzada.Controllers
                             }
                         }
 
+
+                        model.Imagenes ??= new Imagenes();
+
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, file.OpenReadStream()),
+                            AssetFolder = "drakeydiaz"
+                        };
+
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        var urlImagen = uploadResult.SecureUrl.ToString();
+
+                        model.Imagenes!.NombreArchivo = file.FileName;
+                        model.Imagenes.RutaArchivo = urlImagen;
+                        model.Imagenes.PacienteId = model.Paciente!.Id;
+                        _context.Imagenes.Add(model.Imagenes);
+
                         await _context.SaveChangesAsync();
                         await transaction.CommitAsync();
                         TempData["AlertMessage"] = "La datos del paciente se actualizaron exitosamente!!!";
                         return RedirectToAction("Index");
-                    } 
+                    }
                 }
                 catch (Exception ex)
                 {

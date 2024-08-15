@@ -34,17 +34,22 @@
                     </div>
                     <label> Total Unidades Inyectadas: </label>
                     <input asp-for="BotoxAplicacion!.TotalUnidadesInyectadas" class="form-control" type="number" />
-                    <div class=" form-group"><label>Fecha de Caducidad:</label></div>
-                    <input asp-for="BotoxAplicacion!.FechaCaducidad" class="form-control" type="date" />
+                    <div class=" form-group"><label>Proxima Sesión:</label></div>
+                    <input asp-for="BotoxAplicacion!.ProximaSesion" class="form-control" type="date" />
                     <div class=" form-group">
                         <label> Numero de lote: </label>
                         <input asp-for="BotoxAplicacion!.NumeroLote" class="form-control" />
                         <span asp-validation-for="BotoxAplicacion!.NumeroLote" class="text-danger"></span>
                     </div>
                     <div class=" form-group">
-                        <label> Volumen de dilucion: </label>
-                        <input asp-for="BotoxAplicacion!.VolumenDiluicion" class="form-control" />
-                        <span asp-validation-for="BotoxAplicacion!.VolumenDiluicion" class="text-danger"></span>
+                        <label> Zonas aplicadas: </label>
+                        <textarea asp-for="BotoxAplicacion!.ZonasAplicadas" class="form-control"></textarea>
+                        <span asp-validation-for="BotoxAplicacion!.ZonasAplicadas" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Observaciones: </label>
+                        <textarea asp-for="BotoxAplicacion!.Observaciones" class="form-control"></textarea>
+                        <span asp-validation-for="BotoxAplicacion!.Observaciones" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">

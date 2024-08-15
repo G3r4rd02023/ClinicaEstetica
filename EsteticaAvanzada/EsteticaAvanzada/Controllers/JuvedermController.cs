@@ -2,11 +2,13 @@
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EsteticaAvanzada.Controllers
 {
+    [Authorize]
     public class JuvedermController : Controller
     {
         private readonly DataContext _context;
@@ -71,9 +73,10 @@ namespace EsteticaAvanzada.Controllers
                     PlanAplicacion = plan,
                     PlanAplicacionId = plan.Id,
                     Codigo= model.JuvedermAplicacion!.Codigo,
-                    Lado = model.JuvedermAplicacion!.Lado,
+                    ZonasTratamiento = model.JuvedermAplicacion!.ZonasTratamiento,
                     Producto = model.JuvedermAplicacion!.Producto,
-                    VolumenML = model.JuvedermAplicacion!.VolumenML,                                                            
+                    VolumenML = model.JuvedermAplicacion!.VolumenML, 
+                    Observaciones = model.JuvedermAplicacion.Observaciones
                 };
 
                 _context.PlanAplicacion.Add(plan);

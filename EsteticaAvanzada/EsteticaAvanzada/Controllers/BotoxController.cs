@@ -2,11 +2,13 @@
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EsteticaAvanzada.Controllers
 {
+    [Authorize]
     public class BotoxController : Controller
     {
         private readonly DataContext _context;
@@ -71,8 +73,8 @@ namespace EsteticaAvanzada.Controllers
                     PlanAplicacion = plan,
                     PlanAplicacionId = plan.Id,
                     Corrugador = model.BotoxAplicacion!.Corrugador,
-                    FechaCaducidad = model.BotoxAplicacion!.FechaCaducidad,
-                    VolumenDiluicion = model.BotoxAplicacion!.VolumenDiluicion,
+                    ProximaSesion = model.BotoxAplicacion!.ProximaSesion,
+                    ZonasAplicadas = model.BotoxAplicacion!.ZonasAplicadas,
                     Frontal = model.BotoxAplicacion!.Frontal,
                     Mentoniano = model.BotoxAplicacion!.Mentoniano,
                     Nasal = model.BotoxAplicacion.Nasal,
@@ -81,7 +83,8 @@ namespace EsteticaAvanzada.Controllers
                     OrbicularOjos = model.BotoxAplicacion.OrbicularOjos,
                     Otras = model.BotoxAplicacion.Otras,
                     Procerus = model.BotoxAplicacion.Procerus,
-                    TotalUnidadesInyectadas = model.BotoxAplicacion.TotalUnidadesInyectadas
+                    TotalUnidadesInyectadas = model.BotoxAplicacion.TotalUnidadesInyectadas,
+                    Observaciones = model.BotoxAplicacion.Observaciones
                 };
 
                 _context.PlanAplicacion.Add(plan);

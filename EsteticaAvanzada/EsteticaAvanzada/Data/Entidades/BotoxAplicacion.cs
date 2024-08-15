@@ -22,15 +22,18 @@ namespace EsteticaAvanzada.Data.Entidades
         public int TotalUnidadesInyectadas { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime FechaCaducidad { get; set; }
+        public DateTime ProximaSesion { get; set; }
+
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? ZonasAplicadas { get; set; }
 
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string NumeroLote { get; set; } = null!;
 
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [MaxLength(300, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string VolumenDiluicion { get; set; } = null!;
+        public string? Observaciones { get; set; } = null!;
     }
 }
 

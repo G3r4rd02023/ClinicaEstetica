@@ -21,14 +21,10 @@
                     <h6>Juvederm</h6>
                     <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
                     <input asp-for="PlanAplicacion!.FechaAplicacionJuvederm" class="form-control" type="date" />
-                    <div class="form-group">
-                        <label>Lado:</label>
-                        <select asp-for="JuvedermAplicacion!.Lado" class="form-select">
-                            <option value="">Seleccione Lado...</option>
-                            <option value="Derecho">Derecho</option>
-                            <option value="Izquierdo">Izquierdo</option>
-                        </select>
-                        <span asp-validation-for="JuvedermAplicacion!.Lado" class="text-danger"></span>
+                    <div class=" form-group">
+                        <label> Zonas de tratamiento: </label>
+                        <input asp-for="JuvedermAplicacion!.ZonasTratamiento" class="form-control" />
+                        <span asp-validation-for="JuvedermAplicacion!.ZonasTratamiento" class="text-danger"></span>
                     </div>
                     <div class=" form-group">
                         <label> Codigo: </label>
@@ -44,6 +40,11 @@
                         <label> Producto: </label>
                         <input asp-for="JuvedermAplicacion!.Producto" class="form-control" />
                         <span asp-validation-for="JuvedermAplicacion!.Producto" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label> Observaciones: </label>
+                        <input asp-for="JuvedermAplicacion!.Observaciones" class="form-control" />
+                        <span asp-validation-for="JuvedermAplicacion!.Observaciones" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">

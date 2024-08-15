@@ -57,10 +57,10 @@
                         <th scope="col">Fecha de aplicacion</th>
                         <th scope="col">Paciente</th>
                         <th scope="col">Total Unds Inyectadas</th>
-                        <th scope="col">Fecha de caducidad</th>
+                        <th scope="col">Próxima Sesión</th>
                         <th scope="col">No Lote</th>
-                        <th scope="col">Volumen</th>
-                        <th>Acciones</th>                        
+                        <th scope="col">Zonas aplicadas</th>
+                        <th></th>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -77,13 +77,13 @@
                                 @Html.DisplayFor(modelItem => item.TotalUnidadesInyectadas)
                             </td>
                             <td>
-                                @item.FechaCaducidad.ToString("dd/MM/yyyy")
+                                @item.ProximaSesion.ToString("dd/MM/yyyy")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.NumeroLote)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.VolumenDiluicion)
+                                @Html.DisplayFor(modelItem => item.ZonasAplicadas)
                             </td>
                             <td>
                                 <a onclick="showInPopup('@Url.Action("Details", "Botox", new { id = item.Id }, Context.Request.Scheme)' ,

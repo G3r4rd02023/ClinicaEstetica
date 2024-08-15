@@ -11,9 +11,9 @@ namespace EsteticaAvanzada.Data.Entidades
 
         public int PlanAplicacionId { get; set; }
 
-        [MaxLength(10, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string Lado { get; set; } = null!;
+        public string ZonasTratamiento { get; set; } = null!;
 
         [MaxLength(10, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -25,5 +25,10 @@ namespace EsteticaAvanzada.Data.Entidades
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Producto { get; set; } = null!;
+
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public string Observaciones { get; set; } = null!;
+
     }
 }

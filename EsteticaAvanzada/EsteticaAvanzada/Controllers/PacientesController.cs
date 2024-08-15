@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 
 namespace EsteticaAvanzada.Controllers
 {
+    [Authorize]
     public class PacientesController : Controller
     {
         private readonly DataContext _context;

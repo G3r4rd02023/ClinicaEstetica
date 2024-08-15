@@ -49,17 +49,18 @@
             <img src="/images/logo.jpg" style="width: 50px; height: auto;" />
         </div>
         <div class=" card-body text-white">
-            <h5 class="card-title text-center">Aplicaciones Juvederm</h5>
+            <h5 class="card-title text-center">Aplicaciones Fillers (Ácido Hialuronico)</h5>
             <table id="botox" class="table table-hover mt-2">
                 <thead>
                     <tr class="table-secondary">
                         <th scope="col">Fecha de aplicacion</th>
                         <th scope="col">Paciente</th>
-                        <th scope="col">Lado</th>
+                        <th scope="col">Zonas de tratamiento</th>
                         <th scope="col">Codigo</th>
                         <th scope="col">Volumen</th>
                         <th scope="col">Producto</th>
-                        <th>Acciones</th>
+                        <th scope="col">Observaciones</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +74,7 @@
                                 @Html.DisplayFor(modelItem => item.PlanAplicacion!.Paciente!.NombrePaciente)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Lado)
+                                @Html.DisplayFor(modelItem => item.ZonasTratamiento)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Codigo)
@@ -83,6 +84,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Producto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Observaciones)
                             </td>
                             <td>
                                 <a onclick="showInPopup('@Url.Action("Details", "Juvederm", new { id = item.Id }, Context.Request.Scheme)' ,

@@ -71,8 +71,8 @@
                         </div>
                         <label> Total Unidades Inyectadas: </label>
                         <input asp-for="BotoxAplicacion!.TotalUnidadesInyectadas" class="form-control" type="number" />
-                        <div class=" form-group"><label>Fecha de Caducidad:</label></div>
-                        <input asp-for="BotoxAplicacion!.FechaCaducidad" class="form-control" type="date" />
+                        <div class=" form-group"><label>Proxima Sesion:</label></div>
+                        <input asp-for="BotoxAplicacion!.ProximaSesion" class="form-control" type="date" />
                         <div class=" form-group">
                             <label> Numero de lote: </label>
                             <input asp-for="BotoxAplicacion!.NumeroLote" class="form-control" />
@@ -80,22 +80,18 @@
                         </div>
                         <div class=" form-group">
                             <label> Volumen de dilucion: </label>
-                            <input asp-for="BotoxAplicacion!.VolumenDiluicion" class="form-control" />
-                            <span asp-validation-for="BotoxAplicacion!.VolumenDiluicion" class="text-danger"></span>
+                            <input asp-for="BotoxAplicacion!.ZonasAplicadas" class="form-control" />
+                            <span asp-validation-for="BotoxAplicacion!.ZonasAplicadas" class="text-danger"></span>
                         </div>
                     </div> 
                     <div class=" col-md-6">
                         <h6>Juvederm</h6>
                         <div class=" form-group"><label>Fecha de Aplicacion:</label></div>
                         <input asp-for="PlanAplicacion!.FechaAplicacionJuvederm" class="form-control" type="date" />
-                        <div class="form-group">
-                            <label>Lado:</label>
-                            <select asp-for="JuvedermAplicacion!.Lado" class="form-control">
-                                <option value="">Seleccione Lado...</option>
-                                <option value="Derecho">Derecho</option>
-                                <option value="Izquierdo">Izquierdo</option>
-                            </select>
-                            <span asp-validation-for="JuvedermAplicacion!.Lado" class="text-danger"></span>
+                        <div class=" form-group">
+                            <label> Zonas de Tratamiento: </label>
+                            <textarea asp-for="JuvedermAplicacion!.ZonasTratamiento" class="form-control"></textarea>
+                            <span asp-validation-for="JuvedermAplicacion!.ZonasTratamiento" class="text-danger"></span>
                         </div>
                         <div class=" form-group">
                             <label> Codigo: </label>
@@ -111,6 +107,11 @@
                             <label> Producto: </label>
                             <input asp-for="JuvedermAplicacion!.Producto" class="form-control" />
                             <span asp-validation-for="JuvedermAplicacion!.Producto" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="JuvedermAplicacion!.Observaciones" class="form-control" />
+                            <span asp-validation-for="JuvedermAplicacion!.Observaciones" class="text-danger"></span>
                         </div>
                     </div>                  
                 </div>

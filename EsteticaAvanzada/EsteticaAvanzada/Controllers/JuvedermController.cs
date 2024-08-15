@@ -88,6 +88,20 @@ namespace EsteticaAvanzada.Controllers
             model.Pacientes = await _lista.GetListaPacientes();
             return View(model);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+
+            var juvederm = await _context.JuvedermAplicaciones.FindAsync(id);
+
+
+            if (juvederm == null)
+            {
+                TempData["ErrorMessage"] = "Registro no encontrado";
+            }
+
+            return View(juvederm);
+        }
     }
 }
 

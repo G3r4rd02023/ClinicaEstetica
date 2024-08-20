@@ -1,11 +1,11 @@
-﻿using EsteticaAvanzada.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using Microsoft.AspNetCore.Authorization;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -96,6 +96,9 @@ namespace EsteticaAvanzada.Controllers
             var antecedentesQuirurgicos = await _context.AntecedentesQuirurgicos.Where(aq => aq.PacienteId == id).FirstOrDefaultAsync();
             var antecedentesFamiliares = await _context.AntecedentesFamiliares.Where(af => af.PacienteId == id).FirstOrDefaultAsync();
             var habitos = await _context.Habitos.Where(h => h.PacienteId == id).FirstOrDefaultAsync();
+            var imagenes = await _context.Imagenes.Where(i => i.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+            var fotos = await _context.Imagenes.ToListAsync();
+            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id);
 
             var model = new HistorialViewModel
             {
@@ -104,7 +107,9 @@ namespace EsteticaAvanzada.Controllers
                 EstadoSalud = estadoSalud,
                 AntecedentesQuirurgicos = antecedentesQuirurgicos,
                 AntecedentesFamiliares = antecedentesFamiliares,
-                Habitos = habitos
+                Habitos = habitos,
+                Imagenes = imagenes,
+                Fotos = fotosPaciente.ToList()
             };
 
             return View(model);
@@ -112,7 +117,7 @@ namespace EsteticaAvanzada.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(HistorialViewModel model)
+        public async Task<IActionResult> Details(HistorialViewModel model, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -211,6 +216,25 @@ namespace EsteticaAvanzada.Controllers
                         }
                     }
 
+                    model.Imagenes ??= new Imagenes();
+
+                    if(file != null)
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file!.FileName, file.OpenReadStream()),
+                            AssetFolder = "drakeydiaz"
+                        };
+
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        var urlImagen = uploadResult.SecureUrl.ToString();
+
+                        model.Imagenes!.NombreArchivo = file.FileName;
+                        model.Imagenes.RutaArchivo = urlImagen;
+                        model.Imagenes.PacienteId = model.Paciente!.Id;
+                        _context.Imagenes.Add(model.Imagenes);
+                    }
+                  
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -457,7 +481,7 @@ namespace EsteticaAvanzada.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model, IFormFile file)
+        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -503,20 +527,23 @@ namespace EsteticaAvanzada.Controllers
 
                         model.Imagenes ??= new Imagenes();
 
-                        var uploadParams = new ImageUploadParams()
+                        if(file != null)
                         {
-                            File = new FileDescription(file.FileName, file.OpenReadStream()),
-                            AssetFolder = "drakeydiaz"
-                        };
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                File = new FileDescription(file.FileName, file.OpenReadStream()),
+                                AssetFolder = "drakeydiaz"
+                            };
 
-                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                        var urlImagen = uploadResult.SecureUrl.ToString();
+                            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                            var urlImagen = uploadResult.SecureUrl.ToString();
 
-                        model.Imagenes!.NombreArchivo = file.FileName;
-                        model.Imagenes.RutaArchivo = urlImagen;
-                        model.Imagenes.PacienteId = model.Paciente!.Id;
-                        _context.Imagenes.Add(model.Imagenes);
-
+                            model.Imagenes!.NombreArchivo = file.FileName;
+                            model.Imagenes.RutaArchivo = urlImagen;
+                            model.Imagenes.PacienteId = model.Paciente!.Id;
+                            _context.Imagenes.Add(model.Imagenes);
+                        }
+                       
                         await _context.SaveChangesAsync();
                         await transaction.CommitAsync();
                         TempData["AlertMessage"] = "La datos del paciente se actualizaron exitosamente!!!";

@@ -28,6 +28,6 @@ namespace EsteticaAvanzada.Data.Entidades
 
         public int HorasSueño { get; set; } = 0;
 
-
+        public string? EspecifiqueSueño { get; set; }
     }
 }

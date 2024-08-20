@@ -14,6 +14,7 @@ namespace EsteticaAvanzada.Models
         public AntecedentesQuirurgicos? AntecedentesQuirurgicos { get; set; }
         public AntecedentesFamiliares? AntecedentesFamiliares { get; set; }
         public Habitos? Habitos { get; set; }
-
+        public Imagenes? Imagenes { get; set; }
+        public List<Imagenes> Fotos { get; set; } = new List<Imagenes>();
     }
 }

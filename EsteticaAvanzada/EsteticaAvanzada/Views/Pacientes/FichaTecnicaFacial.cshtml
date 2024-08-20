@@ -22,14 +22,14 @@
     <div class=" card">
         <div class=" card-header text-center">
             <img src="/images/logo.jpg" style="width: 50px; height: auto;" />
-            <h5> Ficha tecnica facial</h5>
+            <h5> Historia clinica facial</h5>
         </div>
         <div class=" card-body">
             <form asp-action="FichaTecnicaFacial" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Paciente!.Id" type="hidden" />
                 <div class=" row">
-                    <h6> IDENTIFICACION DEL PACIENTE</h6>
+                    <h6> Identificacion del paciente</h6>
                     <div class=" col-md-6">
                         <div class="form-group">
                             <label>Numero de identidad: </label>
@@ -80,19 +80,24 @@
                         <div class=" form-group"><label> Otoplastia: </label><input asp-for="DatosEsteticos!.Otoplastia" type="checkbox" /></div>
                         <div class=" form-group"><label> Bichectomia: </label><input asp-for="DatosEsteticos!.Bichectomia" type="checkbox" /></div>
                         <div class=" form-group"><label> Rinoplastia: </label><input asp-for="DatosEsteticos!.Rinoplastia" type="checkbox" /></div>
-                        <div class=" form-group"><label> Lifting: </label><input asp-for="DatosEsteticos!.Lifting" type="checkbox" /></div>
+                        <div class=" form-group"><label> Lifting Qirurgico: </label><input asp-for="DatosEsteticos!.Lifting" type="checkbox" /></div>
                         <div class=" form-group"><label> Ninguno: </label><input asp-for="DatosEsteticos!.NingunaCirugia" type="checkbox" /></div>
+                        <div class=" form-group">
+                            <label> Otro: </label>
+                            <textarea asp-for="DatosEsteticos!.OtroTratamiento" class="form-control"></textarea>
+                            <span asp-validation-for="DatosEsteticos!.OtroTratamiento" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <h6>Procedimientos Esteticos</h6>
-                        <div class=" form-group"><label> Aplicacion Botox: </label><input asp-for="DatosEsteticos!.Botox" type="checkbox" /></div>
-                        <div class=" form-group"><label> Plasmas: </label><input asp-for="DatosEsteticos!.Plasma" type="checkbox" /></div>
+                        <div class=" form-group"><label> Botox: </label><input asp-for="DatosEsteticos!.Botox" type="checkbox" /></div>
+                        @* <div class=" form-group"><label> Plasmas: </label><input asp-for="DatosEsteticos!.Plasma" type="checkbox" /></div> *@
                         <div class=" form-group"><label> Acido Hialuronico: </label><input asp-for="DatosEsteticos!.AcidoHialuronico" type="checkbox" /></div>
-                        <div class=" form-group"><label> Vitamina C: </label><input asp-for="DatosEsteticos!.VitaminaC" type="checkbox" /></div>                        
+                        <div class=" form-group"><label> Estimuladores de colágeno: </label><input asp-for="DatosEsteticos!.VitaminaC" type="checkbox" /></div>                        
                         <div class=" form-group"><label> Ninguno: </label><input asp-for="DatosEsteticos!.NingunProcedimiento" type="checkbox" /></div>
                         <div class=" form-group">
-                            <label> Otras: </label>
-                            <input asp-for="DatosEsteticos!.HaceCuantoTiempo" class="form-control" />
+                            <label> Otros: </label>
+                            <textarea asp-for="DatosEsteticos!.HaceCuantoTiempo" class="form-control"></textarea>
                             <span asp-validation-for="DatosEsteticos!.HaceCuantoTiempo" class="text-danger"></span>
                         </div>
                     </div>
@@ -100,6 +105,114 @@
                 <hr />
                 <h6>Analisis Estetico</h6>
                 <div class="row">
+                    <div class="col-md-12">
+                        <h6>Escala de Glogau</h6>
+                        <img src="/images/tipos arrugas.jpeg" class="align-self-center" style="width: 300px; height: 150px;" />
+                    </div>
+                    <hr />
+                    <div class="col-md-12">
+                        <h6>Escala de Fizpatrick</h6>
+                        <img src="/images/escala_fizpatrick.webp" style="width: 600px; height: 150px;" />
+                    </div>
+                    <hr />
+                    <h6>Tipo de piel</h6>
+                    <div class="col-md-6">                      
+                        <div class=" form-group"><label> Piel Normal: </label><input asp-for="AnalisisEsteticos!.PielNormal" type="checkbox" /></div>
+                        <div class=" form-group"><label> Piel Mixta: </label><input asp-for="AnalisisEsteticos!.PielMixta" type="checkbox" /></div>
+                        <div class=" form-group"><label> Piel Hidratada: </label><input asp-for="AnalisisEsteticos!.PielHidratada" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-6">                       
+                        <div class=" form-group"><label> Piel Desvitalizada: </label><input asp-for="AnalisisEsteticos!.PielDesvitalizada" type="checkbox" /></div>
+                        <div class=" form-group"><label> Piel Seca: </label><input asp-for="AnalisisEsteticos!.PielSeca" type="checkbox" /></div>
+                        <div class=" form-group"><label> Piel Grasa: </label><input asp-for="AnalisisEsteticos!.PielGrasa" type="checkbox" /></div>
+                    </div>
+                    <hr />
+                    @* <h6>Grado de deshidratacion</h6>
+                       <div class="col-md-4">
+                            <div class="form-group"><label> Leve: </label><input asp-for="AnalisisEsteticos!.DeshidratacionLeve" type="checkbox" /></div>
+                       </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label> Medio: </label><input asp-for="AnalisisEsteticos!.DeshidratacionMedio" type="checkbox" /></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label> Alto: </label><input asp-for="AnalisisEsteticos!.DeshidratacionAlta" type="checkbox" /></div>
+                        </div> *@
+                     <hr />
+                     <h6>Alteraciones de la piel</h6>
+                        <div class="col-md-6">
+                            <div class=" form-group"><label> Nevus: </label><input asp-for="AnalisisEsteticos!.Nevus" type="checkbox" /></div>
+                            <div class=" form-group"><label> Melasma: </label><input asp-for="AnalisisEsteticos!.Macula" type="checkbox" /></div>
+                            <div class=" form-group"><label> Acné: </label><input asp-for="AnalisisEsteticos!.Acne" type="checkbox" /></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class=" form-group"><label> Cicatrices: </label><input asp-for="AnalisisEsteticos!.Cicatrices" type="checkbox" /></div>
+                            @* <div class=" form-group"><label> Telangiectasia: </label><input asp-for="AnalisisEsteticos!.Telangiectasias" type="checkbox" /></div> *@
+                            <div class=" form-group">
+                                <label> Otros: </label>
+                                <input asp-for="AnalisisEsteticos!.EspecifiqueOtros" class="form-control" />
+                                <span asp-validation-for="AnalisisEsteticos!.EspecifiqueOtros" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr />                        
+                    <h6>Aspecto de la piel</h6>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Fina: </label><input asp-for="AnalisisEsteticos!.TexturaFina" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Mediana: </label><input asp-for="AnalisisEsteticos!.TexturaMediana" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Gruesa: </label><input asp-for="AnalisisEsteticos!.TexturaGruesa" type="checkbox" /></div>
+                    </div>
+                    <hr />
+                    <h6>Poros</h6>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Abiertos: </label><input asp-for="AnalisisEsteticos!.PorosAbiertos" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Contraidos: </label><input asp-for="AnalisisEsteticos!.PorosContraidos" type="checkbox" /></div>
+                    </div>
+                  @*   <div class="col-md-4">
+                        <div class="form-group"><label> Semivisibles: </label><input asp-for="AnalisisEsteticos!.PorosSemivisibles" type="checkbox" /></div>
+                    </div> *@
+                   <hr />                  
+                    <h6>Comedones</h6>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Negros: </label><input asp-for="AnalisisEsteticos!.ComedonesNegros" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Blancos: </label><input asp-for="AnalisisEsteticos!.ComedonesBlancos" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Ninguno: </label><input asp-for="AnalisisEsteticos!.ComedonesNinguno" type="checkbox" /></div>
+                    </div>
+                    <hr />
+                    <h6>Arrugas</h6>
+                    <div class="col-md-3">
+                        <div class="form-group"><label> Orbiculares: </label><input asp-for="AnalisisEsteticos!.OrbicularesOjos" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group"><label> Nasogenianos: </label><input asp-for="AnalisisEsteticos!.Nasogenianos" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group"><label> Peribucales: </label><input asp-for="AnalisisEsteticos!.Frontales" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group"><label> Labios: </label><input asp-for="AnalisisEsteticos!.Labios" type="checkbox" /></div>
+                    </div>
+                    <hr />
+                    <h6>Productos actualmente usados</h6>
+                    <div class=" form-group">                       
+                        <textarea asp-for="AnalisisEsteticos!.EspecifiqueOtros" class="form-control" ></textarea>
+                        <span asp-validation-for="AnalisisEsteticos!.EspecifiqueOtros" class="text-danger"></span>
+                    </div>
+                    <hr />                   
+                    <hr />
+                    <h6>Diagnostico</h6>
+                    <div class=" form-group">
+                        <textarea asp-for="AnalisisEsteticos!.DiagnosticoEstetico" class="form-control"></textarea>
+                        <span asp-validation-for="AnalisisEsteticos!.DiagnosticoEstetico" class="text-danger"></span>
+                    </div>
                     <div class="col-md-10">
                         <h7>Fototipo piel</h7>
                         <div class="form-group">
@@ -114,124 +227,26 @@
                             {
                                 <div class="imagen-item">
                                     <img src="@imagen.RutaArchivo" alt="@imagen.NombreArchivo" style="width:200px;height:200px;" />
-                                    <p>@imagen.NombreArchivo</p>
+                                    <p>@imagen.FechaSubida.ToString("dd/MM/yyyy")</p>
                                 </div>
                             }
                         </div>
                     </div>
+                    <label> Proxima Cita: </label>
+                    <input asp-for="AnalisisEsteticos!.ProximaCita" class="form-control" type="date" />
+                    <span asp-validation-for="AnalisisEsteticos!.ProximaCita" class="text-danger"></span>
                     <hr />
-                    <h6>Tipologia cutanea</h6>
-                    <div class="col-md-6">                      
-                        <div class=" form-group"><label> Piel Normal: </label><input asp-for="AnalisisEsteticos!.PielNormal" type="checkbox" /></div>
-                        <div class=" form-group"><label> Piel Mixta: </label><input asp-for="AnalisisEsteticos!.PielMixta" type="checkbox" /></div>
-                        <div class=" form-group"><label> Piel Hidratada: </label><input asp-for="AnalisisEsteticos!.PielHidratada" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-6">                       
-                        <div class=" form-group"><label> Piel Desvitalizada: </label><input asp-for="AnalisisEsteticos!.PielDesvitalizada" type="checkbox" /></div>
-                        <div class=" form-group"><label> Piel Seca: </label><input asp-for="AnalisisEsteticos!.PielSeca" type="checkbox" /></div>
-                        <div class=" form-group"><label> Piel Grasa: </label><input asp-for="AnalisisEsteticos!.PielGrasa" type="checkbox" /></div>
-                    </div>
-                    <hr />
-                    <h6>Grado de deshidratacion</h6>
-                       <div class="col-md-4">
-                            <div class="form-group"><label> Leve: </label><input asp-for="AnalisisEsteticos!.DeshidratacionLeve" type="checkbox" /></div>
-                       </div>
-                        <div class="col-md-4">
-                            <div class="form-group"><label> Medio: </label><input asp-for="AnalisisEsteticos!.DeshidratacionMedio" type="checkbox" /></div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group"><label> Alto: </label><input asp-for="AnalisisEsteticos!.DeshidratacionAlta" type="checkbox" /></div>
-                        </div>
-                     <hr />
-                     <h6>Alteraciones de la piel</h6>
-                        <div class="col-md-6">
-                            <div class=" form-group"><label> Nevus: </label><input asp-for="AnalisisEsteticos!.Nevus" type="checkbox" /></div>
-                            <div class=" form-group"><label> Macula: </label><input asp-for="AnalisisEsteticos!.Macula" type="checkbox" /></div>
-                            <div class=" form-group"><label> Acné: </label><input asp-for="AnalisisEsteticos!.Acne" type="checkbox" /></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class=" form-group"><label> Cicatrices: </label><input asp-for="AnalisisEsteticos!.Cicatrices" type="checkbox" /></div>
-                            <div class=" form-group"><label> Telangiectasia: </label><input asp-for="AnalisisEsteticos!.Telangiectasias" type="checkbox" /></div>
-                            <div class=" form-group">
-                                <label> Otros: </label>
-                                <input asp-for="AnalisisEsteticos!.EspecifiqueOtros" class="form-control" />
-                                <span asp-validation-for="AnalisisEsteticos!.EspecifiqueOtros" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <hr />
-                    <h6>Aspecto de la piel</h6>
-                    <h7>Poros</h7>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Abiertos: </label><input asp-for="AnalisisEsteticos!.PorosAbiertos" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Contraidos: </label><input asp-for="AnalisisEsteticos!.PorosContraidos" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Semivisibles: </label><input asp-for="AnalisisEsteticos!.PorosSemivisibles" type="checkbox" /></div>
-                    </div>
-                    <h7>Textura</h7>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Fina: </label><input asp-for="AnalisisEsteticos!.TexturaFina" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Mediana: </label><input asp-for="AnalisisEsteticos!.TexturaMediana" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Gruesa: </label><input asp-for="AnalisisEsteticos!.TexturaGruesa" type="checkbox" /></div>
-                    </div>
-                    <h7>Comedones</h7>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Negros: </label><input asp-for="AnalisisEsteticos!.ComedonesNegros" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Blancos: </label><input asp-for="AnalisisEsteticos!.ComedonesBlancos" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group"><label> Ninguno: </label><input asp-for="AnalisisEsteticos!.ComedonesNinguno" type="checkbox" /></div>
-                    </div>
-                    <h7>Arrugas</h7>
-                    <div class="col-md-3">
-                        <div class="form-group"><label> Orbiculares: </label><input asp-for="AnalisisEsteticos!.OrbicularesOjos" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group"><label> Nasogenianos: </label><input asp-for="AnalisisEsteticos!.Nasogenianos" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group"><label> Frontales: </label><input asp-for="AnalisisEsteticos!.Frontales" type="checkbox" /></div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group"><label> Labios: </label><input asp-for="AnalisisEsteticos!.Labios" type="checkbox" /></div>
-                    </div>
-                    <hr />
-                    <h6>Productos actualmente usados</h6>
-                    <div class=" form-group">                       
-                        <textarea asp-for="AnalisisEsteticos!.EspecifiqueOtros" class="form-control" ></textarea>
-                        <span asp-validation-for="AnalisisEsteticos!.EspecifiqueOtros" class="text-danger"></span>
-                    </div>
-                    <hr />
-                    <div class="col-md-12">
-                        <h6>Escala de Glogau</h6>
-                        <img src="/images/tipos arrugas.jpeg" style="width: 450px; height: 150px;" />
-                    </div>
-                    <hr />
-                    <h6>Diagnostico estetico</h6>
-                    <div class=" form-group">
-                        <textarea asp-for="AnalisisEsteticos!.DiagnosticoEstetico" class="form-control"></textarea>
-                        <span asp-validation-for="AnalisisEsteticos!.DiagnosticoEstetico" class="text-danger"></span>
-                    </div>
-                    <hr />
-                    <h6>Objetivos del tratamiento</h6>
+                    <h6>Plan de tratamiento</h6>
                     <div class=" form-group">
                         <textarea asp-for="AnalisisEsteticos!.ObjetivosTratamiento" class="form-control"></textarea>
                         <span asp-validation-for="AnalisisEsteticos!.ObjetivosTratamiento" class="text-danger"></span>
                     </div>
-                    <h6>Tratamiento proposito</h6>
+                   @*  <h6>Tratamiento proposito</h6>
                     <div class=" form-group">
                         <textarea asp-for="AnalisisEsteticos!.TratamientoProposito" class="form-control"></textarea>
                         <span asp-validation-for="AnalisisEsteticos!.TratamientoProposito" class="text-danger"></span>
-                    </div>
-                    <h6>Observaciones</h6>
+                    </div> *@
+                    <h6>Procedimiento realizado: </h6>
                     <div class=" form-group">
                         <textarea asp-for="AnalisisEsteticos!.Observaciones" class="form-control"></textarea>
                         <span asp-validation-for="AnalisisEsteticos!.Observaciones" class="text-danger"></span>
@@ -241,11 +256,11 @@
                         <textarea asp-for="AnalisisEsteticos!.ConsentimientoInformado" class="form-control"></textarea>
                         <span asp-validation-for="AnalisisEsteticos!.ConsentimientoInformado" class="text-danger"></span>
                     </div>
-                    <div class=" form-group">
+                   @*  <div class=" form-group">
                         <label> Nombre: </label>
                         <input asp-for="Paciente!.NombrePaciente" class="form-control" />
                         <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
-                    </div>
+                    </div> *@
                 </div>
                 <div class=" card-footer mt-3">
                     <div class="form-group">

@@ -23,9 +23,8 @@ namespace EsteticaAvanzada.Data.Entidades
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? AlergiaOtros { get; set; }
-
         public bool Diabetes { get; set; }
-
+        public bool Depresion { get; set; }
         public bool Respiratorios { get; set; }
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]

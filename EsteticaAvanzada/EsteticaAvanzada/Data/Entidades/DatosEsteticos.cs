@@ -28,6 +28,9 @@ namespace EsteticaAvanzada.Data.Entidades
         public bool NingunProcedimiento { get; set; }
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? OtroTratamiento { get; set; }
+
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? HaceCuantoTiempo { get; set; }
 
     }

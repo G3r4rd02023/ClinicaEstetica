@@ -4,6 +4,7 @@ using EsteticaAvanzada.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EsteticaAvanzada.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240820184302_Citas")]
+    partial class Citas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,7 +301,7 @@ namespace EsteticaAvanzada.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PacienteId")
+                    b.Property<int?>("PacienteId")
                         .HasColumnType("int");
 
                     b.Property<string>("Titulo")
@@ -1053,9 +1056,7 @@ namespace EsteticaAvanzada.Migrations
                 {
                     b.HasOne("EsteticaAvanzada.Data.Entidades.Paciente", "Paciente")
                         .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PacienteId");
 
                     b.Navigation("Paciente");
                 });

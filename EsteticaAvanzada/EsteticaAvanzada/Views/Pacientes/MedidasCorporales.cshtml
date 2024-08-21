@@ -13,6 +13,7 @@
             <form asp-action="MedidasCorporales" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Paciente!.Id" type="hidden" />
+                <input asp-for="Citas" type="hidden"/>
                 <div class=" row">
                     <h6> IDENTIFICACION DEL PACIENTE</h6>
                     <div class=" col-md-6">
@@ -145,27 +146,27 @@
                 <div class=" row">
                     <div class=" col-md-6">
                         <div class=" form-group"><label>Sesion 1:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion1Fecha" class="form-control" type="date"/>
+                        <input asp-for="SesionesProgramadas!.Sesion1Fecha" class="form-control" type="datetime-local"/>
                         <div class=" form-group"><label>Sesion 2:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion2Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion2Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 3:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion3Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion3Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 4:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion4Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion4Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 5:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion5Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion5Fecha" class="form-control" type="datetime-local" />
                     </div>
                     <div class=" col-md-6">
                         <div class=" form-group"><label>Sesion 6:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion6Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion6Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 7:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion7Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion7Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 8:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion8Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion8Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 9:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion9Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion9Fecha" class="form-control" type="datetime-local" />
                         <div class=" form-group"><label>Sesion 10:</label></div>
-                        <input asp-for="SesionesProgramadas!.Sesion10Fecha" class="form-control" type="date" />
+                        <input asp-for="SesionesProgramadas!.Sesion10Fecha" class="form-control" type="datetime-local" />
                     </div>
                 </div>
                 <hr />

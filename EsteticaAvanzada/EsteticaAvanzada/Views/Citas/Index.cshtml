@@ -1,0 +1,144 @@
+﻿@model IEnumerable<EsteticaAvanzada.Data.Entidades.Cita>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Estilos {
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (TempData["AlertMessage"] != null)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: '@TempData["AlertMessage"]',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>
+}
+
+<p>
+    <a onclick="showInPopup('@Url.Action("Create", "Citas", new { id = 0 }, Context.Request.Scheme)' ,
+    '')" class="btn btn-sm btn-primary text-white mt-3"><i class="oi oi-plus"></i> Agregar una cita</a>
+    <a class="btn btn-sm btn-success mt-3" asp-controller="Citas" asp-action="Calendar">
+        <i class="oi oi-calendar"></i> Calendario
+    </a>
+</p>
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Listado de Citas</h5>
+        </div>
+        <div class=" card-body text-white">
+            <table id="evento" class="table table-hover">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>
+                            Paciente
+                        </th>                       
+                        <th>
+                            @Html.DisplayNameFor(model => model.Titulo)
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+                        <th>
+                            Hora
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-secondary">
+                            <td class="text-primary">
+                                <strong>
+                                    @Html.DisplayFor(modelItem => item.Paciente!.NombrePaciente)
+                                </strong>
+                            </td>                           
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Titulo)
+                            </td>
+                            <td>@item.Fecha.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Fecha.ToString("HH:mm")</td>
+                            <td>
+                               
+                                <a onclick="showInPopup('@Url.Action("Edit", "Citas", new { id = item.Id }, Context.Request.Scheme)' ,
+                    '')" class="btn btn-outline-warning btn-sm"><i class="oi oi-pencil"></i> </a>
+                                <button data-id="@item.Id" class="btn btn-outline-danger btn-sm deleteItem">
+                                    <i class="oi oi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<partial name="_MostrarModal" />
+<partial name="_ModalEliminar" />
+
+@section Scripts {
+
+    <script src="~/js/showmodal.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#evento').DataTable(
+                {
+                    "language": {
+                        url: "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+                    },
+                });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.deleteItem');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    const patientId = this.getAttribute('data-id');
+
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "¡No podrás revertir esto!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, eliminarlo',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            window.location.href = '/Citas/Delete/' + patientId;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}
+
+

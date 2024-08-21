@@ -36,10 +36,10 @@ namespace EsteticaAvanzada.Controllers
             {
                 TempData["AlertMessage"] = "No se encontraron pacientes";
             }
-           
+
             PlanAplicacionViewModel model = new()
             {
-                Pacientes = pacientes,                 
+                Pacientes = pacientes,
             };
 
             return View(model);
@@ -50,13 +50,13 @@ namespace EsteticaAvanzada.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var paciente = await _context.Pacientes.FindAsync(model.PlanAplicacion!.PacienteId);
-                if(paciente == null)
+                if (paciente == null)
                 {
                     return NotFound();
                 }
 
+                // Crear el objeto PlanAplicacion
                 PlanAplicacion plan = new()
                 {
                     Paciente = paciente,
@@ -68,10 +68,17 @@ namespace EsteticaAvanzada.Controllers
                     NuevaAplicacionFecha = model.PlanAplicacion!.NuevaAplicacionFecha
                 };
 
+                // Guardar PlanAplicacion para obtener su ID
+                _context.PlanAplicacion.Add(plan);
+                await _context.SaveChangesAsync(); // Aquí se genera el ID del plan
+
+                // Crear el objeto Cita asociado al plan
+
+                // Crear el objeto BotoxAplicacion asociado al plan
                 BotoxAplicacion botox = new()
                 {
                     PlanAplicacion = plan,
-                    PlanAplicacionId = plan.Id,
+                    PlanAplicacionId = plan.Id, // Ahora que el ID está disponible
                     Corrugador = model.BotoxAplicacion!.Corrugador,
                     ProximaSesion = model.BotoxAplicacion!.ProximaSesion,
                     ZonasAplicadas = model.BotoxAplicacion!.ZonasAplicadas,
@@ -87,25 +94,38 @@ namespace EsteticaAvanzada.Controllers
                     Observaciones = model.BotoxAplicacion.Observaciones
                 };
 
-                _context.PlanAplicacion.Add(plan);
+                // Añadir las entidades restantes
+
                 _context.BotoxAplicaciones.Add(botox);
+
+                Cita cita = new()
+                {
+                    Paciente = paciente,
+                    Fecha = model.BotoxAplicacion.ProximaSesion,
+                    Descripcion = "Aplicación:" + paciente.NombrePaciente,
+                    Titulo = "Nueva Aplicación"
+                };
+
+                _context.Citas.Add(cita);
+                // Guardar cambios
                 await _context.SaveChangesAsync();
+
                 TempData["AlertMessage"] = "Datos ingresados exitosamente!!!";
                 return RedirectToAction("Index");
             }
+
+            // En caso de error, cargar la lista de pacientes nuevamente
             model.Pacientes = await _lista.GetListaPacientes();
             return View(model);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-          
             var botox = await _context.BotoxAplicaciones.FindAsync(id);
-               
 
-            if(botox == null)
+            if (botox == null)
             {
-                TempData["ErrorMessage"] = "Botox no encontrado";               
+                TempData["ErrorMessage"] = "Botox no encontrado";
             }
 
             return View(botox);

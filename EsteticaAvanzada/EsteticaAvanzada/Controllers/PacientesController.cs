@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
-
 namespace EsteticaAvanzada.Controllers
 {
     [Authorize]
@@ -57,7 +55,6 @@ namespace EsteticaAvanzada.Controllers
             }
 
             return View(paciente);
-
         }
 
         [HttpPost]
@@ -113,7 +110,6 @@ namespace EsteticaAvanzada.Controllers
             };
 
             return View(model);
-
         }
 
         [HttpPost]
@@ -125,7 +121,6 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
-
                     if (model.MotivoConsulta != null)
                     {
                         var existingMotivoConsulta = await _context.MotivoConsultas
@@ -218,7 +213,7 @@ namespace EsteticaAvanzada.Controllers
 
                     model.Imagenes ??= new Imagenes();
 
-                    if(file != null)
+                    if (file != null)
                     {
                         var uploadParams = new ImageUploadParams()
                         {
@@ -234,7 +229,7 @@ namespace EsteticaAvanzada.Controllers
                         model.Imagenes.PacienteId = model.Paciente!.Id;
                         _context.Imagenes.Add(model.Imagenes);
                     }
-                  
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -258,13 +253,17 @@ namespace EsteticaAvanzada.Controllers
             var medidasCorporales = await _context.MedidasCorporales.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
             var sesionesProgramadas = await _context.SesionesProgramadas.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
             var diagnosticoTratamientos = await _context.DiagnosticosTratamientos.Where(mc => mc.PacienteId == id).FirstOrDefaultAsync();
+            var citas = await _context.Citas.Where(c => c.PacienteId == id).FirstOrDefaultAsync();
+
             var model = new MedidasViewModel
             {
                 Paciente = paciente,
                 MedidasCorporales = medidasCorporales,
                 SesionesProgramadas = sesionesProgramadas,
-                DiagnosticoTratamiento = diagnosticoTratamientos
+                DiagnosticoTratamiento = diagnosticoTratamientos,
+                Citas = citas,
             };
+
             return View(model);
         }
 
@@ -277,20 +276,30 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
+                    // Cargar el paciente existente desde la base de datos
+                    var paciente = await _context.Pacientes.FindAsync(model.Paciente!.Id);
+
+                    if (paciente == null)
+                    {
+                        // Si el paciente no existe, lanzar una excepción
+                        throw new Exception("Paciente no encontrado");
+                    }
+
+                    model.Paciente = paciente; // Asegurarse de usar el paciente existente
+
                     if (model.MedidasCorporales != null)
                     {
                         var existingMedidasCorporales = await _context.MedidasCorporales
-                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente.Id);
 
                         if (existingMedidasCorporales != null)
                         {
                             model.MedidasCorporales.Id = existingMedidasCorporales.Id;
-                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
                             _context.Entry(existingMedidasCorporales).CurrentValues.SetValues(model.MedidasCorporales);
                         }
                         else
                         {
-                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
+                            model.MedidasCorporales.PacienteId = model.Paciente.Id;
                             _context.MedidasCorporales.Add(model.MedidasCorporales);
                         }
                     }
@@ -298,17 +307,46 @@ namespace EsteticaAvanzada.Controllers
                     if (model.SesionesProgramadas != null)
                     {
                         var existingSesionesProgramadas = await _context.SesionesProgramadas
-                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente.Id);
 
                         if (existingSesionesProgramadas != null)
                         {
                             model.SesionesProgramadas.Id = existingSesionesProgramadas.Id;
-                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
                             _context.Entry(existingSesionesProgramadas).CurrentValues.SetValues(model.SesionesProgramadas);
                         }
                         else
                         {
-                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            List<DateTime> fechasSesiones = new List<DateTime>
+                    {
+                        model.SesionesProgramadas.Sesion1Fecha,
+                        model.SesionesProgramadas.Sesion2Fecha,
+                        model.SesionesProgramadas.Sesion3Fecha,
+                        model.SesionesProgramadas.Sesion4Fecha,
+                        model.SesionesProgramadas.Sesion5Fecha,
+                        model.SesionesProgramadas.Sesion6Fecha,
+                        model.SesionesProgramadas.Sesion7Fecha,
+                        model.SesionesProgramadas.Sesion8Fecha,
+                        model.SesionesProgramadas.Sesion9Fecha,
+                        model.SesionesProgramadas.Sesion10Fecha
+                    };
+
+                            foreach (var fecha in fechasSesiones)
+                            {
+                                if (fecha != DateTime.MinValue)
+                                {
+                                    var nuevaCita = new Cita
+                                    {
+                                        Paciente = model.Paciente, // Relaciona la cita con el paciente existente
+                                        Fecha = fecha,
+                                        Titulo = "Sesión :" + model.Paciente.NombrePaciente,
+                                        Descripcion = $"Cita: {model.Paciente.NombrePaciente}",
+                                    };
+
+                                    _context.Citas.Add(nuevaCita);
+                                }
+                            }
+
+                            model.SesionesProgramadas.PacienteId = model.Paciente.Id;
                             _context.SesionesProgramadas.Add(model.SesionesProgramadas);
                         }
                     }
@@ -316,17 +354,17 @@ namespace EsteticaAvanzada.Controllers
                     if (model.DiagnosticoTratamiento != null)
                     {
                         var existingDiagnosticoTratamiento = await _context.DiagnosticosTratamientos
-                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente!.Id);
+                            .FirstOrDefaultAsync(mc => mc.PacienteId == model.Paciente.Id);
 
                         if (existingDiagnosticoTratamiento != null)
                         {
                             model.DiagnosticoTratamiento.Id = existingDiagnosticoTratamiento.Id;
-                            model.DiagnosticoTratamiento.PacienteId = model.Paciente!.Id;
+                            model.DiagnosticoTratamiento.PacienteId = model.Paciente.Id;
                             _context.Entry(existingDiagnosticoTratamiento).CurrentValues.SetValues(model.DiagnosticoTratamiento);
                         }
                         else
                         {
-                            model.DiagnosticoTratamiento.PacienteId = model.Paciente!.Id;
+                            model.DiagnosticoTratamiento.PacienteId = model.Paciente.Id;
                             _context.DiagnosticosTratamientos.Add(model.DiagnosticoTratamiento);
                         }
                     }
@@ -340,11 +378,12 @@ namespace EsteticaAvanzada.Controllers
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
+                    TempData["ErrorMessage"] = $"Error al actualizar datos del paciente: {ex.Message}. Intente nuevamente.";
                     return View(model);
                 }
             }
-            TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
+
+            TempData["ErrorMessage"] = "Error al actualizar datos del paciente, intente nuevamente";
             return View(model);
         }
 
@@ -485,6 +524,16 @@ namespace EsteticaAvanzada.Controllers
         {
             if (ModelState.IsValid)
             {
+                var paciente = await _context.Pacientes.FindAsync(model.Paciente!.Id);
+
+                if (paciente == null)
+                {
+                    // Si el paciente no existe, lanzar una excepción
+                    throw new Exception("Paciente no encontrado");
+                }
+
+                model.Paciente = paciente; // Asegurarse de usar el paciente existente
+
                 using var transaction = await _context.Database.BeginTransactionAsync();
 
                 try
@@ -524,10 +573,9 @@ namespace EsteticaAvanzada.Controllers
                             }
                         }
 
-
                         model.Imagenes ??= new Imagenes();
 
-                        if(file != null)
+                        if (file != null)
                         {
                             var uploadParams = new ImageUploadParams()
                             {
@@ -543,7 +591,17 @@ namespace EsteticaAvanzada.Controllers
                             model.Imagenes.PacienteId = model.Paciente!.Id;
                             _context.Imagenes.Add(model.Imagenes);
                         }
-                       
+
+                        Cita cita = new()
+                        {
+                            Paciente = model.Paciente,
+                            Fecha = (DateTime)model.AnalisisEsteticos!.ProximaCita!,
+                            Descripcion = "Próxima Cita",
+                            Titulo = "Cita :" + model.Paciente.NombrePaciente
+                        };
+
+                        _context.Citas.Add(cita);
+
                         await _context.SaveChangesAsync();
                         await transaction.CommitAsync();
                         TempData["AlertMessage"] = "La datos del paciente se actualizaron exitosamente!!!";

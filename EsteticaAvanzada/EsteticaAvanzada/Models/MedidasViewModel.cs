@@ -7,9 +7,11 @@ namespace EsteticaAvanzada.Models
         public Paciente? Paciente { get; set; }
 
         public MedidasCorporales? MedidasCorporales { get; set; }
-        
+
         public SesionesProgramadas? SesionesProgramadas { get; set; }
 
         public DiagnosticoTratamiento? DiagnosticoTratamiento { get; set; }
+
+        public Cita? Citas { get; set; }
     }
 }

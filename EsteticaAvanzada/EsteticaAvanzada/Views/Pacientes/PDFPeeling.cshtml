@@ -1,0 +1,58 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento para Peeling Quimico";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">CONSENTIMIENTO INFORMADO PARA TRATAMIENTO MEDIANTE PEELING QUÍMICO SUPERFICIAL.</h2>
+    </div>
+
+    <p style="text-align: left;">
+       Yo, <strong>@Model.NombrePaciente</strong> con fecha de nacimiento <strong>@Model.FechaNacimiento.ToString("dd/MM/yyyy")</strong> En la Ciudad de Tegucigalpa, con DNI <strong>@Model.DNI</strong>
+    </p>
+
+    <p style="text-align: justify;">DECLARO que la profesional  <strong> Dra Keydi Diaz </strong> me ha explicado que es conveniente proceder, en mi situación, a recibir TRATAMIENTO MEDIANTE PEELING QUÍMICO SUPERFICIAL MEDIO.</p>
+
+    <!-- Sección de Párrafos -->
+    <p style="text-align: justify;">1. El objetivo de la técnica es eliminar las capas más superficiales de la piel.</p>
+    <p style="text-align: justify;">2. El tratamiento consiste en eliminar las capas más superficiales de la piel mediante la aplicación de un agente químico, lo que se obtiene produciendo una ligera quemadura y su consecuente reepitelización. Pueden utilizarse diversos agentes químicos como AHA, resorcina, solución de Jessner, ácido salicílico, entre otros.</p>
+    <p style="text-align: justify;">3. La técnica está indicada en cicatrices superficiales, pigmentaciones, arrugas y cualquier proceso que afecte a la epidermis. El Profesional me ha explicado que para obtener mejores resultados puede ser conveniente la repetición del tratamiento.</p>
+    <p style="text-align: justify;">4. Comprendo que a pesar de la adecuada elección de la técnica y de su correcta realización pueden presentarse efectos secundarios, como ardor, escozor, escarchado, eritema, descamación leve, erupciones acneiformes, hiper o hipopigmentaciones en la zona tratada.</p>
+    <p style="text-align: justify;">El Profesional me ha advertido, prohibiéndomelo expresamente, que no debo exponerme al sol después de cada sesión, así como el uso obligatorio de crema hidratante y filtro solar diario durante al menos un mes después del tratamiento.</p>
+    <p style="text-align: justify;">También me ha advertido el Profesional que es importante conocer mis antecedentes personales de posible alergia a medicamentos, medicaciones actuales, antecedentes de herpes simple facial, antecedentes personales o familiares de queloides o cualquier otra circunstancia.</p>
+    <p style="text-align: justify;">Otros riesgos o complicaciones que pueden aparecer teniendo en cuenta mis circunstancias personales, estado previo de salud, edad, profesión, creencias, etc.</p>
+    <p style="text-align: justify;">5. En mi caso particular, se ha considerado que éste es el tratamiento más adecuado, aunque pueden existir otras alternativas que estarían indicadas en otro caso y que he tenido la oportunidad de comentar con el Profesional.</p>
+    <p style="text-align: justify;">He comprendido las explicaciones que se me han facilitado en un lenguaje claro y sencillo y que el Profesional que me ha atendido me ha permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado.</p>
+    <p style="text-align: justify;">También comprendo que, en cualquier momento y sin necesidad de dar ninguna explicación, puedo revocar del consentimiento que ahora presto.</p>
+    <p style="text-align: justify;">Por ello, manifiesto que estoy satisfecho con la información recibida y que comprendo el alcance y los riesgos del tratamiento.</p>
+    <p style="text-align: justify;">Confirmo que la información que he facilitado es verdadera y correcta y que he leído, comprendido y aceptado la información mencionada más arriba.</p>
+    <p style="text-align: justify;">Aquí, eximo al personal aplicador, a los dueños del centro, al franquiciado, a sus empleados y al fabricante del producto de cualquier reclamación.  Y en tales condiciones, Consiento que se me realice el TRATAMIENTO MEDIANTE PEELING QUÍMICO SUPERFICIAL.</p>
+    
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+

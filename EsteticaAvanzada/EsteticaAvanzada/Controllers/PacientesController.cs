@@ -6,6 +6,9 @@ using EsteticaAvanzada.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Rotativa.AspNetCore;
+using System.Net.Http;
 
 namespace EsteticaAvanzada.Controllers
 {
@@ -617,6 +620,57 @@ namespace EsteticaAvanzada.Controllers
             }
             TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
             return View(model);
+        }
+
+        public async Task<IActionResult> PDFBotulinica(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return new ViewAsPdf("PDFBotulinica", paciente)
+            {
+                FileName = $"Toxina Botulinica {paciente!.NombrePaciente}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+        }
+
+        public async Task<IActionResult> PDFMicroneedling(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return new ViewAsPdf("PDFMicroneedling", paciente)
+            {
+                FileName = $"Microneedling {paciente!.NombrePaciente}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+        }
+
+        public async Task<IActionResult> PDFPeeling(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return new ViewAsPdf("PDFPeeling", paciente)
+            {
+                FileName = $"Peeling {paciente!.NombrePaciente}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
     }
 }

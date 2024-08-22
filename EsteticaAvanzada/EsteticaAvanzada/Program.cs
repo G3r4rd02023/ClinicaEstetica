@@ -80,6 +80,9 @@ namespace EsteticaAvanzada
                 name: "default",
                 pattern: "{controller=Login}/{action=IniciarSesion}/{id?}");
 
+            IWebHostEnvironment env = app.Environment;
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "../Rotativa/Windows");
+
             app.Run();
         }
     }

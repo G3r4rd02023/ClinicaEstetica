@@ -1,0 +1,57 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento para Toxina Botulínica";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">Consentimiento para Toxina Botulínica</h2>
+    </div>
+
+    <p style="text-align: right;">
+        En la Ciudad de Tegucigalpa, <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+    </p>
+
+    <p style="text-align: justify;">DEJO CONSTANCIA que se me ha explicado que cuando se inyectan pequeñas cantidades de toxina botulínica purificada en un músculo se produce el debilitamiento o parálisis del mismo.</p>
+
+    <!-- Sección de Párrafos -->
+    <p style="text-align: justify;">Que este efecto aparece entre el tercero y el séptimo día de la inyección y perdura habitualmente de cuatro a seis meses.</p>
+    <p style="text-align: justify;">Que dado que numerosas alteraciones estéticas aparecen o se empeoran con la contracción de determinados músculos faciales, como las "patas de gallo" y las arrugas del entrecejo, el efecto de parálisis local reversible que produce la toxina botulínica mejora el aspecto estético de muchas personas con este tipo de arrugas. Sé que no podré "fruncir el ceño" mientras duren los efectos de la inyección.</p>
+    <p style="text-align: justify;">Que dichos efectos persistirán entre cuatro y seis meses antes de que desaparezcan y en ese momento podré optar por tratarme nuevamente.</p>
+    <p style="text-align: justify;">Comprendo que debo permanecer con la cabeza erguida y no tocar las zonas tratadas durante un período de 4 horas luego del procedimiento.</p>
+    <p style="text-align: justify;">Comprendo que el tratamiento con toxina botulínica de las arrugas faciales del entrecejo puede causar una caída parcial y temporaria de un párpado en un pequeño número de casos, que habitualmente dura entre 2 y 3 semanas y que ocasionalmente pueden aparecer sensación de adormecimiento en la frente y dolor de cabeza transitorios. Sé que en un escaso número de personas, la inyección no produce el efecto con el grado esperado (parálisis muscular) o por el período de tiempo antes mencionado.</p>
+    <p style="text-align: justify;">Autorizo a tomar fotografías clínicas de control para su uso posterior con fines exclusivamente científicos, publicaciones o presentaciones científicas, sabiendo que mi identidad será protegida en todo momento.</p>
+    <p style="text-align: justify;">Declaro no estar embarazada ni padecer enfermedad neurológica alguna (por ejemplo, parálisis facial, espasmos, debilidad de movimientos, etc).</p>
+    <p style="text-align: justify;">Sé que este procedimiento es cosmético y que el pago del mismo no está cubierto por los seguros médicos, obras sociales, etc.</p>
+    <p style="text-align: justify;">He leído y comprendido los párrafos precedentes. Mis preguntas fueron respondidas satisfactoriamente por el médico y sus colaboradores.</p>
+    <p style="text-align: justify;">Acepto los riesgos y complicaciones potenciales del procedimiento.</p>
+
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+

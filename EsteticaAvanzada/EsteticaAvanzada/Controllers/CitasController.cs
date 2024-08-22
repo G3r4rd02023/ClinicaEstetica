@@ -67,6 +67,16 @@ namespace EsteticaAvanzada.Controllers
         {
             if (ModelState.IsValid)
             {
+                bool citaExiste = _context.Citas.Any(c => c.Fecha == cita.Fecha);
+
+                if (citaExiste)
+                {
+                    ModelState.AddModelError(string.Empty, "Ya existe una cita en esa fecha y hora. Por favor intente crearla en un horario diferente");
+                    //TempData["ErrorMessage"] = "No se pudo crear la cita, ya existe una cita en la misma fecha y hora.";
+                    cita.Pacientes = await _lista!.GetListaPacientes();
+                    return View(cita);
+                }
+
                 var paciente = _context.Pacientes.FirstOrDefault(c => c.Id == cita.PacienteId);
                 var nuevaCita = new Cita()
                 {
@@ -122,6 +132,16 @@ namespace EsteticaAvanzada.Controllers
                 try
                 {
                     var paciente = _context.Pacientes.FirstOrDefault(c => c.Id == cita.PacienteId);
+
+                    bool citaExiste = _context.Citas.Any(c => c.Fecha == cita.Fecha);
+
+                    if (citaExiste)
+                    {
+                        ModelState.AddModelError(string.Empty, "Ya existe una cita en esa fecha y hora. Por favor intente crearla en un horario diferente");
+                        //TempData["ErrorMessage"] = "No se pudo crear la cita, ya existe una cita en la misma fecha y hora.";
+                        cita.Pacientes = await _lista!.GetListaPacientes();
+                        return View(cita);
+                    }
 
                     var citaExistente = await _context.Citas.FindAsync(id);
                     if (citaExistente != null)

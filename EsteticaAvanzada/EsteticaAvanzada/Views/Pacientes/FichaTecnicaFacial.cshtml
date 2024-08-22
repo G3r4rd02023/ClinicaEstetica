@@ -252,10 +252,22 @@
                         <span asp-validation-for="AnalisisEsteticos!.Observaciones" class="text-danger"></span>
                     </div>
                     <h6>Consentimiento informado</h6>
-                    <div class=" form-group">
+                   @*  <div class=" form-group">
                         <textarea asp-for="AnalisisEsteticos!.ConsentimientoInformado" class="form-control"></textarea>
                         <span asp-validation-for="AnalisisEsteticos!.ConsentimientoInformado" class="text-danger"></span>
-                    </div>
+                    </div> *@
+                    <a asp-controller="Pacientes"
+                       asp-action="PDFBotulinica"
+                       asp-route-id="@Model.Paciente!.Id"
+                       class="btn btn-danger btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Toxina Botulinica</a>
+                    <a asp-controller="Pacientes"
+                       asp-action="PDFMicroneedling"
+                       asp-route-id="@Model.Paciente!.Id"
+                       class="btn btn-success btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Microneedling</a>
+                    <a asp-controller="Pacientes"
+                       asp-action="PDFPeeling"
+                       asp-route-id="@Model.Paciente!.Id"
+                       class="btn btn-warning btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Peeling Quimico</a>
                    @*  <div class=" form-group">
                         <label> Nombre: </label>
                         <input asp-for="Paciente!.NombrePaciente" class="form-control" />

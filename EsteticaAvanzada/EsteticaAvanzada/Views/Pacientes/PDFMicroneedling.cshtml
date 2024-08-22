@@ -1,0 +1,63 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento para Microneedling";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">Consentimiento para Microneedling</h2>
+    </div>
+
+    <p style="text-align: left;">
+        Yo, <strong>@Model.NombrePaciente</strong> con fecha de nacimiento <strong>@Model.FechaNacimiento.ToString("dd/MM/yyyy")</strong> En la Ciudad de Tegucigalpa, con DNI <strong>@Model.DNI</strong>
+    </p>
+
+    <p style="text-align: justify;">DECLARO que por el presente documento y autorizo a la profesional   <strong> Dra Keydi Diaz </strong> que realice en mi el tratamiento conocido como microneedling.</p>
+
+    <!-- Sección de Párrafos -->
+    <p style="text-align: left;"> BREVE EXPLICACION DEL TRATAMIENTO</p>
+    <p style="text-align: justify;">El microneedling es un procedimiento médico-estético que implica la realización de múltiples punturas en la piel con un dispositivo dotado de microagujas estériles, con la intención de favorecer la penetración de sustancias activas con efecto.</p>
+    <p style="text-align: justify;">La intención del tratamiento es mejorar la condición actual y se realizará en la zona indicada</p>
+    <p style="text-align: justify;">CONFIRMO que, respecto al tratamiento mencionado, el profesional me ha explicado a fondo y en palabras comprensibles para mí los riesgos típicos que tiene, los efectos no deseados, los riesgos característicos a mi persona, así como las molestias o, en ocasiones, dolores que puedo sentir teniendo un post-tratamiento normal.</p>
+    <p style="text-align: justify;">ACEPTO que puedan ocurrir los RIESGOS Y COMPLICACIONES descritos como inherentes a este tratamiento. Entre otros principales riesgos que me han sido explicados son los siguientes: aparición de hematomas, rojeces, inflamación, alergia, etc., todos ellos de carácter transitorio.</p>
+    <p style="text-align: justify;">CONTRAINDICACIONES: Embarazo, lactancia, enfermedades cutáneas activas, infecciones localizadas, tratamientos faciales previos (menos de 6 meses)</p>
+    <p style="text-align: justify;">PRECAUCIONES: No tomar aspirina o derivados desde la semana anterior al tratamiento, no gimnasio, no saunas, no piscina hasta tres días después del tratamiento</p>
+    <p style="text-align: justify;">POSIBLES EFECTOS ADVERSOS: Riesgo y complicaciones comunes a cualquier tratamiento estético, entre otras: reacciones alérgicas a la sustancia empleada(por lo general leves, que remiten bajo el tratamiento adecuado o incluso sin tratamiento), hematomas, edemas o inflamación que remitiran generalmente en poco tiempo sin necesidad de ser tratados.</p>
+    <p style="text-align: justify;">Riesgos y complicaciones específicos de este tratamiento que me han sido explicados y que asumo y acepto.Especial, aunque raramente aparecen: hematomas, enrojecimiento, decoloración y lesiones acneiformes en la zona tratada</p>
+    <p style="text-align: justify;">RECONOZCO que en el curso del tratamiento pueden surgir condiciones no previstas que hagan necesario un cambio de lo anteriormente planeado y doy aquí mi expresa autorización para el tratamiento de las mismas, incluyendo además procedimientos como biopsias, radiografías, etc. En caso de complicaciones durante el tratamiento autorizo al Centro a solicitar la necesaria ayuda de otros especialistas, según su mejor juicio profesional.</p>
+    <p style="text-align: justify;">COMPRENDO que el fin del tratamiento es mejorar mi apariencia existiendo la posibilidad de que alguna imperfección persista y que el resultado pueda no ser el esperado por mí. En este sentido, se me informa que el resultado estético del tratamiento depende de factores individuales. Sé que la medicina no es una ciencia exacta y que nadie puede garantizar la perfección absoluta. Comprendo que el resultado pueda no ser el esperado por mí y reconozco que no se me ha dado, en absoluto, tal garantía.</p>
+    <p style="text-align: justify;">SE ME HA INFORMADO que el número de sesiones y/o cantidad de producto que es necesario para conseguir el efecto deseado se me ha comunicado de forma orientativa, siendo imposible de antemano conocer la cantidad exacta de producto o número de sesiones que son necesarias, por la diferente forma de absorción/reacción de cada paciente.</p>
+    <p style="text-align: justify;">ME COMPROMETO a seguir fielmente, en lo mejor de mis posibilidades, las instrucciones del profesional para antes, durante y después del tratamiento antes mencionado. Quedando bajo mi responsabilidad el cumplimiento de las medidas postoperatorias recomendadas por el Centro.</p>
+    <p style="text-align: justify;">DOY FE de no haber omitido o alterado datos al exponer mi historial y antecedentes clínico quirúrgicos, especialmente los referidos a alergias y enfermedades o riesgos personales.</p>
+    <p style="text-align: justify;">AUTORIZO a que se me practiquen fotografías de la zona tratada que puedan ser utilizadas con fines científicos o docentes, quedando entendido que su uso no constituya ninguna violación a la intimidad o confidencialidad, a las que tengo derecho.</p>
+    <p style="text-align: justify;">ME CONSTA que mis datos van a ser tratados de forma automatizada, lo cual autorizo habiéndome sido explicados mis derechos de conformidad con la vigente Ley Oficial de Protección de Datos (LOPD).</p>
+    <p style="text-align: justify;">Se me ha informado, igualmente, mi derecho a rechazar el tratamiento o revocar este consentimiento.</p>
+    <p style="text-align: justify;">He podido aclarar todas mis dudas acerca de todo lo anteriormente expuesto y he entendido totalmente este DOCUMENTO DE CONSENTIMIENTO reafirmándome en todos y cada uno de sus puntos y con la firma del documento EN TODAS LAS PÁGINAS ratifico y consiento que el tratamiento se realice.</p>
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+

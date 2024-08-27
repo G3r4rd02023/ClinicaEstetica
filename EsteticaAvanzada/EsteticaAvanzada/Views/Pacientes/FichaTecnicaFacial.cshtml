@@ -108,11 +108,19 @@
                     <div class="col-md-12">
                         <h6>Escala de Glogau</h6>
                         <img src="/images/tipos arrugas.jpeg" class="align-self-center" style="width: 300px; height: 150px;" />
+                        <br />
+                        <label> Tipo: </label>
+                        <input asp-for="AnalisisEsteticos!.EscalaGoglau" class="form-control" type = "text"  />
+                        <span asp-validation-for="AnalisisEsteticos!.EscalaGoglau" class="text-danger"></span>
                     </div>
                     <hr />
                     <div class="col-md-12">
                         <h6>Escala de Fizpatrick</h6>
                         <img src="/images/escala_fizpatrick.webp" style="width: 600px; height: 150px;" />
+                        <br />
+                        <label> Tipo: </label>
+                        <input asp-for="AnalisisEsteticos!.EscalaFizpatrick" class="form-control" type="text" />
+                        <span asp-validation-for="AnalisisEsteticos!.EscalaFizpatrick" class="text-danger"></span>
                     </div>
                     <hr />
                     <h6>Tipo de piel</h6>

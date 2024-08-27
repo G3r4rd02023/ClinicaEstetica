@@ -85,7 +85,12 @@ namespace EsteticaAvanzada.Data.Entidades
         [MaxLength(500, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? ConsentimientoInformado { get; set; }
 
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? EscalaGoglau { get; set; }
+
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? EscalaFizpatrick { get; set; }
+
         public DateTime? ProximaCita { get; set; }
-        
     }
 }

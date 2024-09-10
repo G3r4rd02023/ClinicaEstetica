@@ -41,14 +41,29 @@
                                 <a class="nav-link active text-white-50" asp-controller="Citas" asp-action="Index">
                                     <span class="oi oi-calendar"></span>  Citas
                                 </a>
-                            </li>                          
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white-50" asp-controller="Citas" asp-action="Index">
+                                    <span class="oi oi-calendar"></span>  Historia nutricional
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white-50" asp-controller="Citas" asp-action="Index">
+                                    <span class="oi oi-calendar"></span>  Tratamientos capilares y alopecia
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active text-white-50" asp-controller="Citas" asp-action="Index">
+                                    <span class="oi oi-calendar"></span>  Depilación láser
+                                </a>
+                            </li>
                             <li class=" nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white-50" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span class="oi oi-list"></span>  Plan de aplicacion
                                 </a>
                                 <ul class="dropdown-menu bg-primary" aria-labelledby="offcanvasNavbarDropdown">
                                     <li><a class="dropdown-item text-white-50" asp-controller="Botox" asp-action="Index"><span class="oi oi-star"></span>  Botox</a></li>
-                                    <li><a class="dropdown-item text-white-50" asp-controller="Juvederm" asp-action="Index"><span class="oi oi-star"></span>  Juvederm</a></li>                                  
+                                    <li><a class="dropdown-item text-white-50" asp-controller="Juvederm" asp-action="Index"><span class="oi oi-star"></span>  Fillers</a></li>                                  
                                 </ul>
                             </li>
                             @if (User.Identity!.IsAuthenticated && User.IsInRole("Administrador"))

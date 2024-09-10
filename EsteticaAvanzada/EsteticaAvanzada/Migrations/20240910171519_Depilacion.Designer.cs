@@ -4,6 +4,7 @@ using EsteticaAvanzada.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EsteticaAvanzada.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240910171519_Depilacion")]
+    partial class Depilacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,134 +397,6 @@ namespace EsteticaAvanzada.Migrations
                     b.ToTable("DatosEsteticos");
                 });
 
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.DepilacionLaser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Acne")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("ActividadFisica")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Alcoholismo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("AntecedentesPatologicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Axila")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Bigote")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Bikini")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("BrazoCompleto")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("CantidadHijos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CaraCompleta")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Cicatrices")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Drogas")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Eccemas")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Embarazada")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Espalda")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("FechaUltimaExposicionSolar")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaUltimaMenstruacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Forunculos")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Gluteos")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Manchas")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MediaCara")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("MediaPierna")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Medicamentos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("MedioBrazo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MesesEmbarazo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotivoConsulta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observaciones")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PacienteId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Pasatiempos")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("PiernaCompleta")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Psoriasis")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Quistes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("SeAutomedica")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("SesionesProgramadasId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Tabaquismo")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Verrugas")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Vitiligio")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
-
-                    b.HasIndex("SesionesProgramadasId");
-
-                    b.ToTable("DepilacionLaser");
-                });
-
             modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.DiagnosticoTratamiento", b =>
                 {
                     b.Property<int>("Id")
@@ -740,63 +615,6 @@ namespace EsteticaAvanzada.Migrations
                     b.HasIndex("PacienteId");
 
                     b.ToTable("Habitos");
-                });
-
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.HistoriaNutricional", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AntecedentesInmunoAlergicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AntecedentesPatologicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Diagnostico")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("IMC")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("Medicamentos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MedidasCorporalesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PacienteId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Peso")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.Property<string>("PlanTratamiento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Procedimientos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SesionesProgramadasId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Talla")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MedidasCorporalesId");
-
-                    b.HasIndex("PacienteId");
-
-                    b.HasIndex("SesionesProgramadasId");
-
-                    b.ToTable("HistoriaNutricional");
                 });
 
             modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.Imagenes", b =>
@@ -1208,49 +1026,6 @@ namespace EsteticaAvanzada.Migrations
                     b.ToTable("SesionesProgramadas");
                 });
 
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.TratamientoCapilar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AntecedentesInmunoAlergicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AntecedentesPatologicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AntecedentesQuirurgicos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Diagnostico")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotivoConsulta")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PacienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PlanTratamiento")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SesionesProgramadasId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
-
-                    b.HasIndex("SesionesProgramadasId");
-
-                    b.ToTable("TratamientoCapilar");
-                });
-
             modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -1354,21 +1129,6 @@ namespace EsteticaAvanzada.Migrations
                     b.Navigation("Paciente");
                 });
 
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.DepilacionLaser", b =>
-                {
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
-
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.SesionesProgramadas", "SesionesProgramadas")
-                        .WithMany()
-                        .HasForeignKey("SesionesProgramadasId");
-
-                    b.Navigation("Paciente");
-
-                    b.Navigation("SesionesProgramadas");
-                });
-
             modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.DiagnosticoTratamiento", b =>
                 {
                     b.HasOne("EsteticaAvanzada.Data.Entidades.Paciente", "Paciente")
@@ -1400,27 +1160,6 @@ namespace EsteticaAvanzada.Migrations
                         .IsRequired();
 
                     b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.HistoriaNutricional", b =>
-                {
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.MedidasCorporales", "MedidasCorporales")
-                        .WithMany()
-                        .HasForeignKey("MedidasCorporalesId");
-
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
-
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.SesionesProgramadas", "SesionesProgramadas")
-                        .WithMany()
-                        .HasForeignKey("SesionesProgramadasId");
-
-                    b.Navigation("MedidasCorporales");
-
-                    b.Navigation("Paciente");
-
-                    b.Navigation("SesionesProgramadas");
                 });
 
             modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.Imagenes", b =>
@@ -1487,21 +1226,6 @@ namespace EsteticaAvanzada.Migrations
                         .IsRequired();
 
                     b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("EsteticaAvanzada.Data.Entidades.TratamientoCapilar", b =>
-                {
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
-
-                    b.HasOne("EsteticaAvanzada.Data.Entidades.SesionesProgramadas", "SesionesProgramadas")
-                        .WithMany()
-                        .HasForeignKey("SesionesProgramadasId");
-
-                    b.Navigation("Paciente");
-
-                    b.Navigation("SesionesProgramadas");
                 });
 #pragma warning restore 612, 618
         }

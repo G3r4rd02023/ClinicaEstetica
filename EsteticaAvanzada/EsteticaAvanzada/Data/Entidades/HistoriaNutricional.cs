@@ -8,6 +8,8 @@ namespace EsteticaAvanzada.Data.Entidades
 
         public Paciente? Paciente { get; set; }
 
+        public int PacienteId { get; set; }
+
         public string? AntecedentesPatologicos { get; set; }
 
         public string? Medicamentos { get; set; }

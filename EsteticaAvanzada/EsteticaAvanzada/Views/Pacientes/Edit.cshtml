@@ -54,6 +54,12 @@
 
                 <div class="form-group">
                     <label></label>
+                    <input asp-for="Profesion" class="form-control" placeholder="Profesión" />
+                    <span asp-validation-for="Profesion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label></label>
                     <textarea asp-for="Contacto" class="form-control" placeholder="Contacto de emergencia"></textarea>
                     <span asp-validation-for="Contacto" class="text-danger"></span>
                 </div>

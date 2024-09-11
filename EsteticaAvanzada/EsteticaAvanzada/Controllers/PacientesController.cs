@@ -319,7 +319,7 @@ namespace EsteticaAvanzada.Controllers
                         }
                         else
                         {
-                            List<DateTime> fechasSesiones = new List<DateTime>
+                            List<DateTime?> fechasSesiones = new List<DateTime?>
                     {
                         model.SesionesProgramadas.Sesion1Fecha,
                         model.SesionesProgramadas.Sesion2Fecha,
@@ -330,7 +330,7 @@ namespace EsteticaAvanzada.Controllers
                         model.SesionesProgramadas.Sesion7Fecha,
                         model.SesionesProgramadas.Sesion8Fecha,
                         model.SesionesProgramadas.Sesion9Fecha,
-                        model.SesionesProgramadas.Sesion10Fecha
+                        model.SesionesProgramadas.Sesion10Fecha,
                     };
 
                             foreach (var fecha in fechasSesiones)
@@ -340,7 +340,7 @@ namespace EsteticaAvanzada.Controllers
                                     var nuevaCita = new Cita
                                     {
                                         Paciente = model.Paciente, // Relaciona la cita con el paciente existente
-                                        Fecha = fecha,
+                                        Fecha = (DateTime)fecha!,
                                         Titulo = "Sesión :" + model.Paciente.NombrePaciente,
                                         Descripcion = $"Cita: {model.Paciente.NombrePaciente}",
                                     };

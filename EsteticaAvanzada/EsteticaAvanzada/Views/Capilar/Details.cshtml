@@ -1,0 +1,191 @@
+﻿@model EsteticaAvanzada.Data.Entidades.TratamientoCapilar
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Tratamientos capilares y alopecia</h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action="Details" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PacienteId" />
+                <input type="hidden" asp-for="Paciente!.Id" />
+                <input type="hidden" asp-for="SesionesProgramadas!.Id" />
+                               
+                <h7> Datos del paciente</h7>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>Numero de identidad: </label>
+                            <input asp-for="Paciente!.DNI" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.DNI" class="text-danger"></span>
+                            <label>Nombre: </label>
+                            <input asp-for="Paciente!.NombrePaciente" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
+                            <label>Edad: </label>
+                            <input asp-for="Paciente!.Edad" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Edad" class="text-danger"></span>
+                            <label>Sexo: </label>
+                            <input asp-for="Paciente!.Sexo" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Telefono: </label>
+                            <input asp-for="Paciente!.Telefono" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Telefono" class="text-danger"></span>
+                            <label>Correo: </label>
+                            <input asp-for="Paciente!.Correo" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Correo" class="text-danger"></span>
+                            <label>Direccion: </label>
+                            <input asp-for="Paciente!.Direccion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                            <label> Profesion: </label>
+                            <input asp-for="Paciente!.Profesion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Profesion" class="text-danger"></span>
+                            <label> Contacto de emergencia: </label>
+                            <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <label> Antecedentes personales patológicos: </label>
+                    <textarea asp-for="AntecedentesPatologicos" class="form-control"></textarea>
+                    <span asp-validation-for="AntecedentesPatologicos" class="text-danger"></span>
+                </div>                
+                <div class=" form-group">
+                    <label> Antecedentes InmunoAlérgicos: </label>
+                    <textarea asp-for="AntecedentesInmunoAlergicos" class="form-control"></textarea>
+                    <span asp-validation-for="AntecedentesInmunoAlergicos" class="text-danger"></span>
+                </div>
+                <div class=" form-group">
+                    <label> Antecedentes quirurgicos: </label>
+                    <textarea asp-for="AntecedentesQuirurgicos" class="form-control"></textarea>
+                    <span asp-validation-for="AntecedentesQuirurgicos" class="text-danger"></span>
+                </div> 
+                <div class=" form-group">
+                    <label> Motivo Consulta: </label>
+                    <textarea asp-for="MotivoConsulta" class="form-control"></textarea>
+                    <span asp-validation-for="MotivoConsulta" class="text-danger"></span>
+                </div>
+                <div class=" form-group">
+                    <label> Diagnostico: </label>
+                    <textarea asp-for="Diagnostico" class="form-control"></textarea>
+                    <span asp-validation-for="Diagnostico" class="text-danger"></span>
+                </div>
+                <h6>Escala de Glogau</h6>
+                <img src="/images/tipos arrugas.jpeg" class="align-self-center" style="width: 300px; height: 150px;" />
+                <br />
+                <div class=" form-group">
+                    <label> Plan de tratamiento: </label>
+                    <textarea asp-for="PlanTratamiento" class="form-control"></textarea>
+                    <span asp-validation-for="PlanTratamiento" class="text-danger"></span>
+                </div>                               
+                <hr />
+                <h6>Sesiones programadas</h6>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 1:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion1Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion1Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion1Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 2:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion2Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion2Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion2Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 3:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion3Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion3Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion3Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 4:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion4Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion4Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion4Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 5:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion5Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion5Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion5Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 6:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion6Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion6Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion6Comentario" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 7:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion7Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion7Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion7Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 8:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion8Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion8Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion8Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 9:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion9Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion9Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion9Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 10:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion10Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion10Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion10Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 11:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion11Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion11Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion11Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 12:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion12Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion12Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion12Comentario" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-success mt-2"><i class="oi oi-check"></i> Guardar</button>
+                    <button type="button" class="btn btn-sm btn-primary mt-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

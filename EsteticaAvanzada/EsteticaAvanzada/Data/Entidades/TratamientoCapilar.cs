@@ -6,6 +6,8 @@
 
         public Paciente? Paciente { get; set; }
 
+        public int PacienteId { get; set; }
+
         public string? AntecedentesPatologicos { get; set; }
 
         public string? AntecedentesInmunoAlergicos { get; set; }

@@ -1,0 +1,313 @@
+﻿@model EsteticaAvanzada.Data.Entidades.DepilacionLaser
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div class=" col-md-12">
+    <div class=" card">
+        <div class=" card-header text-center">
+            <h5>Depilacion laser</h5>
+        </div>
+        <div class=" card-body">
+            <form asp-action="Details" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PacienteId" />
+                <input type="hidden" asp-for="Paciente!.Id" />
+                <input type="hidden" asp-for="SesionesProgramadas!.Id" />
+                <h7> Datos del paciente</h7>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>Numero de identidad: </label>
+                            <input asp-for="Paciente!.DNI" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.DNI" class="text-danger"></span>
+                            <label>Nombre: </label>
+                            <input asp-for="Paciente!.NombrePaciente" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
+                            <label>Edad: </label>
+                            <input asp-for="Paciente!.Edad" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Edad" class="text-danger"></span>
+                            <label>Sexo: </label>
+                            <input asp-for="Paciente!.Sexo" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Telefono: </label>
+                            <input asp-for="Paciente!.Telefono" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Telefono" class="text-danger"></span>
+                            <label>Correo: </label>
+                            <input asp-for="Paciente!.Correo" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Correo" class="text-danger"></span>
+                            <label>Direccion: </label>
+                            <input asp-for="Paciente!.Direccion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                            <label> Profesion: </label>
+                            <input asp-for="Paciente!.Profesion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Profesion" class="text-danger"></span>
+                            <label> Contacto de emergencia: </label>
+                            <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <label> Motivo Consulta: </label>
+                    <textarea asp-for="MotivoConsulta" class="form-control"></textarea>
+                    <span asp-validation-for="MotivoConsulta" class="text-danger"></span>
+                </div>
+                <div class=" form-group">
+                    <label> Antecedentes Patologicos: </label>
+                    <textarea asp-for="AntecedentesPatologicos" class="form-control"></textarea>
+                    <span asp-validation-for="AntecedentesPatologicos" class="text-danger"></span>
+                </div>
+                @if(Model.Paciente!.Sexo == "F")
+                {
+                    <label> Fecha ultima menstruacion: </label>
+                    <input asp-for="FechaUltimaMenstruacion" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="FechaUltimaMenstruacion" class="text-danger"></span>                  
+                }
+                <label> Fecha ultima exposicion solar: </label>
+                <input asp-for="FechaUltimaExposicionSolar" class="form-control" type="datetime-local" />
+                <span asp-validation-for="FechaUltimaExposicionSolar" class="text-danger"></span>
+                <hr />
+                <div class=" form-group">
+                    <label> Medicamentos que consume: </label>
+                    <textarea asp-for="Medicamentos" class="form-control"></textarea>
+                    <span asp-validation-for="Medicamentos" class="text-danger"></span>
+                </div>
+                <h6> Caracteristicas de la piel</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Manchas: </label><input asp-for="Manchas" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Verrugas: </label><input asp-for="Verrugas" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Vitiligio: </label><input asp-for="Vitiligio" type="checkbox" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Cicatrices: </label><input asp-for="Cicatrices" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Quistes: </label><input asp-for="Quistes" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Psoriasis: </label><input asp-for="Psoriasis" type="checkbox" /></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Eccemas: </label><input asp-for="Eccemas" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Forunculos: </label><input asp-for="Forunculos" type="checkbox" /></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><label> Acne: </label><input asp-for="Acne" type="checkbox" /></div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <label> Observaciones: </label>
+                    <textarea asp-for="Observaciones" class="form-control"></textarea>
+                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <h7>Habitos de salud</h7>
+                    <div class="col-md-4">
+                        <div>
+                            <div class="form-group"><label> Tabaquismo: </label><input asp-for="Tabaquismo" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Alcoholismo: </label><input asp-for="Alcoholismo" type="checkbox" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <div class="form-group"><label> Drogas: </label><input asp-for="Drogas" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Act.Fisica: </label><input asp-for="ActividadFisica" type="checkbox" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div>
+                            <div class="form-group"><label> Se Automedica: </label><input asp-for="SeAutomedica" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Pasatiempos: </label><input asp-for="Pasatiempos" type="checkbox" /></div>
+                        </div>
+                    </div>
+                </div>
+                
+                @if(Model.Paciente!.Sexo == "F")
+                {
+                    <h7>Estado de Ingravidez</h7>
+                    <div class="col-md-8">
+                        <div>
+                            <div class="form-group"><label> Se encuentra usted embarazada: </label><input asp-for="Embarazada" type="checkbox" /></div>
+                        </div>
+                        <div class=" form-group">
+                            <label> De cuantos meses: </label>
+                            <input asp-for="MesesEmbarazo" class="form-control" />
+                            <span asp-validation-for="MesesEmbarazo" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group">
+                            <label> Cuantos hijos tiene: </label>
+                            <input asp-for="CantidadHijos" class="form-control" />
+                            <span asp-validation-for="CantidadHijos" class="text-danger"></span>
+                        </div>
+                    </div>
+                }               
+                <hr />
+                <h7>Zona a depilar</h7>
+                <div class=" row">
+                    <div class="col-md-6">
+                        <div>
+                            <div class="form-group"><label> Media cara: </label><input asp-for="MediaCara" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Cara completa: </label><input asp-for="CaraCompleta" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Bigote: </label><input asp-for="Bigote" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Axila: </label><input asp-for="Axila" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Medio brazo: </label><input asp-for="MedioBrazo" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Brazo completo: </label><input asp-for="BrazoCompleto" type="checkbox" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div>
+                            <div class="form-group"><label> Media pierna: </label><input asp-for="MediaPierna" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Pierna completa: </label><input asp-for="PiernaCompleta" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Bikini: </label><input asp-for="Bikini" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Gluteos: </label><input asp-for="Gluteos" type="checkbox" /></div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label> Espalda: </label><input asp-for="Espalda" type="checkbox" /></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr />
+                <h6>Sesiones programadas</h6>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 1:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion1Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion1Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion1Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 2:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion2Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion2Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion2Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 3:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion3Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion3Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion3Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 4:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion4Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion4Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion4Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 5:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion5Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion5Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion5Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 6:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion6Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion6Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion6Comentario" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class=" col-md-6">
+                        <div class=" form-group"><label>Sesion 7:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion7Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion7Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion7Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 8:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion8Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion8Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion8Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 9:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion9Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion9Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion9Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 10:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion10Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion10Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion10Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 11:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion11Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion11Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion11Comentario" class="text-danger"></span>
+                        </div>
+                        <div class=" form-group"><label>Sesion 12:</label></div>
+                        <input asp-for="SesionesProgramadas!.Sesion12Fecha" class="form-control" type="datetime-local" />
+                        <div class=" form-group">
+                            <label> Observaciones: </label>
+                            <input asp-for="SesionesProgramadas!.Sesion12Comentario" class="form-control" />
+                            <span asp-validation-for="SesionesProgramadas!.Sesion12Comentario" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-success mt-2"><i class="oi oi-check"></i> Guardar</button>
+                    <button type="button" class="btn btn-sm btn-primary mt-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

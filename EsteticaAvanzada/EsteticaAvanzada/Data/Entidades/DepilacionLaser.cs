@@ -6,13 +6,15 @@
 
         public Paciente? Paciente { get; set; }
 
+        public int PacienteId { get; set; }
+
         public string? MotivoConsulta { get; set; }
 
         public string? AntecedentesPatologicos { get; set; }
 
-        public DateTime FechaUltimaMenstruacion { get; set; }
+        public DateTime? FechaUltimaMenstruacion { get; set; }
 
-        public DateTime FechaUltimaExposicionSolar { get; set; }
+        public DateTime? FechaUltimaExposicionSolar { get; set; }
 
         public string? Medicamentos { get; set; }
 

@@ -4,6 +4,32 @@
     Layout = null;
 }
 
+<style>
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: pink;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-container label {
+            margin: 0;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+</style>
+
+
 <div class=" col-md-12">
     <div class=" card">
         <div class=" card-header text-center">
@@ -14,8 +40,8 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Paciente" />
                 <div class="form-group">
-                    <label></label>
-                    <select asp-for="PacienteId" asp-items="Model.Pacientes" class="form-select"></select>
+                    <label>Seleccione Paciente</label>
+                    <select asp-for="PacienteId" asp-items="Model.Pacientes" class="form-select" id="pacienteSelect"> </select>
                     <span asp-validation-for="PacienteId" class="text-danger"></span>
                 </div>
                 <div class=" form-group">
@@ -28,12 +54,13 @@
                     <textarea asp-for="AntecedentesPatologicos" class="form-control"></textarea>
                     <span asp-validation-for="AntecedentesPatologicos" class="text-danger"></span>
                 </div>
-                @if(Model.Paciente!.Sexo == "F")
-                {
-                    <label> Fecha ultima menstruacion: </label>
+               
+                <div class="form-group">
+                    <label>Fecha Ultima Menstruacion</label>
                     <input asp-for="FechaUltimaMenstruacion" class="form-control" type="datetime-local" />
                     <span asp-validation-for="FechaUltimaMenstruacion" class="text-danger"></span>
-                }              
+                </div>
+
                 <label> Fecha ultima exposicion solar: </label>
                 <input asp-for="FechaUltimaExposicionSolar" class="form-control" type="datetime-local" />
                 <span asp-validation-for="FechaUltimaExposicionSolar" class="text-danger"></span>
@@ -43,79 +70,110 @@
                     <textarea asp-for="Medicamentos" class="form-control"></textarea>
                     <span asp-validation-for="Medicamentos" class="text-danger"></span>
                 </div>
-                <h6> Caracteristicas de la piel</h6>
+                <hr />
+                <h6>Características de la piel</h6>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group"><label> Manchas: </label><input asp-for="Manchas" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Manchas" type="checkbox" id="manchas" />
+                            <label for="manchas"> Manchas </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Verrugas: </label><input asp-for="Verrugas" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Verrugas" type="checkbox" id="verrugas" />
+                            <label for="verrugas"> Verrugas </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Vitiligio: </label><input asp-for="Vitiligio" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Vitiligio" type="checkbox" id="vitiligio" />
+                            <label for="vitiligio"> Vitiligio </label>
+                        </div>
                     </div>
                 </div>
-               <div class="row">
+
+                <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group"><label> Cicatrices: </label><input asp-for="Cicatrices" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Cicatrices" type="checkbox" id="cicatrices" />
+                            <label for="cicatrices"> Cicatrices </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Quistes: </label><input asp-for="Quistes" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Quistes" type="checkbox" id="quistes" />
+                            <label for="quistes"> Quistes </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Psoriasis: </label><input asp-for="Psoriasis" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Psoriasis" type="checkbox" id="psoriasis" />
+                            <label for="psoriasis"> Psoriasis </label>
+                        </div>
                     </div>
-               </div>
-               <div class="row">
+                </div>
+
+                <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group"><label> Eccemas: </label><input asp-for="Eccemas" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Eccemas" type="checkbox" id="eccemas" />
+                            <label for="eccemas"> Eccemas </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Forunculos: </label><input asp-for="Forunculos" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Forunculos" type="checkbox" id="forunculos" />
+                            <label for="forunculos"> Forunculos </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group"><label> Acne: </label><input asp-for="Acne" type="checkbox" /></div>
+                        <div class="form-group checkbox-container">
+                            <input asp-for="Acne" type="checkbox" id="acne" />
+                            <label for="acne"> Acne </label>
+                        </div>
                     </div>
-               </div>
+                </div>
+
                 <div class=" form-group">
                     <label> Observaciones: </label>
                     <textarea asp-for="Observaciones" class="form-control"></textarea>
                     <span asp-validation-for="Observaciones" class="text-danger"></span>
                 </div>
-                
-                <div class="row"> 
-                    <h7>Habitos de salud</h7>
+                <hr />
+                <h6>Habitos de salud</h6>
+                <div class="row">                                     
                     <div class="col-md-4">
-                        <div>
-                            <div class="form-group"><label> Tabaquismo: </label><input asp-for="Tabaquismo" type="checkbox" /></div>
+                        <div>                           
+                            <div class="form-group checkbox-container"><img src="/images/tabaquismo.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Tabaquismo: </label><input asp-for="Tabaquismo" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Alcoholismo: </label><input asp-for="Alcoholismo" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><img src="/images/alcoholismo.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Alcoholismo: </label><input asp-for="Alcoholismo" type="checkbox" /></div>
                         </div>                                              
                     </div>
                     <div class="col-md-4">
                         <div>
-                            <div class="form-group"><label> Drogas: </label><input asp-for="Drogas" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><img src="/images/drogas.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Drogas: </label><input asp-for="Drogas" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Act.Fisica: </label><input asp-for="ActividadFisica" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><img src="/images/actividad.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Act.Fisica: </label><input asp-for="ActividadFisica" type="checkbox" /></div>
                         </div>                        
                     </div>
                     <div class="col-md-4">
                         <div>
-                            <div class="form-group"><label> Se Automedica: </label><input asp-for="SeAutomedica" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><img src="/images/automedicacion.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Se Automedica: </label><input asp-for="SeAutomedica" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Pasatiempos: </label><input asp-for="Pasatiempos" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><img src="/images/pasatiempos.png" style="width: 25px; height: auto;  margin-right: 10px;" /><label> Pasatiempos: </label><input asp-for="Pasatiempos" type="checkbox" /></div>
                         </div>
                     </div>                 
                 </div>
-                @if(Model.Paciente!.Sexo == "F")
-                {
-                    <h7>Estado de Ingravidez</h7>
-                    <div class="col-md-8">
+               <hr />
+                    <h6>Estado de Ingravidez</h6>
+                    <div class= row>
+                    <div class="col-md-6">
                         <div>
-                            <div class="form-group"><label> Se encuentra usted embarazada: </label><input asp-for="Embarazada" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Se encuentra usted embarazada: </label><input asp-for="Embarazada" type="checkbox" /></div>
                         </div>
                         <div class=" form-group">
                             <label> De cuantos meses: </label>
@@ -128,45 +186,50 @@
                             <span asp-validation-for="CantidadHijos" class="text-danger"></span>
                         </div>
                     </div>
-                }               
+                    <div class="col-md-6">
+                        <img src="/images/embarazada.png" style="width: 200px; height: auto;" />
+                    </div>
+                    </div>
+                    
+                              
                 <hr />
-                <h7>Zona a depilar</h7>
+                <h6>Zona a depilar</h6>
                 <div class=" row">
                     <div class="col-md-6">
                         <div>
-                            <div class="form-group"><label> Media cara: </label><input asp-for="MediaCara" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Media cara: </label><input asp-for="MediaCara" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Cara completa: </label><input asp-for="CaraCompleta" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Cara completa: </label><input asp-for="CaraCompleta" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Bigote: </label><input asp-for="Bigote" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Bigote: </label><input asp-for="Bigote" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Axila: </label><input asp-for="Axila" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Axila: </label><input asp-for="Axila" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Medio brazo: </label><input asp-for="MedioBrazo" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Medio brazo: </label><input asp-for="MedioBrazo" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Brazo completo: </label><input asp-for="BrazoCompleto" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Brazo completo: </label><input asp-for="BrazoCompleto" type="checkbox" /></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div>
-                            <div class="form-group"><label> Media pierna: </label><input asp-for="MediaPierna" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Media pierna: </label><input asp-for="MediaPierna" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Pierna completa: </label><input asp-for="PiernaCompleta" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Pierna completa: </label><input asp-for="PiernaCompleta" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Bikini: </label><input asp-for="Bikini" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Bikini: </label><input asp-for="Bikini" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Gluteos: </label><input asp-for="Gluteos" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Gluteos: </label><input asp-for="Gluteos" type="checkbox" /></div>
                         </div>
                         <div>
-                            <div class="form-group"><label> Espalda: </label><input asp-for="Espalda" type="checkbox" /></div>
+                            <div class="form-group checkbox-container"><label> Espalda: </label><input asp-for="Espalda" type="checkbox" /></div>
                         </div>
                        
                     </div>
@@ -272,4 +335,8 @@
         </div>
     </div>
 </div>
+
+
+   
+
 

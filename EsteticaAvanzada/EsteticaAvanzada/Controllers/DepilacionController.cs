@@ -190,6 +190,16 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
+                    // Actualizar el objeto "DepilacionLaser"
+                    var existingDepilacion = await _context.DepilacionLaser
+                        .FirstOrDefaultAsync(d => d.Id == depilacion.Id);
+
+                    if (existingDepilacion != null)
+                    {
+                        // Actualiza los campos de "DepilacionLaser"
+                        _context.Entry(existingDepilacion).CurrentValues.SetValues(depilacion);
+                    }
+
                     if (depilacion.SesionesProgramadas != null)
                     {
                         var existingSesiones = await _context.SesionesProgramadas
@@ -207,6 +217,7 @@ namespace EsteticaAvanzada.Controllers
                             _context.SesionesProgramadas.Add(depilacion.SesionesProgramadas);
                         }
                     }
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 

@@ -1,7 +1,7 @@
 ﻿@model EsteticaAvanzada.Models.HistorialViewModel
 @{
     ViewData["Title"] = "Details";
-    Layout = null;
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
 }
 
 <style>
@@ -15,6 +15,21 @@
         border: 1px solid #ccc;
         padding: 5px;
         text-align: center;
+    }
+
+    .zoom {
+        padding: 5px;
+        background-color: transparent;
+        transition: transform .2s;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .zoom:hover {
+       -ms-transform: scale(2); /* IE 9 */
+       -webkit-transform: scale(2); /* Safari 3-8 */
+        transform: scale(2);
     }
 </style>
 
@@ -94,7 +109,7 @@
                         <div class="imagenes">
                             @foreach (var imagen in Model.Fotos)
                             {
-                                <div class="imagen-item">
+                                <div class="imagen-item zoom">
                                     <img src="@imagen.RutaArchivo" alt="@imagen.NombreArchivo" style="width:200px;height:200px;" />
                                     <p>@imagen.FechaSubida.ToString("dd/MM/yyyy")</p>
                                 </div>
@@ -402,5 +417,8 @@
     </div>
 </div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
 

@@ -1,4 +1,6 @@
-﻿using EsteticaAvanzada.Data;
+﻿using CloudinaryDotNet.Actions;
+using CloudinaryDotNet;
+using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
@@ -11,11 +13,13 @@ namespace EsteticaAvanzada.Controllers
     {
         private readonly DataContext _context;
         private readonly IServicioLista _lista;
+        private readonly Cloudinary _cloudinary;
 
-        public CapilarController(DataContext context, IServicioLista lista)
+        public CapilarController(DataContext context, IServicioLista lista, Cloudinary cloudinary)
         {
             _context = context;
             _lista = lista;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -150,11 +154,26 @@ namespace EsteticaAvanzada.Controllers
                 return NotFound();
             }
 
-            return View(tratamiento);
+            var imagenes = await _context.Imagenes.Where(i => i.PacienteId == tratamiento!.Paciente!.Id).FirstOrDefaultAsync();
+            var fotos = await _context.Imagenes.ToListAsync();
+            var fotosPaciente = fotos.Where(f => f.PacienteId == tratamiento!.Paciente!.Id
+                                   && f.NombreArchivo!.StartsWith("capilar_"));
+
+            var model = new CapilarViewModel()
+            {
+                Diagnostico = tratamiento.Diagnostico,
+                PlanTratamiento = tratamiento.PlanTratamiento,
+                Paciente = tratamiento.Paciente,
+                SesionesProgramadas = tratamiento.SesionesProgramadas,
+                Imagenes = imagenes,
+                Fotos = fotosPaciente.ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(TratamientoCapilar tratamiento)
+        public async Task<IActionResult> Details(CapilarViewModel model, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -162,23 +181,43 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
-                    if (tratamiento.SesionesProgramadas != null)
+                    if (model.SesionesProgramadas != null)
                     {
                         var existingSesiones = await _context.SesionesProgramadas
-                            .FirstOrDefaultAsync(mc => mc.Id == tratamiento.SesionesProgramadas.Id);
+                            .FirstOrDefaultAsync(mc => mc.Id == model.SesionesProgramadas.Id);
 
                         if (existingSesiones != null)
                         {
-                            tratamiento.SesionesProgramadas.Id = existingSesiones.Id;
-                            tratamiento.SesionesProgramadas.PacienteId = tratamiento.Paciente!.Id;
-                            _context.Entry(existingSesiones).CurrentValues.SetValues(tratamiento.SesionesProgramadas);
+                            model.SesionesProgramadas.Id = existingSesiones.Id;
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingSesiones).CurrentValues.SetValues(model.SesionesProgramadas);
                         }
                         else
                         {
-                            tratamiento.SesionesProgramadas.PacienteId = tratamiento.Paciente!.Id;
-                            _context.SesionesProgramadas.Add(tratamiento.SesionesProgramadas);
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.SesionesProgramadas.Add(model.SesionesProgramadas);
                         }
                     }
+
+                    model.Imagenes ??= new Imagenes();
+
+                    if (file != null)
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, file.OpenReadStream()),
+                            AssetFolder = "drakeydiaz"
+                        };
+
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        var urlImagen = uploadResult.SecureUrl.ToString();
+
+                        model.Imagenes!.NombreArchivo = "capilar_" + file.FileName;
+                        model.Imagenes.RutaArchivo = urlImagen;
+                        model.Imagenes.PacienteId = model.Paciente!.Id;
+                        _context.Imagenes.Add(model.Imagenes);
+                    }
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -189,11 +228,11 @@ namespace EsteticaAvanzada.Controllers
                 {
                     await transaction.RollbackAsync();
                     TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
-                    return View(tratamiento);
+                    return View(model);
                 }
             }
             TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
-            return View(tratamiento);
+            return View(model);
         }
     }
 }

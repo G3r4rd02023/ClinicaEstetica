@@ -98,7 +98,8 @@ namespace EsteticaAvanzada.Controllers
             var habitos = await _context.Habitos.Where(h => h.PacienteId == id).FirstOrDefaultAsync();
             var imagenes = await _context.Imagenes.Where(i => i.PacienteId == paciente!.Id).FirstOrDefaultAsync();
             var fotos = await _context.Imagenes.ToListAsync();
-            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id);
+            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id
+                                   && f.NombreArchivo!.StartsWith("historial_"));
 
             var model = new HistorialViewModel
             {
@@ -227,7 +228,7 @@ namespace EsteticaAvanzada.Controllers
                         var uploadResult = await _cloudinary.UploadAsync(uploadParams);
                         var urlImagen = uploadResult.SecureUrl.ToString();
 
-                        model.Imagenes!.NombreArchivo = file.FileName;
+                        model.Imagenes!.NombreArchivo = "historial_" + file.FileName;
                         model.Imagenes.RutaArchivo = urlImagen;
                         model.Imagenes.PacienteId = model.Paciente!.Id;
                         _context.Imagenes.Add(model.Imagenes);

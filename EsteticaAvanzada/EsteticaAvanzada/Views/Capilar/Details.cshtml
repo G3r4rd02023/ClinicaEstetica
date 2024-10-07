@@ -1,8 +1,59 @@
-﻿@model EsteticaAvanzada.Data.Entidades.TratamientoCapilar
+﻿@model EsteticaAvanzada.Models.CapilarViewModel
 @{
     ViewData["Title"] = "Details";
-    Layout = null;
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
 }
+
+<style>
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: pink;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .checkbox-container label {
+        margin: 0;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .imagenes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .imagen-item {
+        border: 1px solid #ccc;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .zoom {
+        padding: 5px;
+        background-color: transparent;
+        transition: transform .2s;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+    }
+
+        .zoom:hover {
+            -ms-transform: scale(2); /* IE 9 */
+            -webkit-transform: scale(2); /* Safari 3-8 */
+            transform: scale(2);
+        }
+</style>
 
 <div class=" col-md-12">
     <div class=" card">
@@ -88,7 +139,27 @@
                     <label> Plan de tratamiento: </label>
                     <textarea asp-for="PlanTratamiento" class="form-control"></textarea>
                     <span asp-validation-for="PlanTratamiento" class="text-danger"></span>
-                </div>                               
+                </div>
+                <hr />
+                <div class="col-md-10">
+                    <h7>Agregar Imagen</h7>
+                    <div class="form-group">
+                        <label>Imagen</label>
+                        <input type="file" class="form-control mb-3" name="file">
+                    </div>
+                </div>
+                <div>
+                    <h6>Imágenes</h6>
+                    <div class="imagenes">
+                        @foreach (var imagen in Model.Fotos)
+                        {
+                            <div class="imagen-item zoom">
+                                <img src="@imagen.RutaArchivo" alt="@imagen.NombreArchivo" style="width:200px;height:200px;" />
+                                <p>@imagen.FechaSubida.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        }
+                    </div>
+                </div>
                 <hr />
                 <h6>Sesiones programadas</h6>
                 <div class=" row">
@@ -190,4 +261,6 @@
     </div>
 </div>
 
-
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

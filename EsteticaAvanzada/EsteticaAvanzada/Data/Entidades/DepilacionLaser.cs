@@ -78,6 +78,10 @@
 
         public bool Espalda { get; set; }
 
+        public bool OtraZona { get; set; }
+
+        public string? EspecifiqueZona { get; set; }
+
         public SesionesProgramadas? SesionesProgramadas { get; set; }
     }
 }

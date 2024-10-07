@@ -1,4 +1,6 @@
-﻿using EsteticaAvanzada.Data;
+﻿using CloudinaryDotNet.Actions;
+using CloudinaryDotNet;
+using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
@@ -11,11 +13,13 @@ namespace EsteticaAvanzada.Controllers
     {
         private readonly DataContext _context;
         private readonly IServicioLista _lista;
+        private readonly Cloudinary _cloudinary;
 
-        public NutricionalController(DataContext context, IServicioLista lista)
+        public NutricionalController(DataContext context, IServicioLista lista, Cloudinary cloudinary)
         {
             _context = context;
             _lista = lista;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -183,11 +187,27 @@ namespace EsteticaAvanzada.Controllers
                 return NotFound();
             }
 
-            return View(nutricional);
+            var imagenes = await _context.Imagenes.Where(i => i.PacienteId == nutricional!.Paciente!.Id).FirstOrDefaultAsync();
+            var fotos = await _context.Imagenes.ToListAsync();
+            var fotosPaciente = fotos.Where(f => f.PacienteId == nutricional!.Paciente!.Id
+                                   && f.NombreArchivo!.StartsWith("nutricional_"));
+
+            var model = new NutricionalViewModel()
+            {
+                Diagnostico = nutricional.Diagnostico,
+                PlanTratamiento = nutricional.PlanTratamiento,
+                Paciente = nutricional.Paciente,
+                MedidasCorporales = nutricional.MedidasCorporales,
+                SesionesProgramadas = nutricional.SesionesProgramadas,
+                Imagenes = imagenes,
+                Fotos = fotosPaciente.ToList()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(HistoriaNutricional nutricional)
+        public async Task<IActionResult> Details(NutricionalViewModel model, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -195,40 +215,60 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
-                    if (nutricional.MedidasCorporales != null)
+                    if (model.MedidasCorporales != null)
                     {
                         var existingMedidas = await _context.MedidasCorporales
-                            .FirstOrDefaultAsync(mc => mc.Id == nutricional.MedidasCorporales.Id);
+                            .FirstOrDefaultAsync(mc => mc.Id == model.MedidasCorporales.Id);
 
                         if (existingMedidas != null)
                         {
-                            nutricional.MedidasCorporales.Id = existingMedidas.Id;
-                            nutricional.MedidasCorporales.PacienteId = nutricional.Paciente!.Id;
-                            _context.Entry(existingMedidas).CurrentValues.SetValues(nutricional.MedidasCorporales);
+                            model.MedidasCorporales.Id = existingMedidas.Id;
+                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingMedidas).CurrentValues.SetValues(model.MedidasCorporales);
                         }
                         else
                         {
-                            nutricional.MedidasCorporales.PacienteId = nutricional.Paciente!.Id;
-                            _context.MedidasCorporales.Add(nutricional.MedidasCorporales);
+                            model.MedidasCorporales.PacienteId = model.Paciente!.Id;
+                            _context.MedidasCorporales.Add(model.MedidasCorporales);
                         }
                     }
-                    if (nutricional.SesionesProgramadas != null)
+                    if (model.SesionesProgramadas != null)
                     {
                         var existingSesiones = await _context.SesionesProgramadas
-                            .FirstOrDefaultAsync(mc => mc.Id == nutricional.SesionesProgramadas.Id);
+                            .FirstOrDefaultAsync(mc => mc.Id == model.SesionesProgramadas.Id);
 
                         if (existingSesiones != null)
                         {
-                            nutricional.SesionesProgramadas.Id = existingSesiones.Id;
-                            nutricional.SesionesProgramadas.PacienteId = nutricional.Paciente!.Id;
-                            _context.Entry(existingSesiones).CurrentValues.SetValues(nutricional.SesionesProgramadas);
+                            model.SesionesProgramadas.Id = existingSesiones.Id;
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.Entry(existingSesiones).CurrentValues.SetValues(model.SesionesProgramadas);
                         }
                         else
                         {
-                            nutricional.SesionesProgramadas.PacienteId = nutricional.Paciente!.Id;
-                            _context.SesionesProgramadas.Add(nutricional.SesionesProgramadas);
+                            model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                            _context.SesionesProgramadas.Add(model.SesionesProgramadas);
                         }
                     }
+
+                    model.Imagenes ??= new Imagenes();
+
+                    if (file != null)
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, file.OpenReadStream()),
+                            AssetFolder = "drakeydiaz"
+                        };
+
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        var urlImagen = uploadResult.SecureUrl.ToString();
+
+                        model.Imagenes!.NombreArchivo = "nutricional_" + file.FileName;
+                        model.Imagenes.RutaArchivo = urlImagen;
+                        model.Imagenes.PacienteId = model.Paciente!.Id;
+                        _context.Imagenes.Add(model.Imagenes);
+                    }
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -239,11 +279,11 @@ namespace EsteticaAvanzada.Controllers
                 {
                     await transaction.RollbackAsync();
                     TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
-                    return View(nutricional);
+                    return View(model);
                 }
             }
             TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
-            return View(nutricional);
+            return View(model);
         }
     }
 }

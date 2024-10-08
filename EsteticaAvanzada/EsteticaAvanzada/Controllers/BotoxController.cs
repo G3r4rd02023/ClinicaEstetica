@@ -1,10 +1,13 @@
-﻿using EsteticaAvanzada.Data;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Data.Entidades;
 using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 
 namespace EsteticaAvanzada.Controllers
 {
@@ -13,11 +16,13 @@ namespace EsteticaAvanzada.Controllers
     {
         private readonly DataContext _context;
         private readonly IServicioLista _lista;
+        private readonly Cloudinary _cloudinary;
 
-        public BotoxController(DataContext context, IServicioLista lista)
+        public BotoxController(DataContext context, IServicioLista lista, Cloudinary cloudinary)
         {
             _context = context;
             _lista = lista;
+            _cloudinary = cloudinary;
         }
 
         public async Task<IActionResult> Index()
@@ -121,14 +126,105 @@ namespace EsteticaAvanzada.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var botox = await _context.BotoxAplicaciones.FindAsync(id);
+            var botox = await _context.BotoxAplicaciones.
+                Include(b => b.PlanAplicacion)
+                .ThenInclude(p => p!.Paciente)
+                .Where(b => b.Id == id)
+                .FirstOrDefaultAsync();
 
             if (botox == null)
             {
                 TempData["ErrorMessage"] = "Botox no encontrado";
             }
 
-            return View(botox);
+            var imagenes = await _context.Imagenes.Where(i => i.PacienteId == botox!.PlanAplicacion!.Paciente!.Id).FirstOrDefaultAsync();
+            var fotos = await _context.Imagenes.ToListAsync();
+            var fotosPaciente = fotos.Where(f => f.PacienteId == botox!.PlanAplicacion!.Paciente!.Id
+                                   && f.NombreArchivo!.StartsWith("botox_"));
+
+            var model = new PlanAplicacionViewModel()
+            {
+                BotoxAplicacion = botox,
+                Paciente = botox!.PlanAplicacion!.Paciente,
+                PlanAplicacion = botox!.PlanAplicacion,
+                Imagenes = imagenes,
+                Fotos = fotosPaciente.ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(PlanAplicacionViewModel model, IFormFile? file)
+        {
+            if (ModelState.IsValid)
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync();
+
+                try
+                {
+                    model.Imagenes ??= new Imagenes();
+
+                    if (file != null)
+                    {
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, file.OpenReadStream()),
+                            AssetFolder = "drakeydiaz"
+                        };
+
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        var urlImagen = uploadResult.SecureUrl.ToString();
+
+                        model.Imagenes!.NombreArchivo = "botox_" + file.FileName;
+                        model.Imagenes.RutaArchivo = urlImagen;
+                        model.Imagenes.PacienteId = model.Paciente!.Id;
+                        _context.Imagenes.Add(model.Imagenes);
+                    }
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    TempData["AlertMessage"] = "El plan de aplicacion botox del paciente se actualizo exitosamente!!!";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    TempData["ErrorMessage"] = $"Error al actualizar datos de paciente: {ex.Message}. Intente nuevamente.";
+                    return View(model);
+                }
+            }
+            TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
+            return View(model);
+        }
+
+        public async Task<IActionResult> PDFBotulinica(int id)
+        {
+            var botox = await _context.BotoxAplicaciones.
+               Include(b => b.PlanAplicacion)
+               .ThenInclude(p => p!.Paciente)
+               .Where(b => b.Id == id)
+               .FirstOrDefaultAsync();
+
+            if (botox == null)
+            {
+                TempData["ErrorMessage"] = "Botox no encontrado";
+            }
+
+            var paciente = botox!.PlanAplicacion!.Paciente;
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return new ViewAsPdf("PDFBotulinica", paciente)
+            {
+                FileName = $"Toxina Botulinica {paciente!.NombrePaciente}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
     }
 }

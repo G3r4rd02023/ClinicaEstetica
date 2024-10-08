@@ -10,5 +10,7 @@ namespace EsteticaAvanzada.Models
         public BotoxAplicacion? BotoxAplicacion { get; set; }
         public JuvedermAplicacion? JuvedermAplicacion { get; set; }
         public IEnumerable<SelectListItem>? Pacientes { get; set; }
+        public Imagenes? Imagenes { get; set; }
+        public List<Imagenes> Fotos { get; set; } = new List<Imagenes>();
     }
 }

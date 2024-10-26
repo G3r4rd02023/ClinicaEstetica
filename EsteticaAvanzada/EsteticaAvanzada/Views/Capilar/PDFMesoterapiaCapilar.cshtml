@@ -1,0 +1,91 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento informado ";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">Consentimiento para Tratamiento de Mesoterapia Capilar</h2>
+    </div>
+
+    <p style="text-align: right;">
+        En la Ciudad de Tegucigalpa, <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+    </p>
+
+    @*  <p style="text-align: justify;">DEJO CONSTANCIA que se me ha explicado que cuando se inyectan pequeñas cantidades de toxina botulínica purificada en un músculo se produce el debilitamiento o parálisis del mismo.</p> *@
+
+    <!-- Sección de Párrafos -->
+
+    <p style="text-align:justify"> DECLARO que la Dra Keydi Diaz me ha explicado que es conveniente proceder, en mi situación, a recibir MESOTERAPIA CAPILAR O INFILTRACIÓN INTRALESIONAL</p>
+    <p style="text-align:justify">
+        El objetivo de la técnica es conseguir la revitalización de la cuero cabelludo cuello, mediante filtrado dérmico o subcutánea del
+        cuero cabelludo
+    </p>
+    <p style="text-align:justify">
+        El médico me ha explicado que el procedimiento puede requerir la utilización de anestesia local o tópica, de cuyos riesgos me ha
+        informado el facultativo y que consiento
+    </p>
+    <p style="text-align:justify">
+        El tratamiento consiste en en inyectar en el espacio subcutáneo en pequeñas cantidades de ciertos productos como plasma rico
+        en plaquetas, triancinolona, oligoelementos, y medicamentos de reconocida eficacia para activar la micro-circulación del cuero
+        cabelludo estimular la regeneración celular local y mejorar la textura y consistencia cutánea. La introducción se realiza en todas
+        las áreas que deseamos mejorar. Se utilizan productos o fármacos aislados o en ocasiones combinaciones de los mismos que
+        complementan o potencian sus efectos. He sido informado que suelen ser necesarias varias sesiones, con la periodicidad que
+        establezca el médico.
+    </p>
+    <p style="text-align:justify">
+        Comprendo que a pesar de la adecuada elección de la técnica y de su correcta realización pueden presentarse efectos
+        indeseables, como reacciones a la sustancia empleada (por lo general leves, que remiten bajo el tratamiento adecuado o incluso
+        sin tratamiento), hinchazón, cefalea, enrojecimiento, dolor, escozor y pápulas (pequeños bultos) en la zona infiltrada. También
+        pueden aparecer hematomas o costras puntiformes que desaparecen espontáneamente en varios días. El Médico me ha
+        advertido que el tratamiento pudiera reactivar un herpes simple recidivante.
+    </p>
+    <p style="text-align:justify">
+        He informado al Médico de todos los datos de mi historia clínica como alergias, enfermedades o tratamientos que me he
+        realizadom previamente y expresamente de mis antecedentes personales de posibles alergias a medicamentos, fotosensibilidad,
+        alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos o medicamentos actuales,
+        antecedentes de herpes simple facial, antecedentes personales o familiares de queloides o cualquier otra circunstancia.
+    </p>
+    <p style="text-align:justify">
+        En mi caso particular, se ha considerado que éste es el tratamiento más adecuado, aunque pueden existir otras alternativas que estarían
+        indicadas en otro caso y que he tenido la oportunidad de comentar con el Médico. He sido informado, entiendo y asumo que no existe garantía de con este tratamiento mejore la apariencia del cuero cabelludo de las zonas
+        tratadas.
+    </p>
+    <p style="text-align:justify">
+        He comprendido las explicaciones que se me han facilitado en un lenguaje claro y sencillo, y el facultativo que me ha atendido me ha
+        permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado. También comprendo que, en cualquier momento y sin necesidad de dar ninguna explicación, puedo revocar el consentimiento que ahora
+        presto. Por ello, manifiesto que estoy satisfecho con la información recibida y que comprendo el alcance y los riesgos del tratamiento.
+    </p>
+    <p style="text-align:justify"> Y en tales condiciones: CONSIENTO Que se me realice TRATAMIENTO DE MESOTERAPIA CAPILAR</p>
+    <p style="text-align:justify"></p>
+    <p style="text-align:justify"></p>
+
+   
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+

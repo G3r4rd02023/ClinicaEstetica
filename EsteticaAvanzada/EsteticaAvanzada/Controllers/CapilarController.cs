@@ -6,6 +6,7 @@ using EsteticaAvanzada.Models;
 using EsteticaAvanzada.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
 
 namespace EsteticaAvanzada.Controllers
 {
@@ -233,6 +234,23 @@ namespace EsteticaAvanzada.Controllers
             }
             TempData["ErrorMessage"] = "Error al actualizar datos de paciente, intente nuevamente";
             return View(model);
+        }
+
+        public async Task<IActionResult> PDFMesoterapiaCapilar(int id)
+        {
+            var paciente = await _context.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return new ViewAsPdf("PDFMesoterapiaCapilar", paciente)
+            {
+                FileName = $"MesoterapiaCapilar {paciente!.NombrePaciente}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
     }
 }

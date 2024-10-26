@@ -218,6 +218,16 @@
                         <input asp-for="EstadoSalud!.ProtesisMetalicas" type="checkbox" />
                         <span asp-validation-for="EstadoSalud!.ProtesisMetalicas" class="text-danger"></span>
                     </div>
+                    <div class="form-group">
+                        <label> Ninguna: </label>
+                        <input asp-for="EstadoSalud!.AntOncologicos" type="checkbox" />
+                        <span asp-validation-for="EstadoSalud!.AntOncologicos" class="text-danger"></span>
+                    </div>
+                    <div class=" form-group">
+                        <label></label>
+                        <textarea asp-for="EstadoSalud!.AntOncologicosEspecificar" class="form-control"></textarea>
+                        <span asp-validation-for="EstadoSalud!.AntOncologicosEspecificar" class="text-danger"></span>
+                    </div>
                     <hr />
                     <h6> Antecedentes InmunoAlérgicos</h6>
                     <div class="form-group">

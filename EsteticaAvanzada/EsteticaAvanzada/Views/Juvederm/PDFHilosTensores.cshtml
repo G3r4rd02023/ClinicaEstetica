@@ -1,0 +1,139 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento informado";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">Consentimiento para Tratamiento de hilos tensores</h2>
+    </div>
+
+    <p style="text-align: right;">
+        En la Ciudad de Tegucigalpa, <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+    </p>
+
+    @*  <p style="text-align: justify;">DEJO CONSTANCIA que se me ha explicado que cuando se inyectan pequeñas cantidades de toxina botulínica purificada en un músculo se produce el debilitamiento o parálisis del mismo.</p> *@
+
+    <!-- Sección de Párrafos -->
+
+    <p style="text-align:justify;">
+        Este es un documento de consentimiento informado, que ha sido preparado para ayudar a su Dermatólogo a
+        informarle sobre el tratamiento de hilos tensores, sus riesgos y los tratamientos alternativos. Es importante que
+        lea esta información de forma cuidadosa y completa.
+    </p>
+
+    <p style=" text-align:justify">
+        Estoy consciente que la práctica de Medicina y Cirugía no es una ciencia exacta y reconozco que no se me han
+        dado garantías en cuanto a los resultados de la intervención, la permanencia de los resultados o mi satisfacción
+        por éstos.
+    </p>
+
+    <p style="text-align:justify">
+        1. Todas las incisiones se curan con el tejido de cicatriz. Estas líneas de incisión pueden ser visibles en el
+        período postoperatorio. Se perseguirá hacerlas de tal manera que queden lo más discretas posibles.
+    </p>
+
+    <p style="text-align:justify">
+        Puede haber decoloración e inflamación en la zona tratada que puede persistir durante varios días o más
+        tiempo.
+    </p>
+
+    <p style="text-align:justify">
+        3. Puede sentir dolor, tirantez e incomodidad después del procedimiento, en la cara, cuello o en la zona de la
+        oreja, aunque por lo general es suave y se resuelven en varias semanas después de la realización de la
+        técnica.
+    </p>
+
+    <p style="text-align:justify">
+        4. Puede presentar hematomas durante varios días que pueden persistir durante semanas.
+    </p>
+
+    <p style="text-align:justify">
+        5. Puede aparecer entumecimiento, hipersensibilidad, nódulos palpables sobre la zona tratada, que puede
+        persistir durante un período indefinido de tiempo.
+    </p>
+
+    <p style="text-align:justify">
+        6. La infección puede ocurrir como en cualquier intervención. Esto puede prolongar la curación y retrasar la
+        cicatrización. Se pueden presentar resultados alérgicos y/o desfavorables de una de las sustancias usadas en
+        el procedimiento.
+    </p>
+
+    <p style="text-align:justify">
+        7. El proceso de envejecimiento continúa en los próximos años, formándole caída de piel y arrugas.
+    </p>
+    <p style="text-align:justify">
+        8. Además de las mencionadas hay otras complicaciones posibles en esta operación. Sin embargo, no es
+        posible informarle de cada complicación concebible. La práctica de Medicina y Cirugía no es una ciencia exacta
+        y, por tanto, un resultado exacto no puede ser predicho. No se puede dar ninguna garantía de resultados
+        específicos.
+    </p>
+    <p style="text-align:justify">
+        9. Reconozco que durante el curso de la intervención puede haber imprevistos y pueden requerir
+        procedimientos adicionales o diferentes a los mencionados.
+    </p>
+    <p style="text-align:justify">
+        Por lo tanto, autorizo y solicito que el Medico Estetico mencionado, sus ayudantes o colaboradores realicen
+        tales procedimientos como son, en su juicio personal, necesario y considerado.
+    </p>
+    <p style="text-align:justify">
+        Por la presente autorizo al Dr(a). y a los ayudantes que sean seleccionados para
+        realizar el siguiente procedimiento citado.
+        Soy consciente de que durante el curso de la operación y el tratamiento médico, pueden darse situaciones
+        imprevistas que necesiten procedimientos diferentes a los propuestos. Por la presente autorizo al Medico
+        estético citado y a sus ayudantes a realizar estos otros procedimientos en el ejercicio de su juicio profesional
+        necesario y deseable. La autorización que otorga este párrafo incluirá cualquier situación que requiera
+        tratamiento y que no fuera conocida por el cirujano en el momento de iniciar el procedimiento.
+    </p>
+    <p style="text-align:justify">
+        Doy fe de no haber omitido o alterado datos al exponer mi historial y antecedentes clínico-quirúrgicos,
+        especialmente los referidos a alergias y enfermedades o riesgos personales.
+        Estoy de acuerdo en que no se me ha dado garantía por parte de nadie en cuanto al resultado que puede ser
+        obtenido. 
+    </p>
+    <p style="text-align:justify">
+        Doy el consentimiento para el fotografiado o la filmación del procedimiento que se va a realizar, incluyendo
+        cualquier parte de mi cuerpo, con fines médicos, científicos o educativos, puesto que mi identidad no será
+        revelada en las imágenes.
+       
+    </p>
+    <p style="text-align:justify">
+        ME HA SIDO EXPLICADO DE FORMA COMPRENSIBLE EL TRATAMIENTO CITADO ANTERIORMENTE O PROCEDIMIENTO A REALIZAR, LOS PROCEDIMIENTOS ALTERNATIVOS O METODOS DE TRATAMIENTO Y LOS RIESGOS DEL PROCEDIMIENTO O TRATAMIENTO PROPUESTO.
+    </p>
+    <p style="text-align:justify">
+        He sido informada de mis riesgos personalizados
+    </p>
+    <p style="text-align:justify">
+        DOY EL CONSENTIMIENTO PARA EL TRATAMIENTO O PROCEDIMIENTO, Y LOS PUNTOS CITADOS ARRIBA, ESTOY SATISFECHO/A CON LA EXPLICACION. Doy consentimiento para publicación de fotografía médica sin mención de ningún tipo de datos personales
+    </p>
+
+   
+   
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+

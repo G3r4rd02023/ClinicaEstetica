@@ -251,6 +251,11 @@
                             <span asp-validation-for="SesionesProgramadas!.Sesion12Comentario" class="text-danger"></span>
                         </div>
                     </div>
+                    <hr />
+                    <a asp-controller="Capilar"
+                       asp-action="PDFMesoterapiaCapilar"
+                       asp-route-id="@Model.Paciente!.Id"
+                       class="btn btn-warning btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Mesoterapia capilar</a>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-success mt-2"><i class="oi oi-check"></i> Guardar</button>

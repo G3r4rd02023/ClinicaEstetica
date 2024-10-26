@@ -1,55 +1,187 @@
-﻿@model EsteticaAvanzada.Data.Entidades.JuvedermAplicacion
+﻿@model EsteticaAvanzada.Models.PlanAplicacionViewModel
 @{
     ViewData["Title"] = "Details";
-    Layout = null;
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
 }
+
+<style>
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: pink;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-container label {
+            margin: 0;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+    .imagenes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .imagen-item {
+        border: 1px solid #ccc;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .zoom {
+        padding: 5px;
+        background-color: transparent;
+        transition: transform .2s;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+    }
+
+        .zoom:hover {
+            -ms-transform: scale(2); /* IE 9 */
+            -webkit-transform: scale(2); /* Safari 3-8 */
+            transform: scale(2);
+        }
+</style>
 
 <div class=" col-md-12">
     <div class=" card">
-        <div class=" card-header text-center">
-            <h5>Fillers</h5>
-        </div>
-        <div class=" card-body text-center">
-            <div>
-                <h6>Detalles de Aplicación</h6>
-                <hr />
-                <dl class="row">
-                    <dt class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Codigo)
-                    </dt>
-                    <dd class="col-sm-6">
-                        @Html.DisplayFor(model => model.Codigo)
-                    </dd>
-                    <dt class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Producto)
-                    </dt>
-                    <dd class="col-sm-6">
-                        @Html.DisplayFor(model => model.Producto)
-                    </dd>
-                    <dt class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.VolumenML)
-                    </dt>
-                    <dd class="col-sm-6">
-                        @Html.DisplayFor(model => model.VolumenML)
-                    </dd>
-                    <dt class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.ZonasTratamiento)
-                    </dt>
-                    <dd class="col-sm-6">
-                        @Html.DisplayFor(model => model.ZonasTratamiento)
-                    </dd>                                     
-                    <dt class="col-sm-6">
-                        @Html.DisplayNameFor(model => model.Observaciones)
-                    </dt>
-                    <dd class="col-sm-6">
-                        @Html.DisplayFor(model => model.Observaciones)
-                    </dd>
-                </dl>
+        <form asp-action="Details" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Paciente!.Id" />
+            <div class=" card-header text-center">
+                <h5>Fillers</h5>
+                <h7> Datos del paciente</h7>
+                <div class=" row">
+                    <div class=" col-md-6">
+                        <div class="form-group">
+                            <label>Numero de identidad: </label>
+                            <input asp-for="Paciente!.DNI" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.DNI" class="text-danger"></span>
+                            <label>Nombre: </label>
+                            <input asp-for="Paciente!.NombrePaciente" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.NombrePaciente" class="text-danger"></span>
+                            <label>Edad: </label>
+                            <input asp-for="Paciente!.Edad" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Edad" class="text-danger"></span>
+                            <label>Sexo: </label>
+                            <input asp-for="Paciente!.Sexo" class="form-control" readonly="true" />
+                            <span asp-validation-for="Paciente!.Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Telefono: </label>
+                            <input asp-for="Paciente!.Telefono" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Telefono" class="text-danger"></span>
+                            <label>Correo: </label>
+                            <input asp-for="Paciente!.Correo" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Correo" class="text-danger"></span>
+                            <label>Direccion: </label>
+                            <input asp-for="Paciente!.Direccion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Direccion" class="text-danger"></span>
+                            <label> Profesion: </label>
+                            <input asp-for="Paciente!.Profesion" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Profesion" class="text-danger"></span>
+                            <label> Contacto de emergencia: </label>
+                            <input asp-for="Paciente!.Contacto" class="form-control" readonly />
+                            <span asp-validation-for="Paciente!.Contacto" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class=" form-group text-center">
-            <button type="button" class="btn btn-sm btn-primary mb-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Volver</button>
-        </div>
+            <div class=" card-body text-center">
+                <div>
+                    <h6>Detalles de Aplicación</h6>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.JuvedermAplicacion!.Codigo)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.JuvedermAplicacion!.Codigo)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.JuvedermAplicacion!.Producto)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.JuvedermAplicacion!.Producto)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.JuvedermAplicacion!.VolumenML)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.JuvedermAplicacion!.VolumenML)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.JuvedermAplicacion!.ZonasTratamiento)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.JuvedermAplicacion!.ZonasTratamiento)
+                        </dd>
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.JuvedermAplicacion!.Observaciones)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.JuvedermAplicacion!.Observaciones)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <hr />
+            <div class="col-md-10">
+                <h7>Agregar Imagen</h7>
+                <div class="form-group">
+                    <label>Imagen</label>
+                    <input type="file" class="form-control mb-3" name="file">
+                </div>
+            </div>
+            <div>
+                <h6>Imágenes</h6>
+                <div class="imagenes">
+                    @if (Model.Fotos == null || !Model.Fotos.Any())
+                    {
+                        <p>No hay imágenes disponibles.</p>
+                    }
+                    else
+                    {
+                        @foreach (var imagen in Model.Fotos)
+                        {
+                            <div class="imagen-item zoom">
+                                <img src="@imagen.RutaArchivo" alt="@imagen.NombreArchivo" style="width:200px;height:200px;" />
+                                <p>@imagen.FechaSubida.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        }
+                    }
+                </div>
+                <h6>Consentimiento informado</h6>
+                <a asp-controller="Juvederm"
+                   asp-action="PDFRellenos"
+                   asp-route-id="@Model.Paciente!.Id"
+                   class="btn btn-warning btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Tratamiento con relleno</a>
+                <a asp-controller="Juvederm"
+                   asp-action="PDFHilosTensores"
+                   asp-route-id="@Model.Paciente!.Id"
+                   class="btn btn-warning btn-sm mb-2"><i class="fa-solid fa-file-pdf"></i> Tratamiento con hilos tensores</a>
+            </div>
+            <hr />
+           
+            <div class=" form-group text-center">
+                <button type="submit" class="btn btn-sm btn-success mb-2"><i class="oi oi-check"></i> Guardar</button>
+                <button type="button" class="btn btn-sm btn-primary mb-2" data-bs-dismiss="modal"><i class="oi oi-ban"></i> Volver</button>
+            </div>
+        </form>       
     </div>
 </div>
 

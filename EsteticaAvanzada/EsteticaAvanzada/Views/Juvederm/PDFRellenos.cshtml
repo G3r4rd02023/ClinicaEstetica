@@ -1,0 +1,57 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Paciente
+@{
+    ViewData["Title"] = "Consentimiento informado de tratamiento de rellenos";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div style="width: 80%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12pt;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="font-size: 16pt;">Consentimiento para Tratamiento de rellenos</h2>
+    </div>
+
+    <p style="text-align: right;">
+        En la Ciudad de Tegucigalpa, <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+    </p>
+
+   @*  <p style="text-align: justify;">DEJO CONSTANCIA que se me ha explicado que cuando se inyectan pequeñas cantidades de toxina botulínica purificada en un músculo se produce el debilitamiento o parálisis del mismo.</p> *@
+
+    <!-- Sección de Párrafos -->
+   
+
+    <p style="text-align: justify;">El propósito de este formulario de consentimiento informado es proporcionar información escrita sobre los riesgos, beneficios y alternativas del procedimiento mencionado anteriormente. Este material sirve como complemento a la conversación que tiene con su médico proveedor de atención médica. Es importante que comprenda completamente esta información, así que lea este documento detenidamente. Si tiene alguna pregunta sobre el procedimiento, consulte a su médico profesional de la salud antes de firmar el formulario de consentimiento</p>
+    <p style="text-align: justify;"> El tratamiento con rellenos dérmicos (como Juvederm, Restylane, Radiesse, sculpta, hilos tensores, hilos lisos y otros) puede suavizar los pliegues y arrugas faciales, agregar volumen a los labios y contornear los rasgos faciales que han perdido su volumen y plenitud debido al envejecimiento, la exposición al sol, enfermedades, etc. El rejuvenecimiento facial se puede realizar con mínimas complicaciones. Estos rellenos dérmicos se inyectan debajo de la piel con una aguja excepcionalmente fina. Este procedimiento de volumen natural aparece debajo de las arrugas y pliegues que se levantan y suavizan. Los resultados a menudo se pueden ver de inmediato o tardan 3 meses.</p>
+    <p style="text-align: justify;">Antes de someterse a este procedimiento, es fundamental comprender el riesgo. Ningún procedimiento está completamente libre de riesgos. Puede ocurrir el siguiente riesgo, pero puede haber riesgos imprevistos y riesgos que no están incluidos en esta lista.</p>
+    <p style="text-align: justify;">Algunos de estos riesgos, si ocurren, pueden requerir hospitalización y / o terapia ambulatoria prolongada para permitir un tratamiento adecuado. Se me había explicado que existen ciertos riesgos y efectos secundarios inherentes y potenciales en cualquier procedimiento invasivo y, en este caso específico, dichos riesgos incluyen, entre otros: 1) Malestar, hinchazón, enrojecimiento, hematomas y decoloración después del tratamiento; 2) Infección posterior al tratamiento asociada con cualquier inyección transcutánea; 3) reacción alérgica; 4)Reactivación del herpes (herpes labial); 5) Grumos, manchas visibles de color amarillo o blanco; 6) Formación de granulomas; 7) Necrosis localizada y / o desprendimiento, con costra y / o sin costra si ocurre la oclusión del vaso.</p>
+    <p style="text-align: justify;"> No sé qué estoy embarazada. No estoy tratando de quedar embarazada. No estoy amamantando (amamantando). No tengo o no he tenido ninguna enfermedad importante que me impida recibir rellenos dérmicos. Certifico que no tengo múltiples alergias o una alta sensibilidad a los medicamentos, que incluyen, entre otros, la lidocaína.</p>
+    <p style="text-align: justify;"> Se me han explicado completamente las alternativas a los procedimientos y opciones para los que me he ofrecido como voluntario.</p>
+    <p style="text-align: justify;"> Entiendo que este es un procedimiento electivo y que el pago es mi responsabilidad y se espera en el momento del tratamiento.</p>
+    <p style="text-align: justify;"> Entiendo que tengo derecho a interrumpir el tratamiento en cualquier momento.</p>
+    <p style="text-align: justify;"> Se ha demostrado que los rellenos dérmicos son seguros y eficaces en comparación con los implantes cutáneos de colágeno y productos relacionados para rellenar arrugas, líneas y pliegues en la piel del rostro. Su efecto puede durar hasta 9. Meses hasta 2 años. La mayoría de los pacientes están satisfechos con los resultados del uso de rellenos dérmicos. Sin embargo, como cualquier procedimiento estético, no hay garantía de que esté completamente satisfecho. No hay garantía de que las arrugas y los pliegues desaparezcan por completo, o de que no necesite un tratamiento adicional para lograr los resultados que busca. El procedimiento de relleno dérmico es temporal y se requerirán tratamientos adicionales periódicamente, generalmente dentro de los 4 a 6 meses, que incluyen inyecciones adicionales para que el efecto continúe. Soy consciente de que será necesario un tratamiento de seguimiento para mantener los efectos completos. Soy consciente de que la duración del tratamiento depende de muchos factores que incluyen, entre otros, la edad, el sexo, las condiciones de los tejidos, las condiciones generales de mi salud y estilo de vida y la exposición al sol. La corrección, dependiendo de estos factores, puede durar hasta 6 meses y en algunos casos más corta y en algunos casos más. Me han instruido y entiendo las instrucciones posteriores al tratamiento.</p>
+    <p style="text-align: justify;"> Entiendo que este es un procedimiento electivo y voluntariamente doy mi consentimiento para el tratamiento con rellenos dérmicos para el rejuvenecimiento facial, realce de labios, establecer líneas adecuadas de labios y sonrisas y reemplazar el volumen facial. Se me ha explicado completamente el procedimiento. También entiendo que cualquier tratamiento realizado es entre yo y el médico / proveedor de atención médica que me está tratando y dirigiré todas las preguntas o inquietudes posoperatorias al médico tratante. He leído lo anterior y lo entiendo. Mis preguntas han sido respondidas satisfactoriamente. Acepto los riesgos y complicaciones del procedimiento y entiendo que no hay garantías implícitas en cuanto al resultado del Procedimiento.</p>
+
+    <!-- Sección de Datos del Paciente -->
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Nombres y apellidos del paciente:</label><br />
+                <strong>@Model.NombrePaciente</strong>
+            </td>
+            <td style="border-top: 1px solid #000; padding-top: 10px; width: 50%;">
+                <label>Número del documento de identidad:</label><br />
+                <strong>@Model.DNI</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 10px;" colspan="2">
+                <label>Fecha:</label><br />
+                <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #000; padding-top: 30px; height: 80px;" colspan="2">
+                <label>Firma del paciente:</label><br />
+            </td>
+        </tr>
+    </table>
+</div>
+

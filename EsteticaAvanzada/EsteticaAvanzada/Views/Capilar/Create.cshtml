@@ -1,7 +1,7 @@
 ﻿@model EsteticaAvanzada.Models.CapilarViewModel
 @{
     ViewData["Title"] = "Create";
-    Layout = null;
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
 }
 
 <div class=" col-md-12">
@@ -11,7 +11,7 @@
         </div>
         <div class=" card-body">
             <form asp-action="Create" method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-info"></div>
                 <input type="hidden" asp-for="Paciente" />
                 <div class="form-group">
                     <label></label>
@@ -154,3 +154,6 @@
     </div>
 </div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

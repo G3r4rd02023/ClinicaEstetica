@@ -15,7 +15,7 @@ namespace EsteticaAvanzada.Data.Entidades
 
         [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? RutaArchivo { get; set; }
-        public DateTime FechaSubida { get; set; } = DateTime.Now;
 
+        public DateTime FechaSubida { get; set; } = DateTime.Now;
     }
 }

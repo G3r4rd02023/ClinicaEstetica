@@ -1,6 +1,5 @@
 ﻿using EsteticaAvanzada.Data;
 using EsteticaAvanzada.Data.Entidades;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace EsteticaAvanzada.Services
@@ -8,11 +7,10 @@ namespace EsteticaAvanzada.Services
     public class ServicioUsuario : IServicioUsuario
     {
         private readonly DataContext _context;
-       
 
         public ServicioUsuario(DataContext context)
         {
-            _context = context;           
+            _context = context;
         }
 
         public async Task<Usuario> ObtenerUsuario(string correo, string clave)
@@ -27,181 +25,13 @@ namespace EsteticaAvanzada.Services
             return null!;
         }
 
-
         public async Task<Usuario> GuardarUsuario(Usuario usuario)
         {
+            usuario.Contraseña = BCrypt.Net.BCrypt.HashPassword(usuario.Contraseña);
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
             return usuario;
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

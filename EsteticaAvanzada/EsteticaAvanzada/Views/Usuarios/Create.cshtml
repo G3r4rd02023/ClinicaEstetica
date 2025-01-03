@@ -1,0 +1,48 @@
+﻿@model EsteticaAvanzada.Data.Entidades.Usuario
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header text-center">
+            <img src="/images/logo.jpg" style="width: 100px; height: auto; border-radius:50px" />
+        </div>
+        <div class="card-body text-success">
+            <h5>Crear Usuario </h5>
+            <form asp-controller="Usuarios" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="FechaCreacion" />
+                <input type="hidden" asp-for="Rol" />
+              
+                <div class="form-group">
+                    <input asp-for="NombreCompleto" class="form-control" placeholder="Nombre" />
+                    <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Correo" class="form-control" placeholder="Correo" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Contraseña" class="form-control" placeholder="Contraseña" type="password" />
+                    <span asp-validation-for="Contraseña" class="text-danger"></span>
+                </div>                                             
+                <div class="card-footer text-center">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <i class="oi oi-check"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">
+                            <i class="oi oi-arrow-thick-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -13,7 +13,7 @@ namespace EsteticaAvanzada.Controllers
         private readonly DataContext _context;
         private readonly IServicioUsuario _servicioUsuario;
 
-        public LoginController(DataContext context,IServicioUsuario servicioUsuario)
+        public LoginController(DataContext context, IServicioUsuario servicioUsuario)
         {
             _context = context;
             _servicioUsuario = servicioUsuario;

@@ -84,6 +84,11 @@ namespace EsteticaAvanzada.Controllers
                     Sesion12Comentario = model.SesionesProgramadas!.Sesion12Comentario,
                 };
 
+                if (model.SesionesProgramadas.Sesion1Fecha == null)
+                {
+                    model.SesionesProgramadas!.Sesion1Fecha = DateTime.Now;
+                }
+
                 List<DateTime?> fechasSesiones = new List<DateTime?>
                     {
                         model.SesionesProgramadas.Sesion1Fecha,
@@ -99,6 +104,7 @@ namespace EsteticaAvanzada.Controllers
                         model.SesionesProgramadas.Sesion1Fecha!.Value.AddDays(30),
                         model.SesionesProgramadas.Sesion1Fecha!.Value.AddDays(33),
                     };
+
                 foreach (var fecha in fechasSesiones)
                 {
                     if (fecha != DateTime.MinValue)
@@ -114,6 +120,7 @@ namespace EsteticaAvanzada.Controllers
                         _context.Citas.Add(nuevaCita);
                     }
                 }
+
                 _context.SesionesProgramadas.Add(sesiones);
                 await _context.SaveChangesAsync();
 

@@ -11,96 +11,93 @@ namespace EsteticaAvanzada.Data.Entidades
         public int PacienteId { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CinturaInicio { get; set; }
+        public decimal? CinturaInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CinturaMedio { get; set; }
+        public decimal? CinturaMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CinturaFinal { get; set; }
+        public decimal? CinturaFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BustoInicio { get; set; }
+        public decimal? BustoInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal ButoMedio { get; set; }
+        public decimal? ButoMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BustoFinal { get; set; }
+        public decimal? BustoFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CaderaInicio { get; set; }
+        public decimal? CaderaInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CaderaMedio { get; set; }
+        public decimal? CaderaMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal CaderaFinal { get; set; }
+        public decimal? CaderaFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal AbdomenInicio { get; set; }
+        public decimal? AbdomenInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal AbdomenMedio { get; set; }
+        public decimal? AbdomenMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal AbdomenFinal { get; set; }
+        public decimal? AbdomenFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoDerInicio { get; set; }
+        public decimal? BrazoDerInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoDerMedio { get; set; }
+        public decimal? BrazoDerMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoDerFinal { get; set; }
+        public decimal? BrazoDerFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoIzqInicio { get; set; }
+        public decimal? BrazoIzqInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoIzqMedio { get; set; }
+        public decimal? BrazoIzqMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal BrazoIzqFinal { get; set; }
+        public decimal? BrazoIzqFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloDerInicio { get; set; }
+        public decimal? MusloDerInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloDerMedio { get; set; }
+        public decimal? MusloDerMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloDerFinal { get; set; }
+        public decimal? MusloDerFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloIzqInicio { get; set; }
+        public decimal? MusloIzqInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloIzqMedio { get; set; }
+        public decimal? MusloIzqMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal MusloIzqFinal { get; set; }
+        public decimal? MusloIzqFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorrillaDerInicio { get; set; }
+        public decimal? PantorrillaDerInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorrillaDerMedio { get; set; }
+        public decimal? PantorrillaDerMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorillaDerFinal { get; set; }
+        public decimal? PantorillaDerFinal { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorrillaIzqInicio { get; set; }
+        public decimal? PantorrillaIzqInicio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorrillaIzqMedio { get; set; }
+        public decimal? PantorrillaIzqMedio { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal PantorillaIzqFinal { get; set; }
-
-
-
+        public decimal? PantorillaIzqFinal { get; set; }
     }
 }

@@ -89,6 +89,11 @@ namespace EsteticaAvanzada.Controllers
                     Sesion12Comentario = model.SesionesProgramadas!.Sesion12Comentario,
                 };
 
+                if (model.SesionesProgramadas.Sesion1Fecha == null)
+                {
+                    model.SesionesProgramadas!.Sesion1Fecha = DateTime.Now;
+                }
+
                 List<DateTime?> fechasSesiones = new List<DateTime?>
                     {
                         model.SesionesProgramadas.Sesion1Fecha,

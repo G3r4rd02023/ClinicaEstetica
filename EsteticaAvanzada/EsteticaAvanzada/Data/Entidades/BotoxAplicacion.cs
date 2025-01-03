@@ -17,8 +17,9 @@ namespace EsteticaAvanzada.Data.Entidades
         public bool OrbicularLabios { get; set; }
         public bool Mentoniano { get; set; }
 
-        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]        
+        [MaxLength(255, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? Otras { get; set; }
+
         public int TotalUnidadesInyectadas { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
@@ -28,12 +29,9 @@ namespace EsteticaAvanzada.Data.Entidades
         public string? ZonasAplicadas { get; set; }
 
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string NumeroLote { get; set; } = null!;
+        public string? NumeroLote { get; set; } = null!;
 
         [MaxLength(300, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string? Observaciones { get; set; } = null!;
     }
 }
-

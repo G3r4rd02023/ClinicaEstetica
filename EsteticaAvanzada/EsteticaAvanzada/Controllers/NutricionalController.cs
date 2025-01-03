@@ -115,6 +115,11 @@ namespace EsteticaAvanzada.Controllers
                     PacienteId = paciente.Id
                 };
 
+                if (model.SesionesProgramadas.Sesion1Fecha == null)
+                {
+                    model.SesionesProgramadas!.Sesion1Fecha = DateTime.Now;
+                }
+
                 List<DateTime?> fechasSesiones = new List<DateTime?>
                     {
                         model.SesionesProgramadas.Sesion1Fecha,

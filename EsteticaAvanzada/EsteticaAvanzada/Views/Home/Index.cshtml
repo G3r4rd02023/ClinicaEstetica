@@ -13,25 +13,47 @@
     .carousel-background {
         position: relative;
         z-index: 1;
-        width: 80%; /* Adjust as needed */
+        width: 100%; /* Adjust as needed */
         height: 80%; /* Adjust as needed */
         background-color: rgba(255, 255, 255, 0.8); /* Background color with opacity */
         padding: 20px; /* Adjust as needed */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
     }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .video-container {
+        position: absolute;
+        top: 10px; /* Ajusta la posición vertical */
+        right: 10px; /* Ajusta la posición horizontal */
+        z-index: 10; /* Asegura que el video esté encima del carrusel */
+    }
+
+    .carousel-inner img {
+        width: 100%; /* Asegura que las imágenes del carrusel ocupen todo el ancho */
+        height: auto; /* Mantiene la proporción de las imágenes */
+    }
+    
 </style>
 
 <div class="carousel-background">
+    <div class="video-container">
+        <video width="200" height="150" controls autoplay muted loop>
+            <source src="~/images/Logotipo Animado.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+
     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
             <li data-target="#myCarousel" data-slide-to="3"></li>
-            <li data-target="#myCarousel" data-slide-to="4"></li>
-            <li data-target="#myCarousel" data-slide-to="5"></li>
-            <li data-target="#myCarousel" data-slide-to="6"></li>
-            <li data-target="#myCarousel" data-slide-to="7"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="item active">
@@ -43,7 +65,9 @@
             <div class="item">
                 <img src="/images/key3.webp" class="img-responsive" />
             </div>
-            
+            <div class="item">
+                <img src="/images/Keydiaz.jpg" class="img-responsive" />
+            </div>
         </div>
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -55,6 +79,5 @@
         </a>
     </div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

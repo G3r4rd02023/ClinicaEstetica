@@ -13,5 +13,7 @@ namespace EsteticaAvanzada.Models
         public Imagenes? Imagenes { get; set; }
 
         public List<Imagenes> Fotos { get; set; } = new List<Imagenes>();
+
+        public SesionesProgramadas? SesionesProgramadas { get; set; }
     }
 }

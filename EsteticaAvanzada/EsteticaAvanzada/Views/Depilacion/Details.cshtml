@@ -1,7 +1,7 @@
 ﻿@model EsteticaAvanzada.Data.Entidades.DepilacionLaser
 @{
     ViewData["Title"] = "Details";
-    Layout = null;
+    Layout = "~/Views/Shared/ModalLayout.cshtml";
 }
 
 <style>
@@ -45,7 +45,7 @@
                 <input type="hidden" asp-for="Paciente!.Id" />
                 <input type="hidden" asp-for="SesionesProgramadas!.Id" />
                 <button type="button" class="btn btn-sm btn-success mt-2" onclick="togglePaciente()">Datos del paciente</button>
-                <div class="hide" id = "paciente">
+                <div class="hide" id="paciente">
                     <div class=" row">
                         <div class=" col-md-6">
                             <div class="form-group">
@@ -276,7 +276,7 @@
                         </div>
                     </div>
                      <div class=" form-group">
-                        <label></label>
+                        <label>Especifique otras zonas: </label>
                         <textarea asp-for="EspecifiqueZona" class="form-control"></textarea>
                         <span asp-validation-for="EspecifiqueZona" class="text-danger"></span>
                     </div>
@@ -500,7 +500,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card hide mt-3" style="background-color: rgba(255, 192, 203, 0.5);" id="sesion11">
+                        <div class="card hide mt-3" style="background-color: rgba(255, 192, 203, 0.5);" id="sesion-11">
                             <div class="card-header">
                                 <h5 class="card-title">Sesión 11:</h5>
                             </div>
@@ -558,8 +558,7 @@
         function togglePaciente() {
             const seccion = document.getElementById('paciente');
             seccion.style.display = (seccion.style.display === 'none' || seccion.style.display === '') ? 'block' : 'none';
-        }
-        
+        }       
         function toggleSection1() {
             const seccion = document.getElementById('sesion-1');
             seccion.style.display = (seccion.style.display === 'none' || seccion.style.display === '') ? 'block' : 'none';

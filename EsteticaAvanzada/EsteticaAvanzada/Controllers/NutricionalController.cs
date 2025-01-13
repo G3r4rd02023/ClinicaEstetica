@@ -200,6 +200,10 @@ namespace EsteticaAvanzada.Controllers
             var model = new NutricionalViewModel()
             {
                 Diagnostico = nutricional.Diagnostico,
+                AntecedentesInmunoAlergicos = nutricional.AntecedentesInmunoAlergicos,
+                AntecedentesPatologicos = nutricional.AntecedentesPatologicos,
+                Procedimientos = nutricional.Procedimientos,
+                Medicamentos = nutricional.Medicamentos,
                 PlanTratamiento = nutricional.PlanTratamiento,
                 Paciente = nutricional.Paciente,
                 MedidasCorporales = nutricional.MedidasCorporales,
@@ -212,7 +216,7 @@ namespace EsteticaAvanzada.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(NutricionalViewModel model, IFormFile? file)
+        public async Task<IActionResult> Details(NutricionalViewModel model, List<IFormFile> Files)
         {
             if (ModelState.IsValid)
             {
@@ -220,6 +224,19 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
+                    var historia = await _context.HistoriaNutricional.FirstOrDefaultAsync(t => t.Id == model.Id);
+
+                    if (historia != null)
+                    {
+                        historia.Diagnostico = model.Diagnostico;
+                        historia.PlanTratamiento = model.PlanTratamiento;
+                        historia.AntecedentesInmunoAlergicos = model.AntecedentesInmunoAlergicos;
+                        historia.Procedimientos = model.Procedimientos;
+                        historia.AntecedentesPatologicos = model.AntecedentesPatologicos;
+                        historia.Medicamentos = model.Medicamentos;
+                        _context.Entry(historia).State = EntityState.Modified;
+                    }
+
                     if (model.MedidasCorporales != null)
                     {
                         var existingMedidas = await _context.MedidasCorporales
@@ -255,23 +272,30 @@ namespace EsteticaAvanzada.Controllers
                         }
                     }
 
-                    model.Imagenes ??= new Imagenes();
-
-                    if (file != null)
+                    if (Files != null)
                     {
-                        var uploadParams = new ImageUploadParams()
+                        foreach (var uploadedFile in Files)
                         {
-                            File = new FileDescription(file.FileName, file.OpenReadStream()),
-                            AssetFolder = "drakeydiaz"
-                        };
+                            if (uploadedFile != null)
+                            {
+                                var uploadParams = new ImageUploadParams
+                                {
+                                    File = new FileDescription(uploadedFile.FileName, uploadedFile.OpenReadStream()),
+                                    AssetFolder = "drakeydiaz"
+                                };
 
-                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                        var urlImagen = uploadResult.SecureUrl.ToString();
+                                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                                var urlImagen = uploadResult.SecureUrl.ToString();
 
-                        model.Imagenes!.NombreArchivo = "nutricional_" + file.FileName;
-                        model.Imagenes.RutaArchivo = urlImagen;
-                        model.Imagenes.PacienteId = model.Paciente!.Id;
-                        _context.Imagenes.Add(model.Imagenes);
+                                var nuevaImagen = new Imagenes
+                                {
+                                    NombreArchivo = "nutricional_" + uploadedFile.FileName,
+                                    RutaArchivo = urlImagen,
+                                    PacienteId = model.Paciente!.Id
+                                };
+                                _context.Imagenes.Add(nuevaImagen);
+                            }
+                        }
                     }
 
                     await _context.SaveChangesAsync();

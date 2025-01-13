@@ -179,7 +179,7 @@ namespace EsteticaAvanzada.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(CapilarViewModel model, IFormFile? file)
+        public async Task<IActionResult> Details(CapilarViewModel model, List<IFormFile> Files)
         {
             if (ModelState.IsValid)
             {
@@ -187,6 +187,15 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
+                    var tratamientoExistente = await _context.TratamientoCapilar.FirstOrDefaultAsync(t => t.Id == model.Id);
+
+                    if (tratamientoExistente != null)
+                    {
+                        tratamientoExistente.Diagnostico = model.Diagnostico;
+                        tratamientoExistente.PlanTratamiento = model.PlanTratamiento;
+                        _context.Entry(tratamientoExistente).State = EntityState.Modified;
+                    }
+
                     if (model.SesionesProgramadas != null)
                     {
                         var existingSesiones = await _context.SesionesProgramadas
@@ -205,23 +214,30 @@ namespace EsteticaAvanzada.Controllers
                         }
                     }
 
-                    model.Imagenes ??= new Imagenes();
-
-                    if (file != null)
+                    if (Files != null)
                     {
-                        var uploadParams = new ImageUploadParams()
+                        foreach (var uploadedFile in Files)
                         {
-                            File = new FileDescription(file.FileName, file.OpenReadStream()),
-                            AssetFolder = "drakeydiaz"
-                        };
+                            if (uploadedFile != null)
+                            {
+                                var uploadParams = new ImageUploadParams
+                                {
+                                    File = new FileDescription(uploadedFile.FileName, uploadedFile.OpenReadStream()),
+                                    AssetFolder = "drakeydiaz"
+                                };
 
-                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                        var urlImagen = uploadResult.SecureUrl.ToString();
+                                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                                var urlImagen = uploadResult.SecureUrl.ToString();
 
-                        model.Imagenes!.NombreArchivo = "capilar_" + file.FileName;
-                        model.Imagenes.RutaArchivo = urlImagen;
-                        model.Imagenes.PacienteId = model.Paciente!.Id;
-                        _context.Imagenes.Add(model.Imagenes);
+                                var nuevaImagen = new Imagenes
+                                {
+                                    NombreArchivo = "capilar_" + uploadedFile.FileName,
+                                    RutaArchivo = urlImagen,
+                                    PacienteId = model.Paciente!.Id
+                                };
+                                _context.Imagenes.Add(nuevaImagen);
+                            }
+                        }
                     }
 
                     await _context.SaveChangesAsync();

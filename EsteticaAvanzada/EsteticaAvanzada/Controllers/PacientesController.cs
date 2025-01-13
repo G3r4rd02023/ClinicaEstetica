@@ -506,10 +506,16 @@ namespace EsteticaAvanzada.Controllers
         {
             var paciente = await _context.Pacientes.FindAsync(id);
             var datosEsteticos = await _context.DatosEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
-            var analisisEstetico = await _context.AnalisisEsteticos.Where(mc => mc.PacienteId == paciente!.Id).FirstOrDefaultAsync();
+
+            var analisisEstetico = await _context.AnalisisEsteticos
+               .Include(n => n.Paciente)
+               .Include(n => n.SesionesProgramadas)
+               .FirstOrDefaultAsync(n => n.PacienteId == id);
+
             var imagenes = await _context.Imagenes.Where(i => i.PacienteId == paciente!.Id).FirstOrDefaultAsync();
             var fotos = await _context.Imagenes.ToListAsync();
-            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id);
+            var fotosPaciente = fotos.Where(f => f.PacienteId == paciente!.Id
+                                  && f.NombreArchivo!.StartsWith("ficha_"));
 
             var model = new EsteticosViewModel()
             {
@@ -517,14 +523,15 @@ namespace EsteticaAvanzada.Controllers
                 DatosEsteticos = datosEsteticos,
                 AnalisisEsteticos = analisisEstetico,
                 Imagenes = imagenes,
-                Fotos = fotosPaciente.ToList()
+                Fotos = fotosPaciente.ToList(),
+                SesionesProgramadas = analisisEstetico?.SesionesProgramadas,
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model, IFormFile? file)
+        public async Task<IActionResult> FichaTecnicaFacial(EsteticosViewModel model, List<IFormFile> Files)
         {
             if (ModelState.IsValid)
             {
@@ -561,50 +568,67 @@ namespace EsteticaAvanzada.Controllers
 
                         if (model.AnalisisEsteticos != null)
                         {
-                            var existingAnalisis = await _context.AnalisisEsteticos
+                            var existingAnalisis = await _context.AnalisisEsteticos.Include(x => x.SesionesProgramadas)
                                 .FirstOrDefaultAsync(d => d.PacienteId == model.Paciente!.Id);
 
                             if (existingAnalisis != null)
                             {
                                 model.AnalisisEsteticos.Id = existingAnalisis.Id;
                                 model.AnalisisEsteticos.PacienteId = model.Paciente!.Id;
+
                                 _context.Entry(existingAnalisis).CurrentValues.SetValues(model.AnalisisEsteticos);
                             }
                             else
                             {
                                 model.AnalisisEsteticos.PacienteId = model.Paciente!.Id;
+
                                 _context.AnalisisEsteticos.Add(model.AnalisisEsteticos);
                             }
                         }
 
-                        model.Imagenes ??= new Imagenes();
-
-                        if (file != null)
+                        if (model.SesionesProgramadas != null)
                         {
-                            var uploadParams = new ImageUploadParams()
+                            var existingSesiones = await _context.SesionesProgramadas
+                                .FirstOrDefaultAsync(mc => mc.Id == model.SesionesProgramadas.Id);
+
+                            if (existingSesiones != null)
                             {
-                                File = new FileDescription(file.FileName, file.OpenReadStream()),
-                                AssetFolder = "drakeydiaz"
-                            };
-
-                            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                            var urlImagen = uploadResult.SecureUrl.ToString();
-
-                            model.Imagenes!.NombreArchivo = file.FileName;
-                            model.Imagenes.RutaArchivo = urlImagen;
-                            model.Imagenes.PacienteId = model.Paciente!.Id;
-                            _context.Imagenes.Add(model.Imagenes);
+                                model.SesionesProgramadas.Id = existingSesiones.Id;
+                                model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                                _context.Entry(existingSesiones).CurrentValues.SetValues(model.SesionesProgramadas);
+                            }
+                            else
+                            {
+                                model.SesionesProgramadas.PacienteId = model.Paciente!.Id;
+                                _context.SesionesProgramadas.Add(model.SesionesProgramadas);
+                            }
                         }
 
-                        Cita cita = new()
+                        if (Files != null)
                         {
-                            Paciente = model.Paciente,
-                            Fecha = (DateTime)model.AnalisisEsteticos!.ProximaCita!,
-                            Descripcion = "Próxima Cita",
-                            Titulo = "Cita :" + model.Paciente.NombrePaciente
-                        };
+                            foreach (var uploadedFile in Files)
+                            {
+                                if (uploadedFile != null)
+                                {
+                                    var uploadParams = new ImageUploadParams
+                                    {
+                                        File = new FileDescription(uploadedFile.FileName, uploadedFile.OpenReadStream()),
+                                        AssetFolder = "drakeydiaz"
+                                    };
 
-                        _context.Citas.Add(cita);
+                                    var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                                    var urlImagen = uploadResult.SecureUrl.ToString();
+
+                                    var nuevaImagen = new Imagenes
+                                    {
+                                        NombreArchivo = "ficha_" + uploadedFile.FileName,
+                                        RutaArchivo = urlImagen,
+                                        PacienteId = model.Paciente!.Id
+                                    };
+                                    _context.Imagenes.Add(nuevaImagen);
+                                }
+                            }
+                        }
 
                         await _context.SaveChangesAsync();
                         await transaction.CommitAsync();

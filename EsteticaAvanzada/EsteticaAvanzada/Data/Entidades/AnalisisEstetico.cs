@@ -92,5 +92,7 @@ namespace EsteticaAvanzada.Data.Entidades
         public string? EscalaFizpatrick { get; set; }
 
         public DateTime? ProximaCita { get; set; }
+
+        public SesionesProgramadas? SesionesProgramadas { get; set; }
     }
 }

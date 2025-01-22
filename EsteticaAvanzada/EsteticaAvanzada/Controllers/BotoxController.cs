@@ -7,6 +7,7 @@ using EsteticaAvanzada.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Abstractions;
 using Rotativa.AspNetCore;
 
 namespace EsteticaAvanzada.Controllers
@@ -163,6 +164,15 @@ namespace EsteticaAvanzada.Controllers
 
                 try
                 {
+                    // Guardar cambios en el campo Observaciones
+                    var botoxAplicacion = await _context.BotoxAplicaciones.FirstOrDefaultAsync(b => b.PlanAplicacionId == model.PlanAplicacion!.Id);
+                    if (botoxAplicacion != null)
+                    {
+                        botoxAplicacion.Observaciones = model.BotoxAplicacion!.Observaciones;
+                        _context.BotoxAplicaciones.Update(botoxAplicacion);
+                        await _context.SaveChangesAsync();
+                    }
+
                     if (Files != null)
                     {
                         foreach (var uploadedFile in Files)

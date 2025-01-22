@@ -6,9 +6,7 @@ using EsteticaAvanzada.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using Rotativa.AspNetCore;
-using System.Net.Http;
 
 namespace EsteticaAvanzada.Controllers
 {
@@ -660,7 +658,7 @@ namespace EsteticaAvanzada.Controllers
             {
                 FileName = $"Toxina Botulinica {paciente!.NombrePaciente}.pdf",
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
-                PageSize = Rotativa.AspNetCore.Options.Size.A4
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
             };
         }
 

@@ -60,6 +60,7 @@
         <form asp-action="Details" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
             <input type="hidden" asp-for="Paciente!.Id" />
+            <input type="hidden" asp-for="PlanAplicacion!.Id" />
             <div class=" card-header text-center">
                 <h5>Botox</h5>
                 <h7> Datos del paciente</h7>
@@ -178,13 +179,17 @@
                         <dd class="col-sm-6">
                             @Html.DisplayFor(model => model.BotoxAplicacion!.ZonasAplicadas)
                         </dd>
-                        <dt class="col-sm-6">
+                        @* <dt class="col-sm-6">
                             @Html.DisplayNameFor(model => model.BotoxAplicacion!.Observaciones)
                         </dt>
                         <dd class="col-sm-6">
                             @Html.DisplayFor(model => model.BotoxAplicacion!.Observaciones)
-                        </dd>
+                        </dd> *@
                     </dl>
+                </div>
+                <div>
+                    <textarea asp-for="BotoxAplicacion!.Observaciones" class="form-control" rows="10"></textarea>
+                    <span asp-validation-for="BotoxAplicacion!.Observaciones" class="text-danger"></span>
                 </div>
                 <hr />
                 <div class="col-md-10">
